@@ -1,0 +1,9 @@
+@import url('https://api.fontshare.com/v2/css?f[]=mona-sans@400,500,600,700,800&display=swap');
+
+:root {
+  --font-mona: 'Mona Sans', Arial, sans-serif;
+}
+
+.font-mona {
+  font-family: var(--font-mona) !important;
+}

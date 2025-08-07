@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 0 0% 3%;
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 0 0% 8%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 12%;
+    --input: 0 0% 8%;
+    --ring: 180 100% 50%;
+    --radius: 0.125rem; /* Sharp corners - reduced from 0.5rem */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Professional gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle backdrop blur */
+.backdrop-blur-custom {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Mona Sans font for all text with reduced boldness */
+.font-heading {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600; /* Reduced from 800 */
+}
+
+/* Hero section specific styling */
+.hero-title {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700; /* Reduced from 800 */
+  letter-spacing: -0.02em;
+}
+
+/* All headings with reduced boldness */
+h1 {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 700; /* Reduced */
+}
+
+h2 {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600; /* Reduced */
+}
+
+h3 {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600; /* Reduced */
+}
+
+h4,
+h5,
+h6 {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 500; /* Reduced */
+}
+
+/* Body text and paragraphs */
+p,
+span,
+div {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 400;
+}
+
+/* Buttons with sharp corners */
+button {
+  font-family: "Mona Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 500; /* Reduced */
+}
+
+/* Override default rounded corners for sharp design */
+.rounded-lg {
+  border-radius: 0.25rem; /* Sharp corners */
+}
+
+.rounded-md {
+  border-radius: 0.125rem; /* Sharp corners */
+}
+
+.rounded-sm {
+  border-radius: 0.125rem; /* Sharp corners */
+}
+
+.rounded-xl {
+  border-radius: 0.375rem; /* Less rounded */
+}
+
+.rounded-2xl {
+  border-radius: 0.5rem; /* Less rounded */
+}
+
+/* Card components with sharp corners */
+.card {
+  border-radius: 0.25rem !important;
+}
