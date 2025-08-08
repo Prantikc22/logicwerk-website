@@ -21,7 +21,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -37,8 +37,8 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-lg px-3 text-xs",
-        lg: "h-10 rounded-lg px-8",
+        sm: "h-8 rounded-md px-3 text-xs",
+        lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",
       },
     },
@@ -63,7 +63,32 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
-Button.displayName = "Button";
+// Helper for logo rendering
+function ProductLogo({ product }: { product: Product }) {
+  // Always use the correct logo and label beside it, never duplicated elsewhere
+  let logoSrc = "/logos/Lumeo1.png";
+  let productLabel = "Lumeo Suite";
+  if (
+    product.name === "Lumeo Procure"
+  ) {
+    logoSrc = "/logos/Lumeo1.png";
+    productLabel = "Lumeo Procure";
+  } else if (
+    product.name === "Logicwerk Cloud & Storage" || product.name === "Lumeo Cloud"
+  ) {
+    logoSrc = "/logos/LumeoCloud.png";
+    productLabel = "Lumeo Cloud";
+  }
+  return (
+    <div className="flex items-center gap-2 py-2 overflow-hidden w-full">
+  <img src={logoSrc} alt={productLabel + ' Logo'} className="w-16 h-16 object-contain flex-shrink-0" />
+  <span className="font-garet text-xl text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis tracking-tighter">
+  <span className="font-normal">Lumeo </span><span className="font-bold">{productLabel.replace('Lumeo ', '')}</span>
+</span>
+</div>
+  );
+}
+
 
 // Product data
 interface Product {
@@ -87,9 +112,8 @@ const products: Product[] = [
     id: 1,
     name: "Lumeo Suites",
     description: "Complete business management solution combining ERP, CRM, and Work Management in one powerful platform.",
-    // Use custom SVG if present, else fallback to icon
     icon: (props: { className?: string }) => (
-      <img src="/lumeo-suites.svg" alt="Lumeo Suites Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <img src="/logos/Lumeo1.png" alt="Lumeo Suites Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
     ),
     features: [
       "Integrated ERP System",
@@ -113,7 +137,7 @@ const products: Product[] = [
     name: "Lumeo Procure",
     description: "Modern procurement and billing platform for streamlined purchasing, vendor management, and automated invoicing.",
     icon: (props: { className?: string }) => (
-      <img src="/lumeo-procure.svg" alt="Lumeo Procure Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <img src="/logos/lumeo-suite-logo.png" alt="Lumeo Procure Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
     ),
     features: [
       "Smart Invoice Generation",
@@ -137,7 +161,7 @@ const products: Product[] = [
     name: "Logicwerk Cloud & Storage",
     description: "Secure cloud infrastructure and storage solutions with enterprise-grade security and scalability.",
     icon: (props: { className?: string }) => (
-      <img src="/lumeo-cloud.svg" alt="Logicwerk Cloud Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <img src="/logos/lumio-cloud-logo.png" alt="Lumeo Cloud Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
     ),
     features: [
       "Unlimited Cloud Storage",
@@ -151,15 +175,6 @@ const products: Product[] = [
       starter: "$5/month",
       professional: "$19/month"
     },
-    features: [
-      "Unlimited Cloud Storage",
-      "Advanced Security",
-      "Auto Backup & Sync",
-      "Team Collaboration",
-      "API Integration",
-      "24/7 Support",
-      "Powered by Green Energy"
-    ],
     category: 'cloud',
     gradient: "from-cyan-500 to-blue-600",
     rating: 4.7,
@@ -219,14 +234,12 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick }) => {
-  const IconComponent = product.icon;
-
   return (
     <motion.div
       layout
       onClick={onClick}
       className={cn(
-        "relative cursor-pointer rounded-2xl border transition-all duration-300",
+        "relative cursor-pointer rounded-md border transition-all duration-300",
         isActive 
           ? "border-primary/50 bg-card shadow-2xl scale-105" 
           : "border-border/50 bg-card/50 hover:border-primary/30 hover:shadow-lg"
@@ -236,25 +249,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick })
     >
       <div className="p-6 space-y-4">
         {/* Header */}
-        <div className="flex items-start justify-between">
-          <div className={cn(
-            "p-3 rounded-xl bg-gradient-to-r",
-            product.gradient
-          )}>
-            <IconComponent className="w-6 h-6 text-white" />
-          </div>
+        <div className="flex items-center justify-between">
+          <ProductLogo product={product} />
           <div className="text-right">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 flex-nowrap min-w-0">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
               <span className="text-sm font-medium">{product.rating}</span>
+              <span className="text-xs text-gray-500">({product.users}+ users)</span>
             </div>
-            <div className="text-xs text-muted-foreground">{product.users} users</div>
           </div>
         </div>
 
         {/* Content */}
         <div className="space-y-2">
-          <h3 className="text-xl font-bold">{product.name}</h3>
+          
           <p className="text-sm text-muted-foreground line-clamp-2">
             {product.description}
           </p>
@@ -277,7 +285,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick })
       {isActive && (
         <motion.div
           layoutId="activeIndicator"
-          className="absolute inset-0 rounded-2xl border-2 border-primary/50"
+          className="absolute inset-0 rounded-md border-2 border-primary/50"
           initial={false}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         />
@@ -305,19 +313,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     >
       {/* Header */}
       <div className="flex items-center gap-4">
-        <div className={cn(
-          "p-4 rounded-2xl bg-gradient-to-r",
-          product.gradient
-        )}>
-          <IconComponent className="w-8 h-8 text-white" />
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold">{product.name}</h2>
-          <div className="flex items-center gap-4 mt-2">
-            <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
+  <img src={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? '/logos/LumeoCloud.png' : '/logos/Lumeo1.png'} alt={product.name + ' Logo'} className="w-16 h-16 object-contain flex-shrink-0" />
+  <span className="font-garet text-2xl text-gray-900 whitespace-nowrap tracking-tighter">
+  <span className="font-normal">Lumeo </span><span className="font-bold">{product.name === 'Logicwerk Cloud & Storage' ? 'Cloud' : product.name === 'Lumeo Suites' ? 'Suite' : product.name.replace('Lumeo ', '')}</span>
+</span>
+</div>
+        <div className="mt-2">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1 flex-nowrap min-w-0">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
               <span className="font-medium">{product.rating}</span>
-              <span className="text-muted-foreground">({product.users} users)</span>
+              <span className="text-xs text-gray-500">({product.users}+ users)</span>
             </div>
           </div>
         </div>
@@ -338,7 +345,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center gap-3 p-3 rounded-lg bg-muted/50"
+              className="flex items-center gap-3 p-3 rounded-md bg-muted/50"
             >
               <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
               <span className="text-sm">{feature}</span>
@@ -351,14 +358,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       <div className="space-y-4">
         <h3 className="text-xl font-semibold">Pricing Plans</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl border border-border bg-card">
+          <div className="p-4 rounded-md border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-lg cursor-pointer">
             <div className="space-y-2">
               <h4 className="font-semibold">Starter</h4>
               <div className="text-2xl font-bold text-primary">{product.pricing.starter}</div>
               <p className="text-sm text-muted-foreground">Perfect for small teams</p>
             </div>
           </div>
-          <div className="p-4 rounded-xl border border-primary/50 bg-primary/5">
+          <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
             <div className="space-y-2">
               <h4 className="font-semibold">Professional</h4>
               <div className="text-2xl font-bold text-primary">{product.pricing.professional}</div>

@@ -21,6 +21,7 @@ const config: Config = {
       fontFamily: {
         heading: ["Mona Sans", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
         sans: ["Mona Sans", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        garet: ["Garet", "sans-serif"],
       },
       fontWeight: {
         light: "300",

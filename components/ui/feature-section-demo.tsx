@@ -5,27 +5,27 @@ const features = [
     step: "Coding Agent",
     title: "Coding Agent",
     content: "Writes production-ready code 5x faster",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80"
+    image: "/agents/coding-agent.webp"
   },
   {
     step: "Test Agent",
     title: "Test Agent",
     content: "Generates comprehensive test suites automatically",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+    image: "/agents/test-agent.webp"
   },
   {
     step: "PM Agent",
     title: "PM Agent",
     content: "Manages sprints and tracks deliverables 24/7",
-    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+    image: "/agents/pm-agent.webp"
   },
   {
-    step: "Analytics Agent",
-    title: "Analytics Agent",
-    content: "Turns business questions into actionable insights",
-    image: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?auto=format&fit=crop&w=800&q=80"
+    step: "Deployment Agent",
+    title: "Deployment Agent",
+    content: "Automates and accelerates reliable software releases",
+    image: "/agents/deployment-agent.webp"
   }
-]
+];
 
 export function FeatureStepsDemo() {
   return (

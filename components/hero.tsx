@@ -6,22 +6,19 @@ import Link from "next/link"
 
 export function Hero() {
   const trustedLogos = [
-    { name: "Goldman Sachs", src: "/logos/goldman-sachs.png" },
-    { name: "Siemens", src: "/logos/siemens.png" },
-    { name: "Johnson & Johnson", src: "/logos/johnson-johnson.png" },
-    { name: "Deloitte", src: "/logos/deloitte.png" },
-    { name: "Accenture", src: "/logos/accenture.png" },
-    { name: "BMW", src: "/logos/bmw.png" },
-    { name: "Unilever", src: "/logos/unilever.png" },
-    { name: "Shell", src: "/logos/shell.png" },
-    { name: "Vodafone", src: "/logos/vodafone.png" },
-    { name: "HSBC", src: "/logos/hsbc.png" },
-    { name: "Philips", src: "/logos/philips.png" },
-    { name: "Netflix", src: "/logos/netflix.png" },
-    { name: "Microsoft", src: "/logos/microsoft.png" },
-    { name: "Google", src: "/logos/google.png" },
-    { name: "Shree Cement", src: "/logos/shree-cement.png" },
-    { name: "INFORM", src: "/logos/inform.png" },
+    { name: "Baker McKenzie", src: "/logos/Baker_McKenzie-Logo.wine.svg" },
+    { name: "Dunkin' Donuts", src: "/logos/Dunkin'_Donuts-Logo.wine.svg" },
+    { name: "Harts Stores", src: "/logos/Harts_Stores-Logo.wine.svg" },
+    { name: "Hewlett-Packard Israel", src: "/logos/Hewlett-Packard_Israel-Logo.wine.svg" },
+
+    { name: "Orange Armenia", src: "/logos/Orange_Armenia-Logo.wine.svg" },
+    { name: "Pfizer", src: "/logos/Pfizer-Logo.wine.svg" },
+    { name: "Priceline.com", src: "/logos/Priceline.com-Logo.wine.svg" },
+    { name: "Salesforce.com", src: "/logos/Salesforce.com-Logo.wine.svg" },
+    { name: "The Morning Show", src: "/logos/The_Morning_Show_(American_TV_series)-Logo.wine.svg" },
+    { name: "Wells Fargo", src: "/logos/Wells_Fargo-Logo.wine.svg" },
+    { name: "Kawasaki", src: "/logos/Kawasaki-Logo.wine.svg" },
+    { name: "EasyPizza", src: "/logos/EasyPizza-Logo.wine.svg" },
   ]
 
   return (
@@ -33,12 +30,15 @@ export function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex-1 flex flex-col justify-center">
-        <div className="space-y-8">
+        <div className="space-y-4">
           {/* Main headline */}
-          <div className="space-y-6">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl text-white leading-tight font-bold">
-              Skip the Bloat. Scale Smart. <span className="text-cyan-400 italic font-light">Ship Fast</span>.
-            </h1>
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl text-white leading-tight font-bold font-mona">
+  Skip the Bloat. Scale Smart.
+</h1>
+<div className="mt-2">
+  <span className="block text-5xl md:text-6xl lg:text-7xl text-cyan-400 italic font-light font-mona">Ship Fast.</span>
+</div>
 
             {/* Smooth Animated Line */}
             <div className="flex justify-center my-8">
@@ -49,11 +49,9 @@ export function Hero() {
             </div>
 
             {/* Subheading */}
-            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-4xl mx-auto font-light">
-              AI + Humans ship enterprise grade software <span className="text-cyan-400 font-semibold">20x faster</span>{" "}
-              cutting <span className="text-cyan-400 font-semibold">60% cost</span> - with weekly sprints, not bloated
-              contracts.
-            </p>
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-4xl mx-auto font-light font-mona">
+  AI + Humans ship enterprise grade software <span className="text-cyan-400 font-semibold">20x faster</span> cutting <span className="text-cyan-400 font-semibold">60% cost</span> - with weekly sprints, not bloated contracts.
+</p>
           </div>
 
           {/* CTA Buttons */}
@@ -82,34 +80,22 @@ export function Hero() {
       {/* Trusted By Section with Logos */}
       <div className="relative z-10 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-8">
-            <p className="text-gray-300 text-lg font-light whitespace-nowrap">Trusted by</p>
-            <div className="h-px w-8 bg-gradient-to-r from-gray-400 to-transparent"></div>
-            <div className="relative overflow-hidden flex-1 max-w-4xl">
-              <div className="flex animate-scroll-seamless">
-                {/* First set */}
-                {trustedLogos.map((logo, index) => (
-                  <div key={`first-${index}`} className="flex-shrink-0 mx-6">
-                    <Image
-                      src={logo.src || "/placeholder.svg"}
-                      alt={logo.name}
-                      width={80}
-                      height={40}
-                      className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 filter brightness-0 invert"
-                    />
-                  </div>
-                ))}
-                {/* Duplicate set for seamless loop */}
-                {trustedLogos.map((logo, index) => (
-                  <div key={`second-${index}`} className="flex-shrink-0 mx-6">
-                    <Image
-                      src={logo.src || "/placeholder.svg"}
-                      alt={logo.name}
-                      width={80}
-                      height={40}
-                      className="h-8 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity duration-300 filter brightness-0 invert"
-                    />
-                  </div>
+          <div className="flex items-center justify-center gap-8 w-full mt-6">
+            <span className="text-gray-300 text-lg font-light whitespace-nowrap flex-shrink-0 pr-4">Trusted by</span>
+            <div className="relative flex-1 overflow-x-hidden">
+              {/* Left fade */}
+              <div className="pointer-events-none absolute left-0 top-0 h-full w-24 z-10 bg-gradient-to-r from-[rgba(10,25,47,0.9)] via-[rgba(10,25,47,0.6)] to-transparent" />
+              {/* Right fade */}
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-24 z-10 bg-gradient-to-l from-[rgba(10,25,47,0.9)] via-[rgba(10,25,47,0.6)] to-transparent" />
+              <div className="flex items-center animate-scroll-seamless" style={{ width: 'max-content' }}>
+                {trustedLogos.concat(trustedLogos).map((logo, idx) => (
+                  <img
+                    key={logo.name + idx}
+                    src={logo.src}
+                    alt={logo.name}
+                    className="h-16 md:h-20 w-auto mx-6 opacity-90 hover:opacity-100 transition-all duration-300"
+                    style={{ maxWidth: 210 }}
+                  />
                 ))}
               </div>
             </div>

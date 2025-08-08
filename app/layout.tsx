@@ -4,7 +4,7 @@ import { Inter } from "next/font/google"
 import "../styles/globals.css";
 import "../styles/mona-sans.css";
 import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import Footer4Col from "@/components/ui/footer-column"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -35,7 +35,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navigation />
         <main className="pt-20">{children}</main>
-        <Footer />
+        <Footer4Col />
       </body>
     </html>
   )
