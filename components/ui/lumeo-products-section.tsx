@@ -69,10 +69,10 @@ function ProductLogo({ product }: { product: Product }) {
   let logoSrc = "/logos/Lumeo1.png";
   let productLabel = "Lumeo Suite";
   if (
-    product.name === "Lumeo Procure"
+    product.name === "Lumeo Procure" || product.name === "Lumeo Suites"
   ) {
-    logoSrc = "/logos/Lumeo1.png";
-    productLabel = "Lumeo Procure";
+    logoSrc = "/logos/lumeo-suite-logo_darkbg.png";
+    productLabel = product.name;
   } else if (
     product.name === "Logicwerk Cloud & Storage" || product.name === "Lumeo Cloud"
   ) {
@@ -82,7 +82,7 @@ function ProductLogo({ product }: { product: Product }) {
   return (
     <div className="flex items-center gap-2 py-2 overflow-hidden w-full">
   <img src={logoSrc} alt={productLabel + ' Logo'} className="w-16 h-16 object-contain flex-shrink-0" />
-  <span className="font-garet text-xl text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis tracking-tighter">
+  <span className="font-garet text-xl text-white whitespace-nowrap overflow-hidden text-ellipsis tracking-tighter">
   <span className="font-normal">Lumeo </span><span className="font-bold">{productLabel.replace('Lumeo ', '')}</span>
 </span>
 </div>
@@ -113,7 +113,7 @@ const products: Product[] = [
     name: "Lumeo Suites",
     description: "Complete business management solution combining ERP, CRM, and Work Management in one powerful platform.",
     icon: (props: { className?: string }) => (
-      <img src="/logos/Lumeo1.png" alt="Lumeo Suites Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <img src="/logos/lumeo-suite-logo_darkbg.png" alt="Lumeo Suites Logo" className={props.className || "w-12 h-12"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
     ),
     features: [
       "Integrated ERP System",
@@ -124,8 +124,8 @@ const products: Product[] = [
       "Custom Workflows"
     ],
     pricing: {
-      starter: "$19/month",
-      professional: "$49/month"
+      pro: "$19",
+      proAI: "$49"
     },
     category: 'suite',
     gradient: "from-blue-500 to-purple-600",
@@ -137,7 +137,7 @@ const products: Product[] = [
     name: "Lumeo Procure",
     description: "Modern procurement and billing platform for streamlined purchasing, vendor management, and automated invoicing.",
     icon: (props: { className?: string }) => (
-      <img src="/logos/lumeo-suite-logo.png" alt="Lumeo Procure Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <img src="/logos/lumeo-suite-logo_darkbg.png" alt="Lumeo Procure Logo" className={props.className || "w-12 h-12"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
     ),
     features: [
       "Smart Invoice Generation",
@@ -148,8 +148,8 @@ const products: Product[] = [
       "Multi-currency Support"
     ],
     pricing: {
-      starter: "$10/month",
-      professional: "$29/month"
+      pro: "$15",
+      proAI: "$35"
     },
     category: 'invoicing',
     gradient: "from-green-500 to-emerald-600",
@@ -158,10 +158,10 @@ const products: Product[] = [
   },
   {
     id: 3,
-    name: "Logicwerk Cloud & Storage",
-    description: "Secure cloud infrastructure and storage solutions with enterprise-grade security and scalability.",
+    name: "Lumeo Cloud",
+    description: "Cloud hosting and storage platform with blazing fast VPS and secure object storage.",
     icon: (props: { className?: string }) => (
-      <img src="/logos/lumio-cloud-logo.png" alt="Lumeo Cloud Logo" className={props.className || "w-6 h-6"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <img src="/logos/LumeoCloud.png" alt="Lumeo Cloud Logo" className={props.className || "w-16 h-16"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
     ),
     features: [
       "Unlimited Cloud Storage",
@@ -172,8 +172,8 @@ const products: Product[] = [
       "24/7 Support"
     ],
     pricing: {
-      starter: "$5/month",
-      professional: "$19/month"
+      vps: "$4 VPS",
+      storage: "$3 Storage"
     },
     category: 'cloud',
     gradient: "from-cyan-500 to-blue-600",
@@ -239,10 +239,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick })
       layout
       onClick={onClick}
       className={cn(
-        "relative cursor-pointer rounded-md border transition-all duration-300",
+        "relative cursor-pointer rounded-none border border-white bg-[#181d24] text-white shadow-lg transition-all duration-300",
         isActive 
-          ? "border-primary/50 bg-card shadow-2xl scale-105" 
-          : "border-border/50 bg-card/50 hover:border-primary/30 hover:shadow-lg"
+          ? "border-[#4FC3F7] bg-[#181d24] shadow-2xl scale-105" 
+          : "border-gray-700 bg-[#181d24] hover:border-[#4FC3F7] hover:shadow-lg"
       )}
       whileHover={{ y: -5 }}
       whileTap={{ scale: 0.98 }}
@@ -255,7 +255,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick })
             <div className="flex items-center gap-1 flex-nowrap min-w-0">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
               <span className="text-sm font-medium">{product.rating}</span>
-              <span className="text-xs text-gray-500">({product.users}+ users)</span>
+              <span className="text-xs text-gray-300">({product.users} users)</span>
             </div>
           </div>
         </div>
@@ -263,17 +263,29 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick })
         {/* Content */}
         <div className="space-y-2">
           
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p className="text-sm text-gray-300 mb-1 font-semibold">
             {product.description}
           </p>
         </div>
 
         {/* Pricing */}
         <div className="flex items-center justify-between pt-2">
-          <div>
-            <div className="text-xs text-muted-foreground">Starting at</div>
-            <div className="text-lg font-bold text-primary">{product.pricing.starter}</div>
-          </div>
+          {(product.category === 'suite' || product.category === 'invoicing') && (
+  <div>
+    <span className="text-xs text-gray-300">Pro</span>
+    <span className="text-lg font-bold text-[#4FC3F7] ml-1">{product.pricing.pro}</span>
+    <span className="text-xs text-gray-300 mx-2">| Pro+AI</span>
+    <span className="text-lg font-bold text-[#4FC3F7]">{product.pricing.proAI}</span>
+  </div>
+)}
+{product.category === 'cloud' && (
+  <div>
+    <div className="text-xs text-gray-300">VPS</div>
+    <div className="text-lg font-bold text-[#4FC3F7]">{product.pricing.vps}</div>
+    <div className="text-xs text-gray-300 mt-1">Storage</div>
+    <div className="text-lg font-bold text-[#4FC3F7]">{product.pricing.storage}</div>
+  </div>
+)}
           <ArrowRight className={cn(
             "w-5 h-5 transition-transform duration-300",
             isActive ? "translate-x-1" : ""
@@ -285,7 +297,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick })
       {isActive && (
         <motion.div
           layoutId="activeIndicator"
-          className="absolute inset-0 rounded-md border-2 border-primary/50"
+          className="absolute inset-0 rounded-none border-2 border-[#4FC3F7]"
           initial={false}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         />
@@ -314,8 +326,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       {/* Header */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-  <img src={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? '/logos/LumeoCloud.png' : '/logos/Lumeo1.png'} alt={product.name + ' Logo'} className="w-16 h-16 object-contain flex-shrink-0" />
-  <span className="font-garet text-2xl text-gray-900 whitespace-nowrap tracking-tighter">
+  <img src={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? '/logos/LumeoCloud.png' : '/logos/lumeo-suite-logo_darkbg.png'} alt={product.name + ' Logo'} className={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? 'w-16 h-16 object-contain flex-shrink-0' : 'w-12 h-12 object-contain flex-shrink-0'} />
+  <span className="font-garet text-2xl text-white whitespace-nowrap tracking-tighter">
   <span className="font-normal">Lumeo </span><span className="font-bold">{product.name === 'Logicwerk Cloud & Storage' ? 'Cloud' : product.name === 'Lumeo Suites' ? 'Suite' : product.name.replace('Lumeo ', '')}</span>
 </span>
 </div>
@@ -324,20 +336,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <div className="flex items-center gap-1 flex-nowrap min-w-0">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
               <span className="font-medium">{product.rating}</span>
-              <span className="text-xs text-gray-500">({product.users}+ users)</span>
+              <span className="text-xs text-gray-300">({product.users} users)</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Description */}
-      <p className="text-lg text-muted-foreground leading-relaxed">
+      <p className="text-lg text-gray-300 leading-relaxed">
         {product.description}
       </p>
 
       {/* Features */}
       <div className="space-y-3">
-        <h3 className="text-xl font-semibold">Key Features</h3>
+        <h3 className="text-xl font-semibold text-white">Key Features</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {product.features.map((feature, index) => (
             <motion.div
@@ -345,10 +357,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center gap-3 p-3 rounded-md bg-muted/50"
+              className="flex items-center gap-3 p-3 rounded-none bg-[#10141a]"
             >
               <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-              <span className="text-sm">{feature}</span>
+              <span className="text-sm text-gray-300">{feature}</span>
             </motion.div>
           ))}
         </div>
@@ -356,21 +368,58 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
       {/* Pricing */}
       <div className="space-y-4">
-        <h3 className="text-xl font-semibold">Pricing Plans</h3>
+        <h3 className="text-xl font-semibold text-white">Pricing Plans</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-md border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:shadow-lg cursor-pointer">
+          <div className="bg-[#181d24] border border-white shadow-lg p-8 flex flex-col gap-6 hover:shadow-xl transition-shadow duration-200 !rounded-none">
             <div className="space-y-2">
-              <h4 className="font-semibold">Starter</h4>
-              <div className="text-2xl font-bold text-primary">{product.pricing.starter}</div>
-              <p className="text-sm text-muted-foreground">Perfect for small teams</p>
+              <h4 className="font-semibold text-white">Starter</h4>
+              <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.starter}</div>
+              <p className="text-sm text-gray-300">Perfect for small teams</p>
             </div>
           </div>
-          <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
-            <div className="space-y-2">
-              <h4 className="font-semibold">Professional</h4>
-              <div className="text-2xl font-bold text-primary">{product.pricing.professional}</div>
-              <p className="text-sm text-muted-foreground">For growing businesses</p>
-            </div>
+          <div className="bg-[#181d24] border border-[#4FC3F7] p-8 flex flex-col gap-6">
+          {product.category === 'suite' && (
+  <div className="flex flex-col gap-2">
+    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+      <h4 className="font-semibold">Pro</h4>
+      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.pro}</div>
+      <p className="text-sm text-muted-foreground">For teams and SMBs</p>
+    </div>
+    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+      <h4 className="font-semibold">Pro+AI</h4>
+      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.proAI}</div>
+      <p className="text-sm text-muted-foreground">AI-powered automation</p>
+    </div>
+  </div>
+)}
+{product.category === 'invoicing' && (
+  <div className="flex flex-col gap-2">
+    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+      <h4 className="font-semibold">Pro</h4>
+      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.pro}</div>
+      <p className="text-sm text-muted-foreground">For procurement teams</p>
+    </div>
+    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+      <h4 className="font-semibold">Pro+AI</h4>
+      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.proAI}</div>
+      <p className="text-sm text-muted-foreground">AI-powered workflows</p>
+    </div>
+  </div>
+)}
+{product.category === 'cloud' && (
+  <div className="flex flex-col gap-2">
+    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+      <h4 className="font-semibold">VPS</h4>
+      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.vps}</div>
+      <p className="text-sm text-muted-foreground">Blazing fast compute</p>
+    </div>
+    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+      <h4 className="font-semibold">Storage</h4>
+      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.storage}</div>
+      <p className="text-sm text-muted-foreground">Secure object storage</p>
+    </div>
+  </div>
+)}
           </div>
         </div>
       </div>
@@ -379,13 +428,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       <div className="flex flex-col sm:flex-row gap-3 pt-4">
         {/* Only show Start Free Trial for Suites and Invoicing */}
         {product.category !== 'cloud' && (
-          <Button size="lg" className="flex-1">
-            Start Free Trial
-          </Button>
+          <Button size="lg" className="flex-1 bg-[#4FC3F7] text-black font-bold border-none hover:bg-white hover:text-[#0073e6] transition-colors duration-200">
+  Subscribe Now
+</Button>
         )}
-        <Button variant="outline" size="lg" className="flex-1">
-          View Details
-        </Button>
+        <Button variant="outline" size="lg" className="flex-1 border-white text-white bg-transparent hover:bg-[#232b39] hover:text-[#4FC3F7] transition-colors duration-200">
+  View Details
+</Button>
       </div>
     </motion.div>
   );
@@ -396,9 +445,9 @@ const LumeoProductsSection: React.FC = () => {
   const [activeProduct, setActiveProduct] = useState<Product>(products[0]);
 
   return (
-    <section className="relative min-h-screen py-20 overflow-hidden">
+    <section className="relative min-h-screen py-20 overflow-hidden bg-black text-gray-100">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/30" />
+      <div className="absolute inset-0 bg-black" />
       <FloatingIcons />
       
       <div className="container mx-auto px-4 relative z-10">
@@ -409,16 +458,12 @@ const LumeoProductsSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Lumeo Products
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-              Built for Growth
-            </span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 font-mona-sans">
+  <span className="text-white">Lumeo Products</span>
+  <br />
+  <span className="text-[#4FC3F7] font-normal">Built for Growth</span>
+</h1>
+<p className="text-xl text-white max-w-3xl mx-auto font-inter font-normal">
             No user based pricing. Simplicity at the core. Quality at the heart.
           </p>
         </motion.div>
