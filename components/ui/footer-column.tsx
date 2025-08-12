@@ -1,12 +1,16 @@
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  Phone,
-} from 'lucide-react';
+'use client';
+
+import React from 'react';
+import { LucideIcon, Facebook, Instagram, Linkedin, Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+type SocialLink = {
+  icon: LucideIcon | React.ReactNode;
+  label: string;
+  href: string;
+  color?: string;
+};
 
 const data = {
   facebookLink: 'https://www.facebook.com/profile.php?id=61566249706090',
@@ -47,11 +51,38 @@ const data = {
   terms: '/terms',
 };
 
-const socialLinks = [
-  { icon: Facebook, label: 'Facebook', href: data.facebookLink, color: 'white' },
-  { icon: Instagram, label: 'Instagram', href: data.instaLink, color: 'white' },
-  { icon: (props: any) => <Image src="/logos/x-logo.svg" alt="X" width={20} height={20} style={{ filter: 'brightness(0) invert(1)' }} {...props} />, label: 'X', href: data.twitterLink },
-  { icon: Linkedin, label: 'LinkedIn', href: data.linkedinLink, color: 'white' },
+const socialLinks: SocialLink[] = [
+  { 
+    icon: Facebook, 
+    label: 'Facebook', 
+    href: data.facebookLink, 
+    color: 'white' 
+  },
+  { 
+    icon: Instagram, 
+    label: 'Instagram', 
+    href: data.instaLink, 
+    color: 'white' 
+  },
+  { 
+    icon: (
+      <Image 
+        src="/logos/x-logo.svg" 
+        alt="X" 
+        width={20} 
+        height={20} 
+        style={{ filter: 'brightness(0) invert(1)' }} 
+      />
+    ), 
+    label: 'X', 
+    href: data.twitterLink 
+  },
+  { 
+    icon: Linkedin, 
+    label: 'LinkedIn', 
+    href: data.linkedinLink, 
+    color: 'white' 
+  },
 ];
 
 
@@ -70,23 +101,32 @@ export default function Footer4Col() {
   />
 
             <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
-              {socialLinks.map(({ icon: Icon, label, href, color }, i) => (
-  <li key={label}>
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hover:bg-gray-800 p-2 rounded-full transition-colors flex items-center justify-center"
-      aria-label={label}
-    >
-      {typeof Icon === 'function' ? (
-        <Icon />
-      ) : (
-        <Icon className="w-5 h-5" color={color || 'white'} />
-      )}
-    </a>
-  </li>
-))}
+              {socialLinks.map(({ icon: Icon, label, href, color }) => {
+                return (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:bg-gray-800 p-2 rounded-full transition-colors flex items-center justify-center"
+                      aria-label={label}
+                    >
+                      {React.isValidElement(Icon) ? (
+                        <div className="w-5 h-5">
+                          {Icon}
+                        </div>
+                      ) : (
+                        <div className="w-5 h-5 flex items-center justify-center">
+                          {React.createElement(Icon as React.ComponentType<{ className?: string; color?: string }>, {
+                            className: "w-5 h-5",
+                            color: color || 'white'
+                          })}
+                        </div>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
