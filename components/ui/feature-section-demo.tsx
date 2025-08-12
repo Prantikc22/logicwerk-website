@@ -31,10 +31,11 @@ export function FeatureStepsDemo() {
   return (
     <div className="bg-white pt-24 pb-20">
       <div className="max-w-7xl mx-auto w-full text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
-          Meet Our In-house AI-Augmented Team
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 font-mona">
+          Meet Our In-house{' '}
+          <span className="font-normal text-[#2563eb]">AI-Augmented Team</span>
         </h2>
-        <p className="text-base md:text-lg text-gray-400 mb-10 font-medium">
+        <p className="text-base md:text-lg text-gray-400 mb-10 font-medium font-mona">
           We don’t just talk AI – we use it to deliver faster.
         </p>
       </div>

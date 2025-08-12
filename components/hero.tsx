@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone } from "lucide-react"
 import Link from "next/link"
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 
 export function Hero() {
   const trustedLogos = [
@@ -25,7 +26,7 @@ export function Hero() {
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
       {/* Hero Background Image */}
       <div className="absolute inset-0 z-0">
-        <Image src="/hero-bg.png" alt="Light Speed Background" fill className="object-cover" priority />
+        <Image src="/MainHeroBg.webp" alt="Main Hero Background" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
@@ -34,11 +35,9 @@ export function Hero() {
           {/* Main headline */}
           <div className="space-y-4">
             <h1 className="text-5xl md:text-6xl lg:text-7xl text-white leading-tight font-bold font-mona">
-  Skip the Bloat. Scale Smart.
+  Software Delivery At The<br />
+  <span className="text-[#4FC3F7] italic font-normal">Speed Of Thought</span>
 </h1>
-<div className="mt-2">
-  <span className="block text-5xl md:text-6xl lg:text-7xl text-cyan-400 italic font-light font-mona">Ship Fast.</span>
-</div>
 
             {/* Smooth Animated Line */}
             <div className="flex justify-center my-8">
@@ -56,23 +55,25 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25">
-              Get Sprint Estimates
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button
-              variant="outline"
-              className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-8 py-4 text-lg font-semibold rounded-lg backdrop-blur-sm transform hover:scale-105 transition-all duration-300 bg-transparent"
-            >
-              Explore Our Packs
-            </Button>
-            <Link
-              href="/contact"
-              className="text-gray-300 hover:text-cyan-400 underline underline-offset-4 transition-colors duration-300 flex items-center gap-2"
-            >
-              <Phone className="w-4 h-4" />
-              Get on a discovery call
-            </Link>
+<StartSprintDialog 
+  allowPackSelection={true} 
+  triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[40px] flex items-center justify-center"
+/>
+<Button
+  variant="outline"
+  className="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-base font-semibold rounded-none min-w-[140px] min-h-[40px] flex items-center justify-center transition-all duration-300 bg-transparent"
+>
+  Explore Our Packs
+</Button>
+            <a
+               href="https://cal.com/logicwerk/30min"
+               target="_blank"
+               rel="noopener noreferrer"
+               className="text-gray-300 hover:text-cyan-400 underline underline-offset-4 transition-colors duration-300 flex items-center gap-2"
+             >
+               <Phone className="w-4 h-4" />
+               Get on a discovery call
+             </a>
           </div>
         </div>
       </div>
@@ -84,9 +85,9 @@ export function Hero() {
             <span className="text-gray-300 text-lg font-light whitespace-nowrap flex-shrink-0 pr-4">Trusted by</span>
             <div className="relative flex-1 overflow-x-hidden">
               {/* Left fade */}
-              <div className="pointer-events-none absolute left-0 top-0 h-full w-24 z-10 bg-gradient-to-r from-[rgba(10,25,47,0.9)] via-[rgba(10,25,47,0.6)] to-transparent" />
+              <div className="pointer-events-none absolute left-0 top-0 h-full w-24 z-10 bg-gradient-to-r from-transparent via-black/60 to-transparent" />
               {/* Right fade */}
-              <div className="pointer-events-none absolute right-0 top-0 h-full w-24 z-10 bg-gradient-to-l from-[rgba(10,25,47,0.9)] via-[rgba(10,25,47,0.6)] to-transparent" />
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-24 z-10 bg-gradient-to-l from-transparent via-black/60 to-transparent" />
               <div className="flex items-center animate-scroll-seamless" style={{ width: 'max-content' }}>
                 {trustedLogos.concat(trustedLogos).map((logo, idx) => (
                   <img

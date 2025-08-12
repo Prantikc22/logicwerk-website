@@ -288,8 +288,8 @@ export default function EnhancedBackgroundPaths({
           {/* Main Title */}
           <div className="mb-8">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-4 tracking-tighter leading-none font-['Mona_Sans'] text-white">
-              {title}
-            </h1>
+  Ready for IT That <span className="text-[#4FC3F7] font-normal">Actually Delivers?</span>
+</h1>
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0 }}

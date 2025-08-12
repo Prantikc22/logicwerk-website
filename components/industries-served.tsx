@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 
 const industries = [
   {
@@ -73,7 +74,7 @@ const industries = [
   {
     name: "Education",
     description: "Learning management and student analytics",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop&crop=center",
+    image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=800&h=600&fit=crop&crop=center",
     stats: "200+ Schools",
   },
 ]
@@ -83,12 +84,10 @@ export function IndustriesServed() {
     <section className="py-16 bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Transforming{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-              Every Industry
-            </span>
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-mona font-bold text-white mb-4">
+  Transforming{' '}
+  <span className="font-normal bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Every Industry</span>
+</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Our AI-powered solutions deliver measurable results across diverse industries, from healthcare to
             manufacturing.
@@ -133,21 +132,6 @@ export function IndustriesServed() {
           ))}
         </div>
 
-        {/* Compact CTA */}
-        <div className="text-center">
-          <div className="inline-flex items-center space-x-4 bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800">
-            <div className="text-left">
-              <div className="text-white font-semibold">Ready to transform your industry?</div>
-              <div className="text-gray-400 text-sm">Discover how we can help your business grow</div>
-            </div>
-            <Link href="/services">
-              <Button className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-2 rounded-lg">
-                Get Started
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
       </div>
     </section>
   )

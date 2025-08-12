@@ -1,9 +1,13 @@
 import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button"
 import { ClientLogos } from "@/components/client-logos"
 import { ContactCTA } from "@/components/contact-cta"
 import { Users, Globe, Shield, Zap, Target, Award } from "lucide-react"
+import Footer4Col from "@/components/ui/footer-column";
+import { ModernDeliverySection } from "@/components/modern-delivery-section";
+import EnhancedBackgroundPaths from "@/components/ui/modern-background-paths";
 
 const values = [
   {
@@ -95,16 +99,12 @@ export default function AboutPage() {
               innovative AI-powered solutions and exceptional client partnerships.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-3 rounded-sm">
-                Join Our Team
-              </Button>
-              <Button
-                variant="outline"
-                className="border-gray-600 text-gray-300 hover:bg-gray-800 px-8 py-3 rounded-sm bg-transparent"
-              >
-                Our Story
-              </Button>
-            </div>
+  <Link href="/careers" passHref legacyBehavior>
+    <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-3 rounded-sm">
+      Join Our Team
+    </Button>
+  </Link>
+</div>
           </div>
         </div>
       </section>
@@ -186,66 +186,25 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Our Journey</h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              From a startup vision to a global technology leader - the milestones that shaped Logicwerk.
-            </p>
-          </div>
 
-          <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-cyan-500 to-blue-500"></div>
+      {/* Modern Delivery Section (from homepage) */}
+      <ModernDeliverySection />
 
-            <div className="space-y-12">
-              {timeline.map((item, index) => (
-                <div
-                  key={index}
-                  className={`relative flex items-center ${index % 2 === 0 ? "justify-start" : "justify-end"}`}
-                >
-                  <div className={`w-full max-w-md ${index % 2 === 0 ? "pr-8 text-right" : "pl-8 text-left"}`}>
-                    <div className="bg-gray-900/50 border border-gray-800 rounded-sm p-6 hover:border-cyan-500/50 transition-all duration-300">
-                      <div className="text-2xl font-bold text-cyan-400 mb-2">{item.year}</div>
-                      <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                      <p className="text-gray-400">{item.description}</p>
-                    </div>
-                  </div>
-
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full border-4 border-black"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Leadership Message */}
-      <section className="py-20 bg-gradient-to-r from-cyan-500/10 to-blue-500/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-8">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
-              alt="CEO"
-              className="w-24 h-24 rounded-full mx-auto mb-6 border-4 border-cyan-500/20"
-            />
-            <h3 className="text-2xl font-bold text-white mb-2">Message from Leadership</h3>
-          </div>
-
-          <blockquote className="text-xl text-gray-300 italic leading-relaxed mb-8">
-            "At Logicwerk, we don't just build technology - we build the future. Every line of code, every solution,
-            every partnership is driven by our commitment to creating meaningful impact for our clients and the world.
-            United by Logicwerkers, we continue to push the boundaries of what's possible."
-          </blockquote>
-
-          <div className="text-cyan-400 font-medium">- Logicwerk Leadership Team</div>
-        </div>
-      </section>
-
-      <ClientLogos />
-      <ContactCTA />
-      <Footer />
+      {/* CTA Section (from homepage) */}
+      <EnhancedBackgroundPaths
+        title="Ready for IT That Actually Delivers?"
+        subheading="Skip the delays, budget overruns, and endless meetings. Start shipping in weekly sprints."
+        primaryAction={
+          <Button className="bg-[#2563eb] text-white px-8 py-3 rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[48px] text-lg font-semibold">
+            Start Sprint
+          </Button>
+        }
+        secondaryAction={
+          <Button variant="outline" className="border border-white/80 text-white px-8 py-3 rounded-none min-w-[140px] min-h-[48px] text-lg font-semibold hover:bg-white hover:text-[#2563eb] transition-all duration-300">
+            Explore Our Packs
+          </Button>
+        }
+      />
     </div>
   )
 }

@@ -244,12 +244,12 @@ export const StaggerTestimonials: React.FC = () => {
   return (
     <section className="w-screen max-w-none px-0 py-24 bg-muted/30 overflow-x-hidden">
       <div className="w-full text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 font-['Mona_Sans']">
-          <span className="text-black dark:text-white">Real Results. Real ROI.</span> <span className="" style={{ color: '#3399FF', fontWeight: 'normal' }}>Real Impact.</span>
-        </h2>
-        <p className="text-lg md:text-xl text-muted-foreground">
-          Companies that were bleeding money until they found Logicwerk
-        </p>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 font-mona">
+  <span className="text-black dark:text-white">Real Results. Real ROI.</span> <span className="font-normal" style={{ color: '#2563eb' }}>Real Impact.</span>
+</h2>
+        <p className="text-lg md:text-xl text-muted-foreground font-mona">
+  Companies that were bleeding money until they found Logicwerk
+</p>
       </div>
       <div
         className="relative w-screen max-w-none min-h-[420px] h-[60vw] sm:h-[500px] flex items-center justify-center"

@@ -23,10 +23,10 @@ const StepCard: React.FC<StepCardProps> = ({ icon: Icon, title, description, ind
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={cn(
-        "relative p-6 rounded-xl border transition-all duration-500",
+        "relative p-6 border transition-all duration-500 backdrop-blur bg-white/30 border-white/30 shadow-xl",
         isActive 
-          ? "bg-primary/5 border-primary/30 shadow-lg" 
-          : "bg-background border-border hover:border-primary/20"
+          ? "" 
+          : "hover:border-primary/20"
       )}
     >
       <div className="flex items-start space-x-4">
@@ -87,13 +87,13 @@ const HowWeWorkSection: React.FC = () => {
     <section className="py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 font-mona">
             How We Work
           </h2>
-          <p className="text-xl text-muted-foreground mb-2">
+          <p className="text-xl text-muted-foreground mb-2 font-mona">
             Weekly Sprints. No billable hours. Transparent Costs.
           </p>
-          <div className="text-base text-primary font-semibold mb-10">
+          <div className="text-base text-primary font-semibold mb-10 font-mona">
             Just focused outcome, every week.
           </div>
         </div>

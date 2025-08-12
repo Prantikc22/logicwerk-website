@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { packs } from "@/data/packs";
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 
 export default function PackSection() {
   return (
@@ -51,19 +52,13 @@ export default function PackSection() {
                 </div>
                 <div className="flex gap-4 mt-4 justify-center w-full">
                   <a
-                    href={pack.page}
-                    className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white text-base font-semibold rounded-none shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-                    style={{ minWidth: 120 }}
-                  >
-                    View Details
-                  </a>
-                  <a
-                    href={pack.page}
-                    className="px-6 py-3 border-2 border-white text-white text-base font-semibold rounded-none bg-transparent hover:bg-white hover:text-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 shadow-lg"
-                    style={{ minWidth: 120 }}
-                  >
-                    Start Sprint
-                  </a>
+  href={pack.page}
+  className="px-5 py-2.5 bg-black text-white text-base font-semibold rounded-none shadow-lg hover:bg-gray-900 transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+  style={{ minWidth: 120 }}
+>
+  View Details
+</a>
+                  <StartSprintDialog packName={pack.title} packPricing={pack.pricing} packKey={pack.key} packServices={pack.services} />
                 </div>
               </motion.div>
             </motion.div>

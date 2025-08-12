@@ -19,6 +19,7 @@ import {
 import { cn } from '@/lib/utils';
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import { LumeoProductDialog } from "@/components/ui/lumeo-product-dialog";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors outline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -279,11 +280,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isActive, onClick })
   </div>
 )}
 {product.category === 'cloud' && (
-  <div>
-    <div className="text-xs text-gray-300">VPS</div>
-    <div className="text-lg font-bold text-[#4FC3F7]">{product.pricing.vps}</div>
-    <div className="text-xs text-gray-300 mt-1">Storage</div>
-    <div className="text-lg font-bold text-[#4FC3F7]">{product.pricing.storage}</div>
+  <div className="flex items-center gap-2">
+    <span className="text-xs text-gray-300">VPS</span>
+<span className="text-lg font-bold text-[#4FC3F7] ml-1">{product.pricing.vps}</span>
+<span className="text-xs text-gray-400 mx-2">|</span>
+<span className="text-xs text-gray-300">Storage</span>
+<span className="text-lg font-bold text-[#4FC3F7] ml-1">{product.pricing.storage}</span>
   </div>
 )}
           <ArrowRight className={cn(
@@ -370,56 +372,63 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       <div className="space-y-4">
         <h3 className="text-xl font-semibold text-white">Pricing Plans</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-[#181d24] border border-white shadow-lg p-8 flex flex-col gap-6 hover:shadow-xl transition-shadow duration-200 !rounded-none">
-            <div className="space-y-2">
-              <h4 className="font-semibold text-white">Starter</h4>
-              <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.starter}</div>
-              <p className="text-sm text-gray-300">Perfect for small teams</p>
-            </div>
+          <div className="bg-[#181d24] border border-[#4FC3F7] p-8 flex flex-col gap-6">
+            {product.category === 'suite' && (
+              <div className="flex flex-col gap-2">
+                <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+                  <h4 className="font-semibold">Pro</h4>
+                  <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.pro}</div>
+                  <p className="text-sm text-muted-foreground">For teams and SMBs</p>
+                </div>
+              </div>
+            )}
+            {product.category === 'invoicing' && (
+              <div className="flex flex-col gap-2">
+                <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+                  <h4 className="font-semibold">Pro</h4>
+                  <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.pro}</div>
+                  <p className="text-sm text-muted-foreground">For procurement teams</p>
+                </div>
+              </div>
+            )}
+            {product.category === 'cloud' && (
+              <div className="flex flex-col gap-2">
+                <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+                  <h4 className="font-semibold">VPS</h4>
+                  <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.vps}</div>
+                  <p className="text-sm text-muted-foreground">Blazing fast compute</p>
+                </div>
+              </div>
+            )}
           </div>
           <div className="bg-[#181d24] border border-[#4FC3F7] p-8 flex flex-col gap-6">
-          {product.category === 'suite' && (
-  <div className="flex flex-col gap-2">
-    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
-      <h4 className="font-semibold">Pro</h4>
-      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.pro}</div>
-      <p className="text-sm text-muted-foreground">For teams and SMBs</p>
-    </div>
-    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
-      <h4 className="font-semibold">Pro+AI</h4>
-      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.proAI}</div>
-      <p className="text-sm text-muted-foreground">AI-powered automation</p>
-    </div>
-  </div>
-)}
-{product.category === 'invoicing' && (
-  <div className="flex flex-col gap-2">
-    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
-      <h4 className="font-semibold">Pro</h4>
-      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.pro}</div>
-      <p className="text-sm text-muted-foreground">For procurement teams</p>
-    </div>
-    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
-      <h4 className="font-semibold">Pro+AI</h4>
-      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.proAI}</div>
-      <p className="text-sm text-muted-foreground">AI-powered workflows</p>
-    </div>
-  </div>
-)}
-{product.category === 'cloud' && (
-  <div className="flex flex-col gap-2">
-    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
-      <h4 className="font-semibold">VPS</h4>
-      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.vps}</div>
-      <p className="text-sm text-muted-foreground">Blazing fast compute</p>
-    </div>
-    <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
-      <h4 className="font-semibold">Storage</h4>
-      <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.storage}</div>
-      <p className="text-sm text-muted-foreground">Secure object storage</p>
-    </div>
-  </div>
-)}
+            {product.category === 'suite' && (
+              <div className="flex flex-col gap-2">
+                <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+                  <h4 className="font-semibold">Pro+AI</h4>
+                  <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.proAI}</div>
+                  <p className="text-sm text-muted-foreground">AI-powered automation</p>
+                </div>
+              </div>
+            )}
+            {product.category === 'invoicing' && (
+              <div className="flex flex-col gap-2">
+                <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+                  <h4 className="font-semibold">Pro+AI</h4>
+                  <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.proAI}</div>
+                  <p className="text-sm text-muted-foreground">AI-powered workflows</p>
+                </div>
+              </div>
+            )}
+            {product.category === 'cloud' && (
+              <div className="flex flex-col gap-2">
+                <div className="p-4 rounded-md border border-primary/50 bg-primary/5">
+                  <h4 className="font-semibold">Storage</h4>
+                  <div className="text-2xl font-bold text-[#4FC3F7]">{product.pricing.storage}</div>
+                  <p className="text-sm text-muted-foreground">Secure object storage</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -432,9 +441,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   Subscribe Now
 </Button>
         )}
-        <Button variant="outline" size="lg" className="flex-1 border-white text-white bg-transparent hover:bg-[#232b39] hover:text-[#4FC3F7] transition-colors duration-200">
-  View Details
-</Button>
+        <LumeoProductDialog
+          title={product.name === 'Logicwerk Cloud & Storage' ? 'Lumeo Cloud' : product.name}
+          description={product.description}
+          features={product.features}
+          accentColor={product.category === 'suite' ? '#2563eb' : product.category === 'invoicing' ? '#06b6d4' : '#4FC3F7'}
+          triggerLabel="View Details"
+          triggerClassName="flex-1 bg-transparent border-white text-white hover:bg-[#232b39] hover:text-[#4FC3F7] transition-colors duration-200 rounded-md font-bold py-3 px-6 text-lg border-2 size-lg"
+        />
       </div>
     </motion.div>
   );
@@ -458,14 +472,13 @@ const LumeoProductsSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 font-mona-sans">
+          <h1 className="font-mona-sans font-bold mb-4" style={{ fontSize: '48px', lineHeight: '1.1' }}>
   <span className="text-white">Lumeo Products</span>
-  <br />
-  <span className="text-[#4FC3F7] font-normal">Built for Growth</span>
+  <span className="text-[#4FC3F7] font-normal ml-4">Built for Growth</span>
 </h1>
-<p className="text-xl text-white max-w-3xl mx-auto font-inter font-normal">
-            No user based pricing. Simplicity at the core. Quality at the heart.
-          </p>
+<p className="font-mona-sans text-white max-w-3xl mx-auto font-normal" style={{ fontSize: '18px', lineHeight: '1.5' }}>
+  No user based pricing. Simplicity at the core. Quality at the heart.
+</p>
         </motion.div>
 
         {/* Main Content */}
@@ -503,7 +516,7 @@ const LumeoProductsSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Bottom CTA removed as per user request */}
+
       </div>
     </section>
   );

@@ -36,8 +36,8 @@ export default function DemoOne() {
   Built on <span className="text-[#2563eb] font-light">Four Foundational Pillars</span>
 </h2>
           <p className="text-muted-foreground mt-4 text-base tracking-wide text-balance flex items-center justify-center gap-2">
-            <span className="font-semibold text-foreground">Projects rescued from legacy providers this month - </span>
-            <LiveCounter start={51} />
+
+            
           </p>
 				</AnimatedContainer>
 

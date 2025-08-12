@@ -5,6 +5,9 @@ import "../styles/globals.css";
 import "../styles/mona-sans.css";
 import { Navigation } from "@/components/navigation"
 import Footer4Col from "@/components/ui/footer-column"
+import dynamic from "next/dynamic"
+
+const NavigationProgress = dynamic(() => import("@/components/ui/navigation-progress"), { ssr: false })
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,6 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <title>Logicwerk - AI Powered Software Delivery At The Speed of Thought</title>
+        <link rel="icon" href="/favicon1.png" type="image/png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -33,6 +38,8 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        {/* Navigation progress bar - only render after mount to prevent hydration mismatch */}
+        {typeof window !== 'undefined' && <NavigationProgress />}
         <Navigation />
         <main className="pt-20">{children}</main>
         <Footer4Col />

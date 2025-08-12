@@ -2,107 +2,47 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react"
 
 const productsMenu = {
-  title: "Our AI-Powered Products",
-  description: "Three powerful solutions designed for enterprise scale and security",
+  title: "Lumeo Products",
+  description: "Enterprise-grade AI software for growth, procurement, and cloud.",
   products: [
     {
-      name: "LeadIQ",
-      href: "https://leadiq.logicwerk.com/landing",
-      description: "AI-powered lead generation and CRM integration",
-      tag: "Lead Generation",
+      name: "Lumeo Suite",
+      href: "/products/lumeo-suite",
+      description: "Complete business management suite: ERP, CRM, and work management in one platform.",
+      tag: "Business Suite",
     },
     {
-      name: "Procufy",
-      href: "/products/procufy",
-      description: "Intelligent procurement automation platform",
+      name: "Lumeo Procure",
+      href: "/products/lumeo-procure",
+      description: "Modern procurement and billing for streamlined purchasing and vendor management.",
       tag: "Procurement",
     },
     {
-      name: "Intelliwerk AI",
-      href: "/products/intelliwerk-ai",
-      description: "Low-code AI workflow and automation platform",
-      tag: "Enterprise Platform",
+      name: "Lumeo Cloud",
+      href: "/products/lumeo-cloud",
+      description: "Cloud hosting and storage platform with blazing fast VPS and secure object storage.",
+      tag: "Cloud & Storage",
     },
   ],
 }
 
+import { packs } from "@/data/packs";
+
 const servicesMenu = {
-  title: "End-to-End Technology Services",
-  description: "Comprehensive technology services that drive innovation and accelerate your digital journey",
-  sections: [
-    {
-      title: "Application Engineering",
-      items: [
-        { name: "Software Development", href: "/services/application-engineering/software-development" },
-        { name: "Web Development & Design", href: "/services/application-engineering/web-development-design" },
-        { name: "Mobile App Development", href: "/services/application-engineering/mobile-app-development" },
-        { name: "Quality Assurance", href: "/services/application-engineering/quality-assurance" },
-        {
-          name: "Application Performance Monitoring",
-          href: "/services/application-engineering/application-performance-monitoring",
-        },
-        { name: "Embedded Systems Design", href: "/services/application-engineering/embedded-systems-design" },
-      ],
-    },
-    {
-      title: "Data & Analytics",
-      items: [
-        { name: "Data Analytics & Visualization", href: "/services/data-analytics/data-analytics-visualization" },
-        { name: "Data Engineering & AI/ML", href: "/services/data-analytics/data-engineering-ai-ml" },
-        { name: "GenAI Solutions", href: "/services/data-analytics/genai-solutions" },
-        { name: "LLM Training & Evaluation", href: "/services/data-analytics/llm-training-evaluation" },
-      ],
-    },
-    {
-      title: "Cloud",
-      items: [
-        { name: "Cloud Development", href: "/services/cloud/cloud-development" },
-        { name: "Cloud Transformation & Strategy", href: "/services/cloud/cloud-transformation-strategy" },
-        { name: "Migration Services", href: "/services/cloud/migration-services" },
-        { name: "IT Infrastructure Management", href: "/services/cloud/it-infrastructure-management" },
-        { name: "DevOps Integration & Support", href: "/services/cloud/devops-integration-support" },
-      ],
-    },
-    {
-      title: "Artificial Intelligence",
-      items: [
-        { name: "GenAI Solutions", href: "/services/artificial-intelligence/genai-solutions" },
-        { name: "LLM Training & Evaluation", href: "/services/artificial-intelligence/llm-training-evaluation" },
-        {
-          name: "Intelligent Process Automation",
-          href: "/services/artificial-intelligence/intelligent-process-automation",
-        },
-        { name: "AI/ML Development", href: "/services/artificial-intelligence/ai-ml-development" },
-      ],
-    },
-    {
-      title: "Operation & Support",
-      items: [
-        { name: "User Training & Support", href: "/services/operation-support/user-training-support" },
-        { name: "DevOps Integration & Support", href: "/services/operation-support/devops-integration-support" },
-        { name: "IT Infrastructure Management", href: "/services/operation-support/it-infrastructure-management" },
-        { name: "Migration Services", href: "/services/operation-support/migration-services" },
-      ],
-    },
-    {
-      title: "Enterprise Solutions",
-      items: [
-        { name: "Oracle", href: "/services/enterprise-solutions/oracle" },
-        { name: "Salesforce", href: "/services/enterprise-solutions/salesforce" },
-        { name: "ServiceNow", href: "/services/enterprise-solutions/servicenow" },
-        { name: "SAP", href: "/services/enterprise-solutions/sap" },
-        { name: "Zendesk", href: "/services/enterprise-solutions/zendesk" },
-        { name: "Workday", href: "/services/enterprise-solutions/workday" },
-        { name: "Atlassian", href: "/services/enterprise-solutions/atlassian" },
-      ],
-    },
-  ],
-}
+  title: "Software Launch Packs",
+  description: "Sprint-priced, AI-augmented, outcome-driven packs for every business need.",
+  packs: packs.map(pack => ({
+    name: pack.title,
+    href: pack.page,
+    description: pack.summary
+  }))
+};
 
 const industriesMenu = {
   title: "Industries We Transform",
@@ -230,7 +170,7 @@ export function Navigation() {
               onMouseLeave={handleDropdownLeave}
             >
               <button className="text-gray-300 hover:text-white flex items-center space-x-1 transition-colors py-2">
-                <span>Services</span>
+                <span>Software Launch Packs</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
 
@@ -247,26 +187,21 @@ export function Navigation() {
                         <p className="text-gray-400 text-lg">{servicesMenu.description}</p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {servicesMenu.sections.map((section, index) => (
-                          <div key={index} className="space-y-4">
-                            <h4 className="text-lg font-bold text-cyan-400 border-b border-cyan-500/20 pb-2">
-                              {section.title}
+                        {servicesMenu.packs.map((pack, idx) => (
+                          <Link
+                            key={idx}
+                            href={pack.href}
+                            className="group block p-6 rounded-sm bg-gray-800/30 hover:bg-blue-800/60 border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300"
+                          >
+                            <h4 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300 mb-3">
+                              {pack.name}
                             </h4>
-                            <ul className="space-y-2">
-                              {section.items.map((item, itemIndex) => (
-                                <li key={itemIndex}>
-                                  <Link
-                                    href={item.href}
-                                    className="group flex items-center justify-between text-gray-300 hover:text-white py-2 px-3 rounded-sm hover:bg-gray-800/50 transition-all duration-300"
-                                  >
-                                    <span className="text-sm">{item.name}</span>
-                                    <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" />
-                                  </Link>
-                                </li>
+                            <p className="text-gray-400 group-hover:text-gray-200 transition-colors duration-300">
+                              {pack.description}
+                            </p>
+                          </Link>
                               ))}
-                            </ul>
-                          </div>
-                        ))}
+
                       </div>
                     </div>
                   </div>
@@ -369,11 +304,10 @@ export function Navigation() {
             <Link href="/careers" className="text-gray-300 hover:text-white transition-colors">
               Careers
             </Link>
-            <Link href="/contact">
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 py-2 rounded-sm">
-                GET STARTED
-              </Button>
-            </Link>
+            <StartSprintDialog 
+  allowPackSelection={true}
+  triggerButtonClassName="bg-[#2563eb] text-white px-6 py-2 rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+/>
           </div>
 
           {/* Mobile menu button */}
@@ -410,11 +344,10 @@ export function Navigation() {
               <Link href="/careers" className="block text-gray-300 hover:text-white transition-colors">
                 Careers
               </Link>
-              <Link href="/contact">
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-sm">
-                  GET STARTED
-                </Button>
-              </Link>
+              <StartSprintDialog 
+  allowPackSelection={true}
+  triggerButtonClassName="w-full bg-[#2563eb] text-white rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+/>
             </div>
           </div>
         )}

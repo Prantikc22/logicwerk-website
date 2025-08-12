@@ -8,7 +8,7 @@ export const packs = [
     pricing: "From $999 / ₹82,000",
     services: ["Software Development", "Web Development & Design", "Mobile App Development", "Embedded Systems Design", "Quality Assurance"],
     page: "/packs/buildwerk",
-    heroImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Buildwerk.webp",
     breakdown: {
       what: ["Agile-based delivery in sprints", "Full-stack support (React, Node, Python, etc.)", "CI/CD + Code Quality Enforcement"],
       stack: ["React", "Node.js", "Python"],
@@ -26,7 +26,7 @@ export const packs = [
     pricing: "From $1,250 / ₹1,02,000",
     services: ["Data Engineering & AI/ML", "Data Analytics & Visualization", "LLM Training & Evaluation", "GenAI Solutions"],
     page: "/packs/datawerk",
-    heroImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Datawerk.webp",
     breakdown: {
       what: ["Tools: Spark, Python, dbt, Snowflake", "Dashboard & Visualization"],
       stack: ["Spark", "Python", "dbt"],
@@ -44,7 +44,7 @@ export const packs = [
     pricing: "From $1,150 / ₹94,000",
     services: ["Cloud Development", "Cloud Strategy", "Migration Services", "DevOps Integration", "Infrastructure Management"],
     page: "/packs/cloudwerk",
-    heroImage: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Cloudwerk.webp",
     breakdown: {
       what: ["AWS/GCP/Azure deployment", "DevOps tools: Terraform, Docker, K8s"],
       stack: ["AWS", "GCP", "Azure"],
@@ -62,7 +62,7 @@ export const packs = [
     pricing: "From $850 / ₹70,000",
     services: ["User Training & Support", "Application Performance Monitoring", "DevOps Integration", "Migration Services", "Infra Management"],
     page: "/packs/opswerk",
-    heroImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Opswerk.webp",
     breakdown: {
       what: ["Helpdesk & support setup", "Onboarding workflows"],
       stack: ["Grafana", "Datadog"],
@@ -80,7 +80,7 @@ export const packs = [
     pricing: "From $1,500 / ₹1,22,000",
     services: ["Oracle", "Salesforce", "ServiceNow", "SAP", "Zendesk", "Workday", "Atlassian"],
     page: "/packs/corewerk",
-    heroImage: "https://images.unsplash.com/photo-1465101178521-c1a9136a3e16?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Corewerk.webp",
     breakdown: {
       what: ["Platform customizations", "Migration & Integration"],
       stack: ["Oracle", "Salesforce"],
@@ -98,7 +98,7 @@ export const packs = [
     pricing: "From $750 / ₹61,000",
     services: ["Contact Centre", "Legal Process", "Finance & Accounting", "Healthcare Process", "Sales & Fulfillment"],
     page: "/packs/processwerk",
-    heroImage: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Processwerk.webp",
     breakdown: {
       what: ["AI + Human BPO Model", "Industry-specific compliance"],
       stack: ["BPO", "AI"],
@@ -116,7 +116,7 @@ export const packs = [
     pricing: "From $1,250 / ₹1,02,000",
     services: ["IoT Development", "Embedded Systems Design", "App Performance Monitoring", "CAD/CAM Modeling", "Blockchain Development"],
     page: "/packs/edgewerk",
-    heroImage: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Edgewerk.webp",
     breakdown: {
       what: ["Embedded + IoT workflows", "Real-time analytics"],
       stack: ["IoT", "Embedded"],
@@ -134,7 +134,7 @@ export const packs = [
     pricing: "From $1,200 / ₹98,000",
     services: ["AI Agent Development", "Custom LLM Agents", "Workflow Automation", "Prebuilt Agents (Support, Code, PM, Forecast)"],
     page: "/packs/agentwerk",
-    heroImage: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Agentwerk.webp",
     breakdown: {
       what: ["LangChain or similar stack", "Agent orchestration + memory"],
       stack: ["LangChain", "LLM"],
@@ -152,7 +152,7 @@ export const packs = [
     pricing: "From $800 / ₹65,000",
     services: ["Manual & Automated QA", "UI/UX Testing", "API Testing", "Performance Testing", "Device/Browser Testing"],
     page: "/packs/testwerk",
-    heroImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+    heroImage: "/Testwerk.webp",
     breakdown: {
       what: ["Selenium, Playwright, Cypress, Postman", "CI/CD integration"],
       stack: ["Selenium", "Playwright"],

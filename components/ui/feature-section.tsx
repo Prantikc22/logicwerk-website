@@ -77,7 +77,7 @@ export function FeatureSteps({
                 </motion.div>
 
                 <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-semibold">
+                  <h3 className="text-xl md:text-2xl font-semibold text-[#2563eb]">
                     {feature.title || feature.step}
                   </h3>
                   <p className="text-sm md:text-lg text-muted-foreground">

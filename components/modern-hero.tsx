@@ -86,14 +86,10 @@ export function ModernHero({ badge, title, subtitle, description, stats }: Moder
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact">
-                <Button className="group bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 text-lg font-semibold rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25">
-                  <span className="flex items-center">
-                    Get Started
-                    <ArrowRight className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" />
-                  </span>
-                </Button>
-              </Link>
+              <StartSprintDialog 
+  allowPackSelection={true}
+  triggerButtonClassName="group bg-[#2563eb] text-white px-8 py-4 text-lg font-semibold rounded-none transform hover:scale-105 transition-all duration-300 shadow-lg hover:bg-[#1749b1] border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+/>
               <Button
                 variant="outline"
                 className="group border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white hover:border-cyan-500 px-8 py-4 text-lg font-semibold rounded-lg backdrop-blur-sm transform hover:scale-105 transition-all duration-300"

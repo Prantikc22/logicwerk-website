@@ -67,10 +67,10 @@ export default function ServicePage({ params }: ServicePageProps) {
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">{service.title}</h1>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">{service.description}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 text-lg">
-                Get Started
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+              <StartSprintDialog 
+  allowPackSelection={true}
+  triggerButtonClassName="bg-[#2563eb] text-white px-8 py-4 text-lg font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+/>
               <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 px-8 py-4 text-lg">
                 Schedule Consultation
               </Button>

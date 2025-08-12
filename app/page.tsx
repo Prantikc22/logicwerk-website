@@ -19,6 +19,7 @@ import { AwardsCertificates } from "@/components/awards-certificates"
 import { ContactCTA } from "@/components/contact-cta"
 import EnhancedBackgroundPaths from "@/components/ui/modern-background-paths"
 import { Button } from "@/components/ui/button"
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 
 
 export default function Home() {
@@ -37,8 +38,22 @@ export default function Home() {
       <EnhancedBackgroundPaths
         title="Ready for IT That Actually Delivers?"
         subheading="Skip the delays, budget overruns, and endless meetings. Start shipping in weekly sprints."
-        primaryAction={<Button size="lg" variant="default">Start Sprint</Button>}
-        secondaryAction={<Button size="lg" variant="outline">Book A Call</Button>}
+        primaryAction={
+  <StartSprintDialog
+    allowPackSelection={true}
+    triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-lg font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[44px] flex items-center justify-center"
+  />
+}
+secondaryAction={
+  <a
+    href="https://cal.com/logicwerk/30min"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-lg font-semibold rounded-none min-w-[140px] min-h-[44px] flex items-center justify-center transition-all duration-300 bg-transparent"
+  >
+    Schedule A Discussion Call
+  </a>
+}
       />
 
     </main>

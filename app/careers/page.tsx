@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import Footer4Col from "@/components/ui/footer-column"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -591,8 +591,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <ContactCTA />
-      <Footer />
     </div>
   )
 }

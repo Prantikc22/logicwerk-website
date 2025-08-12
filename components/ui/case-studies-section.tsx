@@ -43,17 +43,7 @@ const caseStudies = [
   },
 ];
 
-const packs = [
-  "Enterprise Engine",
-  "TechOps Booster",
-  "SmartCloud",
-  "AI PowerPack",
-  "Analytics Pulse",
-  "QA Autobot",
-  "Lumeo Suites",
-  "Lumeo Procure",
-  "Logicwerk Cloud"
-];
+import { packs as logicwerkPacks } from "@/data/packs";
 
 const clientTypes = [
   "Fortune 500 Manufacturer",
@@ -71,53 +61,54 @@ const clientTypes = [
 
 const staticResultsGallery = [
   {
-    before: "$1.5M OPEX/yr",
-    after: "$600K OPEX/yr",
-    roi: "150% ROI",
-    timeline: "2 months",
-    pack: packs[0],
-    clientType: clientTypes[0]
+    pack: logicwerkPacks.find(p => p.title === "BuildWerk"),
+    clientType: "Fintech Startup",
+    before: "Manual onboarding (3 weeks)",
+    after: "Automated onboarding (3 days)",
+    roi: "+900% onboarding speed"
   },
   {
-    before: "12h deployment",
-    after: "30min deployment",
-    roi: "+90% efficiency",
-    timeline: "3 weeks",
-    pack: packs[1],
-    clientType: clientTypes[1]
+    pack: logicwerkPacks.find(p => p.title === "DataWerk"),
+    clientType: "E-commerce Platform",
+    before: "No real-time analytics",
+    after: "Live sales dashboards",
+    roi: "+120% sales insight"
   },
   {
-    before: "8 FTEs for QA",
-    after: "2 FTEs for QA",
-    roi: "+300% productivity",
-    timeline: "1 month",
-    pack: packs[2],
-    clientType: clientTypes[2]
+    pack: logicwerkPacks.find(p => p.title === "CloudWerk"),
+    clientType: "SaaS Company",
+    before: "$500K annual infra cost",
+    after: "$80K annual infra cost",
+    roi: "$420K savings/year"
   },
   {
-    before: "$500K infra cost",
-    after: "$50K infra cost",
-    roi: "900% ROI",
-    timeline: "6 weeks",
-    pack: packs[3],
-    clientType: clientTypes[3]
+    pack: logicwerkPacks.find(p => p.title === "OpsWerk"),
+    clientType: "Retail Brand",
+    before: "24h support resolution",
+    after: "1h support resolution",
+    roi: "23x faster support"
   },
   {
-    before: "3-month onboarding",
-    after: "1-week onboarding",
-    roi: "+1100% speed",
-    timeline: "2 weeks",
-    pack: packs[4],
-    clientType: clientTypes[4]
+    pack: logicwerkPacks.find(p => p.title === "CoreWerk"),
+    clientType: "Enterprise",
+    before: "Legacy SAP integration (6 months)",
+    after: "Modern API integration (3 weeks)",
+    roi: "10x integration speed"
   },
-  ...Array.from({ length: 15 }, (_, i) => ({
-    before: `${30 + i}% slower ops`,
-    after: `${5 + i}% faster ops`,
-    roi: `${100 + i * 10}% ROI`,
-    timeline: `${1 + (i % 4)} months`,
-    pack: packs[i % packs.length],
-    clientType: clientTypes[i % clientTypes.length]
-  }))
+  {
+    pack: logicwerkPacks.find(p => p.title === "ProcessWerk"),
+    clientType: "Logistics Firm",
+    before: "Manual invoice processing",
+    after: "Automated AI invoicing",
+    roi: "+300% process efficiency"
+  },
+  {
+    pack: logicwerkPacks.find(p => p.title === "EdgeWerk"),
+    clientType: "Healthcare Network",
+    before: "Paper-based patient records",
+    after: "Digital patient management",
+    roi: "+95% data accuracy"
+  }
 ];
 
 export default function CaseStudiesSection() {
@@ -132,14 +123,12 @@ export default function CaseStudiesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">
-            <span className="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
-              From Fortune 500 to Fast-Growing Startups
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground font-medium">
-            Real transformations, real ROI, real timeframes
-          </p>
+          <h2 className="font-mona text-[48px] font-bold mb-4 tracking-tight text-black text-center">
+  From Fortune 500 to <span className="font-normal" style={{ color: '#2563eb' }}>Fast-Growing Startups</span>
+</h2>
+          <p className="font-mona text-[18px] text-muted-foreground font-normal text-center">
+  Real transformations, real ROI, real timeframes
+</p>
         </motion.div>
 
         {/* Featured Case Studies */}
@@ -151,8 +140,11 @@ export default function CaseStudiesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               viewport={{ once: true }}
-              className="bg-card border border-border shadow-lg p-8 flex flex-col gap-6 hover:shadow-xl transition-shadow duration-200 !rounded-none"
+              className="relative p-8 flex flex-col gap-6 !rounded-none border shadow-xl bg-white/30 border-white/30 backdrop-blur-lg hover:shadow-2xl transition-shadow duration-200 overflow-hidden"
+              style={{ boxShadow: '0 6px 32px 0 #2563eb22' }}
             >
+              {/* Accent blue edge */}
+              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-[#2563eb] to-transparent opacity-80 z-10" />
               <div className="mb-2">
                 <h3 className="text-2xl font-bold mb-1 text-primary/90">{cs.title}</h3>
                 <div className="text-sm text-muted-foreground mb-1 font-semibold">{cs.client}</div>
@@ -177,38 +169,45 @@ export default function CaseStudiesSection() {
 
         {/* Results Gallery */}
         <div className="mb-10">
-          <h4 className="text-2xl font-bold mb-6 text-center">Results Gallery</h4>
+          <h2 className="text-3xl font-bold mb-8 text-center font-mona">Modern Software Delivery Metrics</h2>
           {/* Horizontal scroll carousel */}
           <div className="relative overflow-x-hidden">
             {/* Fade overlays using Tailwind gradients */}
             <div className="pointer-events-none absolute left-0 top-0 h-full w-16 z-20 bg-gradient-to-r from-white to-transparent dark:from-background" />
             <div className="pointer-events-none absolute right-0 top-0 h-full w-16 z-20 bg-gradient-to-l from-white to-transparent dark:from-background" />
             <motion.div
-              className="flex gap-6 whitespace-nowrap will-change-transform"
-              animate={{ x: [0, -1000] }}
+              className="flex gap-x-4 whitespace-nowrap will-change-transform"
+              animate={{ x: [0, -100 * staticResultsGallery.length] }}
               transition={{ repeat: Infinity, repeatType: 'loop', duration: 40, ease: 'linear' }}
               style={{ minWidth: '200%' }}
             >
               {[...staticResultsGallery, ...staticResultsGallery].map((result, i) => (
                 <div
                   key={i}
-                  className="bg-muted/80 border border-border !rounded-none p-6 min-w-[320px] max-w-[340px] mx-2 flex flex-col gap-3 items-start text-left shadow-md hover:shadow-lg transition-shadow duration-150"
+                  className="relative p-5 w-[320px] max-w-[340px] flex-shrink-0 flex flex-col items-start text-left overflow-hidden border bg-white/30 border-white/30 backdrop-blur-lg !rounded-none"
+                  style={{ boxShadow: '0 8px 32px 0 rgba(37,99,235,0.18), 0 2px 16px 0 rgba(30,41,59,0.12)', fontSize: '13px', lineHeight: 1.5 }}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <TrendingUp className="w-4 h-4 text-green-500" />
-                    <span className="text-xs font-semibold uppercase tracking-wide text-green-600">{result.roi}</span>
+                  {/* Accent blue vertical line */}
+                  <div className="absolute left-0 top-0 h-full w-1.5 bg-[#2563eb]" />
+                  {/* Pack and Client/Industry */}
+                  <div className="mb-3 w-full flex flex-col pl-3">
+                    <span className="font-semibold text-[#2563eb] text-[15px] leading-tight">{result.pack?.title ?? ''}</span>
+                    <span className="text-gray-500 text-xs">{result.clientType}</span>
                   </div>
-                  <div className="flex flex-col gap-1 w-full">
-                    <div className="text-xs text-muted-foreground"><span className="font-semibold">Before:</span> {result.before}</div>
-                    <div className="text-xs text-green-600"><span className="font-semibold">After:</span> {result.after}</div>
+                  {/* Before */}
+                  <div className="mb-1 pl-3">
+                    <span className="text-gray-700 font-medium mr-1">Before:</span>
+                    <span className="text-gray-900">{result.before}</span>
                   </div>
-                  <div className="flex items-center gap-2 mt-2 mb-1">
-                    <Timer className="w-4 h-4 text-blue-400" />
-                    <span className="text-xs font-medium text-blue-500">{result.timeline} to value</span>
+                  {/* After */}
+                  <div className="mb-1 pl-3">
+                    <span className="text-gray-700 font-medium mr-1">After:</span>
+                    <span className="text-gray-900">{result.after}</span>
                   </div>
-                  <div className="flex flex-col gap-1 mt-2 w-full">
-                    <div className="text-xs font-semibold text-primary">Pack: {result.pack}</div>
-                    <div className="text-xs text-muted-foreground">Client: {result.clientType}</div>
+                  {/* Improvement */}
+                  <div className="w-full mt-2 rounded bg-gray-50 px-2 py-1 pl-3">
+                    <span className="text-gray-700 font-medium mr-1">Improvement:</span>
+                    <span className="font-semibold">{result.roi}</span>
                   </div>
                 </div>
               ))}

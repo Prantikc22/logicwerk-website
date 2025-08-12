@@ -4,7 +4,8 @@ import type React from "react"
 
 import { useState } from "react"
 import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import Footer4Col from "@/components/ui/footer-column";
+import { ContactCTA } from "@/components/contact-cta";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -28,18 +29,25 @@ const offices = [
     timezone: "GMT",
   },
   {
-    city: "Singapore",
-    address: "1 Marina Bay, Singapore 018989",
-    phone: "+65 6123 4567",
-    email: "singapore@logicwerk.com",
-    timezone: "SGT",
+    city: "Bangalore",
+    address: "91 Springboard, Koramangala, Bangalore 560034, India",
+    phone: "+91 80 1234 5678",
+    email: "bangalore@logicwerk.com",
+    timezone: "IST",
   },
   {
-    city: "Toronto",
-    address: "100 King Street West, Toronto, ON M5X 1A9, Canada",
-    phone: "+1 (416) 123-4567",
-    email: "toronto@logicwerk.com",
-    timezone: "EST",
+    city: "Kolkata",
+    address: "Salt Lake Sector V, Kolkata 700091, India",
+    phone: "+91 33 1234 5678",
+    email: "kolkata@logicwerk.com",
+    timezone: "IST",
+  },
+  {
+    city: "Frankfurt",
+    address: "Bockenheimer Landstraße 17-19, 60325 Frankfurt am Main, Germany",
+    phone: "+49 69 123456",
+    email: "frankfurt@logicwerk.com",
+    timezone: "CET",
   },
 ]
 
@@ -132,7 +140,7 @@ export default function ContactPage() {
             </Button>
           </div>
         </div>
-        <Footer />
+        <Footer4Col />
       </div>
     )
   }
@@ -165,6 +173,8 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <ContactCTA />
 
       {/* Contact Form and Info */}
       <section className="py-20">
@@ -423,7 +433,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Footer />
+      
     </div>
   )
 }

@@ -1,32 +1,65 @@
 "use client"
-
+import React from "react";
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { Cpu, Zap, Shield, Crown, Clock, TrendingUp, ChevronDown } from "lucide-react"
 import DemoOne from "@/components/ui/demo"
+import FourPillarsLogoBar from "@/components/ui/four-pillars-logo-bar"
 
 export function ModernDeliverySection() {
   const [activeAccordion, setActiveAccordion] = useState(0)
   const [projectCount, setProjectCount] = useState(50)
 
+  // Highlight Logicwerk in blue bold
+  const ACCENT_CLASS = "text-blue-600 font-bold";
+  function highlightLogicwerk(text: string) {
+    const regex = /(Logicwerk)/gi;
+    const parts = text.split(regex);
+    return parts.map((part, i) =>
+      regex.test(part) ? (
+        <span key={i} className={ACCENT_CLASS}>{part}</span>
+      ) : (
+        <React.Fragment key={i}>{part}</React.Fragment>
+      )
+    );
+  }
+
   const accordionItems = [
     {
       icon: Cpu,
       title: "Legacy Liberation Guarantee",
-      content: "If we can't deliver in 4 weeks what your current provider quoted 6 months for, get money back.",
-      highlight: "No contracts. No excuses.",
+      content: (
+        <>
+          {highlightLogicwerk("If we can't deliver in 4 weeks what your current provider quoted 6 months for, get money back.")}
+          <ul className="mt-2 mb-2 list-disc list-inside text-gray-700">
+            <li>{highlightLogicwerk("Project Delivery: Logicwerk avg 4.2w vs Legacy 18.7w")}</li>
+            <li>{highlightLogicwerk("Budget Overruns: Logicwerk 2% vs Legacy 47%")}</li>
+            <li>{highlightLogicwerk("Scope: Logicwerk = next sprint, Legacy = 3mo delay")}</li>
+          </ul>
+
+        </>
+      ),
+      
     },
     {
       icon: Zap,
-      title: "Sprint Challenge",
-      content: "Give us your most urgent project for ONE sprint. See the Logicwerk difference in 7 days.",
-      highlight: "First sprint: 50% off",
+      title: "In Sprint Challenge",
+      content: (
+        <>
+          {highlightLogicwerk("Give us your most urgent project for ONE sprint. See the Logicwerk difference in 7 days.")}
+        </>
+      ),
+      highlight: highlightLogicwerk("One week. Real results. Guaranteed impact."),
     },
     {
       icon: TrendingUp,
       title: "Live Transparency Promise",
-      content: "Watch our real delivery metrics vs legacy providers. Public dashboards. Real benchmarks.",
-      highlight: "No hidden timelines.",
+      content: (
+        <>
+          {highlightLogicwerk("Watch our real delivery metrics vs legacy providers in real-time.")}
+        </>
+      ),
+      highlight: highlightLogicwerk("Public dashboards. Real benchmarks. No hidden timelines."),
     },
   ]
 
@@ -54,10 +87,11 @@ export function ModernDeliverySection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Building modern software should never take <span className="text-blue-600">Months</span>.
+          <h2 className="font-bold text-gray-900 mb-4 font-mona" style={{ fontSize: 48 }}>
+            Building modern software{' '}
+            <span className="font-normal text-blue-600">should never take Months.</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+          <p className="max-w-4xl mx-auto font-mona" style={{ fontSize: 18, color: '#666' }}>
             Timeline Torture, Budget Blackhole, Progress Purgatory? If this sounds familiar, you need an emergency exit
             strategy because modern software delivery has changed.
           </p>
@@ -69,8 +103,8 @@ export function ModernDeliverySection() {
           <div className="relative flex justify-center">
             <div className="relative w-full max-w-lg">
               <Image
-                src="/team-structure-new.png"
-                alt="AI-Augmented Team Structure"
+                src="/agentzonequality.png"
+                alt="AI Agent Zone"
                 width={500}
                 height={500}
                 className="w-full h-auto"
@@ -116,9 +150,9 @@ export function ModernDeliverySection() {
                       isActive ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
-                    <div className="px-6 pb-6">
-                      <p className="text-gray-600 mb-3">{item.content}</p>
-                      <p className="text-blue-600 font-semibold">{item.highlight}</p>
+                    <div className="px-6 pb-6 break-words whitespace-normal">
+                      <div className="text-gray-600 mb-3 text-base leading-relaxed">{item.content}</div>
+                      <div className="text-blue-600 font-semibold">{item.highlight}</div>
                     </div>
                   </div>
                 </div>
@@ -130,6 +164,11 @@ export function ModernDeliverySection() {
 
         {/* Four Pillars Section at the very bottom */}
         <DemoOne />
+        {/* Logo bar below Four Pillars */}
+        <div className="mt-2">
+          {/* Sleek logo bar: clutch, g2, gdpr, ccpa */}
+          <FourPillarsLogoBar />
+        </div>
       </div>
     </section>
   )

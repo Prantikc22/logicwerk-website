@@ -1,21 +1,18 @@
 import {
-  Dribbble,
   Facebook,
-  Github,
   Instagram,
+  Linkedin,
   Mail,
-  MapPin,
   Phone,
-  Twitter,
 } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const data = {
-  facebookLink: 'https://facebook.com/logicwerk',
-  instaLink: 'https://instagram.com/logicwerk',
-  twitterLink: 'https://x.com/logicwerk',
-  githubLink: 'https://github.com/logicwerk',
-  dribbbleLink: 'https://dribbble.com/logicwerk',
+  facebookLink: 'https://www.facebook.com/profile.php?id=61566249706090',
+  instaLink: 'https://www.instagram.com/logicwerk/',
+  twitterLink: 'https://x.com/Logicwerk',
+  linkedinLink: 'https://www.linkedin.com/company/logicwerk',
   packs: [
     { text: 'BuildWerk', href: '/packs/buildwerk' },
     { text: 'DataWerk', href: '/packs/datawerk' },
@@ -41,8 +38,7 @@ const data = {
   ],
   contact: {
     email: 'hello@logicwerk.com',
-    phone: '+91 8637373116',
-    address: 'Kolkata, West Bengal, India',
+    phone: '+91 820 899 0366',
   },
   logo: '/logos/logicwerk-footer-logo.png',
   description:
@@ -52,11 +48,10 @@ const data = {
 };
 
 const socialLinks = [
-  { icon: Facebook, label: 'Facebook', href: data.facebookLink },
-  { icon: Instagram, label: 'Instagram', href: data.instaLink },
-  { icon: Twitter, label: 'X', href: data.twitterLink },
-  { icon: Github, label: 'GitHub', href: data.githubLink },
-  { icon: Dribbble, label: 'Dribbble', href: data.dribbbleLink },
+  { icon: Facebook, label: 'Facebook', href: data.facebookLink, color: 'white' },
+  { icon: Instagram, label: 'Instagram', href: data.instaLink, color: 'white' },
+  { icon: (props: any) => <Image src="/logos/x-logo.svg" alt="X" width={20} height={20} style={{ filter: 'brightness(0) invert(1)' }} {...props} />, label: 'X', href: data.twitterLink },
+  { icon: Linkedin, label: 'LinkedIn', href: data.linkedinLink, color: 'white' },
 ];
 
 
@@ -73,27 +68,30 @@ export default function Footer4Col() {
     alt="Logicwerk logo"
     className="h-14 w-auto mb-4"
   />
-  <p className="text-gray-200 max-w-md text-center leading-relaxed sm:max-w-xs sm:text-left">
-    {data.description}
-  </p>
-</div>
 
             <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
-              {socialLinks.map(({ icon: Icon, label, href }) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-white hover:text-primary transition"
-                  >
-                    <span className="sr-only">{label}</span>
-                    <Icon className="size-6" />
-                  </Link>
-                </li>
-              ))}
+              {socialLinks.map(({ icon: Icon, label, href, color }, i) => (
+  <li key={label}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:bg-gray-800 p-2 rounded-full transition-colors flex items-center justify-center"
+      aria-label={label}
+    >
+      {typeof Icon === 'function' ? (
+        <Icon />
+      ) : (
+        <Icon className="w-5 h-5" color={color || 'white'} />
+      )}
+    </a>
+  </li>
+))}
             </ul>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
             {/* Packs */}
             <div className="text-center sm:text-left">
               <p className="text-lg font-medium mb-6 text-white">Packs</p>
@@ -131,9 +129,8 @@ export default function Footer4Col() {
             <div className="text-center sm:text-left">
               <p className="text-lg font-medium mb-6 text-white">Contact</p>
               <ul className="space-y-4 text-sm">
-                <li><a className="flex items-center gap-2 text-gray-200 transition" href={`mailto:${data.contact.email}`}><Mail className="size-5 text-primary" />{data.contact.email}</a></li>
-                <li><a className="flex items-center gap-2 text-gray-200 transition" href={`tel:${data.contact.phone}`}><Phone className="size-5 text-primary" />{data.contact.phone}</a></li>
-                <li><span className="flex items-center gap-2 text-gray-200 transition"><MapPin className="size-5 text-primary" />{data.contact.address}</span></li>
+                <li><a className="flex items-center gap-2 text-gray-200 transition" href={`mailto:${data.contact.email}`}><Mail className="size-5 text-white" />{data.contact.email}</a></li>
+                <li><a className="flex items-center gap-2 text-gray-200 transition" href={`tel:${data.contact.phone}`}><Phone className="size-5 text-white" />{data.contact.phone}</a></li>
               </ul>
             </div>
           </div>
