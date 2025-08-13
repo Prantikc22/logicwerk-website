@@ -99,8 +99,10 @@ interface Product {
   icon: React.ComponentType<{ className?: string }>;
   features: string[];
   pricing: {
-    starter: string;
-    professional: string;
+    pro?: string;
+    proAI?: string;
+    vps?: string;
+    storage?: string;
   };
   category: 'suite' | 'invoicing' | 'cloud';
   gradient: string;
@@ -196,33 +198,42 @@ const FloatingIcons = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {icons.map(({ Icon, delay }, index) => (
-        <motion.div
-          key={index}
-          className="absolute"
-          initial={{ 
-            x: Math.random() * 400,
-            y: Math.random() * 400,
-            opacity: 0,
-            scale: 0.5
-          }}
-          animate={{
-            x: Math.random() * 400,
-            y: Math.random() * 400,
-            opacity: [0, 0.3, 0],
-            scale: [0.5, 1, 0.5],
-          }}
-          transition={{
-            duration: 8,
-            delay,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut"
-          }}
-        >
-          <Icon className="w-8 h-8 text-muted-foreground/30" />
-        </motion.div>
-      ))}
+      {icons.map(({ Icon, delay }, index) => {
+        // Hydration-safe: deterministic SSR, random only after mount
+        const [[initialX, initialY], setInitial] = React.useState(() => [50 + index * 40, 50 + index * 40]);
+        const [[animateX, animateY], setAnimate] = React.useState(() => [300 - index * 20, 300 - index * 20]);
+        React.useEffect(() => {
+          setInitial([Math.random() * 400, Math.random() * 400]);
+          setAnimate([Math.random() * 400, Math.random() * 400]);
+        }, []);
+        return (
+          <motion.div
+            key={index}
+            className="absolute"
+            initial={{ 
+              x: initialX,
+              y: initialY,
+              opacity: 0,
+              scale: 0.5
+            }}
+            animate={{
+              x: animateX,
+              y: animateY,
+              opacity: [0, 0.3, 0],
+              scale: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 8,
+              delay,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut"
+            }}
+          >
+            <Icon className="w-8 h-8 text-muted-foreground/30" />
+          </motion.div>
+        );
+      })}
     </div>
   );
 };

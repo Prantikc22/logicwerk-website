@@ -76,6 +76,12 @@ const companyMenu = {
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Ensure component is hydrated before showing interactive elements
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -84,10 +90,12 @@ export function Navigation() {
   }, [])
 
   const handleDropdownEnter = (dropdown: string) => {
+    if (!isMounted) return
     setActiveDropdown(dropdown)
   }
 
   const handleDropdownLeave = () => {
+    if (!isMounted) return
     // Add a small delay to prevent immediate closing when moving mouse
     setTimeout(() => {
       setActiveDropdown(null)
@@ -95,10 +103,53 @@ export function Navigation() {
   }
 
   const handleDropdownMouseEnter = () => {
+    if (!isMounted) return
     // Keep dropdown open when mouse is over it
     if (activeDropdown) {
       // Clear any pending close timeout
     }
+  }
+
+  const handleIndustryScroll = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (!isMounted) return
+    
+    // Use requestAnimationFrame for smooth scrolling
+    requestAnimationFrame(() => {
+      const section = document.getElementById('industries');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    })
+    setActiveDropdown(null)
+  }
+
+  // Show static version during hydration
+  if (!isMounted) {
+    return (
+      <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800 z-50">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20 max-w-7xl mx-auto">
+            <Link href="/" className="flex items-center">
+              <Image src="/logo.png" alt="Logicwerk Logo" width={250} height={250} className="w-60 h-60" />
+            </Link>
+            <div className="hidden md:flex items-center space-x-8">
+              <span className="text-gray-300">Products</span>
+              <span className="text-gray-300">Software Launch Packs</span>
+              <span className="text-gray-300">Industries</span>
+              <span className="text-gray-300">Company</span>
+              <Link href="/careers" className="text-gray-300">Careers</Link>
+              <div className="bg-[#2563eb] text-white px-6 py-2 rounded-none shadow-lg min-w-[120px] min-h-[38px] flex items-center justify-center">
+                Start Sprint
+              </div>
+            </div>
+            <div className="md:hidden text-gray-300">
+              <Menu className="w-6 h-6" />
+            </div>
+          </div>
+        </div>
+      </nav>
+    )
   }
 
   return (
@@ -200,8 +251,7 @@ export function Navigation() {
                               {pack.description}
                             </p>
                           </Link>
-                              ))}
-
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -234,17 +284,11 @@ export function Navigation() {
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {industriesMenu.industries.map((industry, index) => (
-                           <button
-                             key={index}
-                             type="button"
-                             className="group flex w-full items-center justify-between text-gray-300 hover:text-white py-3 px-4 rounded-sm hover:bg-gray-800/50 border border-gray-700/30 hover:border-cyan-500/50 transition-all duration-300"
-                             onClick={() => {
-                               const section = document.getElementById('industries');
-                               if (section) {
-                                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                               }
-                               setActiveDropdown(null);
-                             }}
+                          <button
+                            key={index}
+                            type="button"
+                            className="group flex w-full items-center justify-between text-gray-300 hover:text-white py-3 px-4 rounded-sm hover:bg-gray-800/50 border border-gray-700/30 hover:border-cyan-500/50 transition-all duration-300"
+                            onClick={handleIndustryScroll}
                           >
                             <div>
                               <div className="font-medium">{industry.name}</div>
@@ -312,13 +356,17 @@ export function Navigation() {
               Careers
             </Link>
             <StartSprintDialog 
-  allowPackSelection={true}
-  triggerButtonClassName="bg-[#2563eb] text-white px-6 py-2 rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
-/>
+              allowPackSelection={true}
+              triggerButtonClassName="bg-[#2563eb] text-white px-6 py-2 rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+            />
           </div>
 
           {/* Mobile menu button */}
-          <button className="md:hidden text-gray-300 hover:text-white" onClick={() => setIsOpen(!isOpen)}>
+          <button 
+            className="md:hidden text-gray-300 hover:text-white" 
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -352,9 +400,9 @@ export function Navigation() {
                 Careers
               </Link>
               <StartSprintDialog 
-  allowPackSelection={true}
-  triggerButtonClassName="w-full bg-[#2563eb] text-white rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
-/>
+                allowPackSelection={true}
+                triggerButtonClassName="w-full bg-[#2563eb] text-white rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+              />
             </div>
           </div>
         )}

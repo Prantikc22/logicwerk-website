@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { LucideIcon, Facebook, Instagram, Linkedin, Mail, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -85,92 +85,123 @@ const socialLinks: SocialLink[] = [
   },
 ];
 
-
-
 export default function Footer4Col() {
+  const [isMounted, setIsMounted] = useState(false);
+  const [currentYear, setCurrentYear] = useState('2025'); // Fallback year
+
+  useEffect(() => {
+    setIsMounted(true);
+    setCurrentYear(new Date().getFullYear().toString());
+  }, []);
+
   return (
     <footer className="bg-black w-full place-self-end rounded-t-xl">
       <div className="mx-auto max-w-screen-xl px-4 pt-16 pb-6 sm:px-6 lg:px-8 lg:pt-24">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <div className="flex flex-col items-center sm:items-start">
-  <img
-    src={data.logo}
-    alt="Logicwerk logo"
-    className="h-14 w-auto mb-4"
-  />
+              <img
+                src={data.logo}
+                alt="Logicwerk logo"
+                className="h-14 w-auto mb-4"
+              />
 
-            <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
-              {socialLinks.map(({ icon: Icon, label, href, color }) => {
-                return (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:bg-gray-800 p-2 rounded-full transition-colors flex items-center justify-center"
-                      aria-label={label}
-                    >
-                      {React.isValidElement(Icon) ? (
-                        <div className="w-5 h-5">
-                          {Icon}
-                        </div>
-                      ) : (
-                        <div className="w-5 h-5 flex items-center justify-center">
-                          {React.createElement(Icon as React.ComponentType<{ className?: string; color?: string }>, {
-                            className: "w-5 h-5",
-                            color: color || 'white'
-                          })}
-                        </div>
-                      )}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+              <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
+                {socialLinks.map(({ icon: Icon, label, href, color }) => {
+                  return (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:bg-gray-800 p-2 rounded-full transition-colors flex items-center justify-center"
+                        aria-label={label}
+                      >
+                        {React.isValidElement(Icon) ? (
+                          <div className="w-5 h-5">
+                            {Icon}
+                          </div>
+                        ) : (
+                          <div className="w-5 h-5 flex items-center justify-center">
+                            {React.createElement(Icon as React.ComponentType<{ className?: string; color?: string }>, {
+                              className: "w-5 h-5",
+                              color: color || 'white'
+                            })}
+                          </div>
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
             {/* Packs */}
             <div className="text-center sm:text-left">
               <p className="text-lg font-medium mb-6 text-white">Packs</p>
               <ul className="space-y-4 text-sm">
                 {data.packs.map(({ text, href }) => (
                   <li key={text}>
-                    <a className="text-gray-200 transition hover:text-blue-400" href={href}>{text}</a>
+                    <Link className="text-gray-200 transition hover:text-blue-400" href={href}>
+                      {text}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
+            
             {/* Products */}
             <div className="text-center sm:text-left">
               <p className="text-lg font-medium mb-6 text-white">Products</p>
               <ul className="space-y-4 text-sm">
                 {data.products.map(({ text, href }) => (
                   <li key={text}>
-                    <a className="text-gray-200 transition hover:text-blue-400" href={href}>{text}</a>
+                    <Link className="text-gray-200 transition hover:text-blue-400" href={href}>
+                      {text}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
+            
             {/* Company */}
             <div className="text-center sm:text-left">
               <p className="text-lg font-medium mb-6 text-white">Company</p>
               <ul className="space-y-4 text-sm">
                 {data.company.map(({ text, href }) => (
                   <li key={text}>
-                    <a className="text-gray-200 transition hover:text-blue-400" href={href}>{text}</a>
+                    <Link className="text-gray-200 transition hover:text-blue-400" href={href}>
+                      {text}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
+            
             {/* Contact */}
             <div className="text-center sm:text-left">
               <p className="text-lg font-medium mb-6 text-white">Contact</p>
               <ul className="space-y-4 text-sm">
-                <li><a className="flex items-center gap-2 text-gray-200 transition" href={`mailto:${data.contact.email}`}><Mail className="size-5 text-white" />{data.contact.email}</a></li>
-                <li><a className="flex items-center gap-2 text-gray-200 transition" href={`tel:${data.contact.phone}`}><Phone className="size-5 text-white" />{data.contact.phone}</a></li>
+                <li>
+                  <a 
+                    className="flex items-center gap-2 text-gray-200 transition hover:text-blue-400" 
+                    href={`mailto:${data.contact.email}`}
+                  >
+                    <Mail className="size-5 text-white" />
+                    {data.contact.email}
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    className="flex items-center gap-2 text-gray-200 transition hover:text-blue-400" 
+                    href={`tel:${data.contact.phone}`}
+                  >
+                    <Phone className="size-5 text-white" />
+                    {data.contact.phone}
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -179,11 +210,17 @@ export default function Footer4Col() {
         <div className="mt-12 border-t pt-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-2 text-center">
             <div className="flex items-center gap-2 text-gray-200 text-sm">
-              <a href={data.privacy} className="hover:text-primary transition">Privacy Policy</a>
+              <Link href={data.privacy} className="hover:text-blue-400 transition">
+                Privacy Policy
+              </Link>
               <span className="mx-1">|</span>
-              <a href={data.terms} className="hover:text-primary transition">Terms of Service</a>
+              <Link href={data.terms} className="hover:text-blue-400 transition">
+                Terms of Service
+              </Link>
             </div>
-            <div className="text-gray-400 text-xs">&copy; 2025 Logicwerk. All rights reserved.</div>
+            <div className="text-gray-400 text-xs">
+              &copy; {currentYear} Logicwerk. All rights reserved.
+            </div>
           </div>
         </div>
       </div>

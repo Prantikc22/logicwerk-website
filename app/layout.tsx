@@ -1,15 +1,12 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import "../styles/mona-sans.css";
-import { Navigation } from "@/components/navigation"
-import Footer4Col from "@/components/ui/footer-column"
-import dynamic from "next/dynamic"
+import { Navigation } from "@/components/navigation";
+import Footer4Col from "@/components/ui/footer-column";
 
-const NavigationProgress = dynamic(() => import("@/components/ui/navigation-progress"), { ssr: false })
-
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Logicwerk - AI-Powered Enterprise Solutions",
@@ -17,33 +14,27 @@ export const metadata: Metadata = {
     "Transform your business with LeadIQ, Procufy, and Logicwerk EIP. Comprehensive AI solutions for lead generation, procurement automation, and intelligent workflows.",
   keywords:
     "AI, enterprise software, lead generation, procurement automation, workflow automation, artificial intelligence",
-    generator: 'v0.dev'
-}
+  generator: "v0.dev",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <title>Logicwerk - AI Powered Software Delivery At The Speed of Thought</title>
-        <link rel="icon" href="/favicon1.png" type="image/png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={inter.className}>
-        {/* Navigation progress bar - only render after mount to prevent hydration mismatch */}
-        {typeof window !== 'undefined' && <NavigationProgress />}
-        <Navigation />
-        <main className="pt-20">{children}</main>
-        <Footer4Col />
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning>
+        <div suppressHydrationWarning>
+          <Navigation />
+        </div>
+        <main className="pt-20" suppressHydrationWarning>
+          {children}
+        </main>
+        <div suppressHydrationWarning>
+          <Footer4Col />
+        </div>
       </body>
     </html>
-  )
+  );
 }

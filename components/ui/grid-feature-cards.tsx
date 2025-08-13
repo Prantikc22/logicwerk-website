@@ -12,7 +12,13 @@ type FeatureCardPorps = React.ComponentProps<'div'> & {
 };
 
 export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) {
-	const p = genRandomPattern();
+	// Hydration-safe: always deterministic on SSR, random only after mount
+	// Hydration-safe: deterministic SSR, random only after mount
+	const deterministicPattern = React.useMemo(() => Array.from({ length: 5 }, (_, i) => [7 + i, 1 + i]), []);
+	const [pattern, setPattern] = React.useState<number[][]>(deterministicPattern);
+	React.useEffect(() => {
+		setPattern(genRandomPattern());
+	}, []);
 
 	return (
 		<div className={cn('relative overflow-hidden p-6', className)} {...props}>
@@ -23,7 +29,7 @@ export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) 
 						height={20}
 						x="-12"
 						y="4"
-						squares={p}
+						squares={pattern}
 						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
 					/>
 				</div>
@@ -64,10 +70,16 @@ function GridPattern({
 	);
 }
 
+// Hydration-safe: never call Math.random in render
 function genRandomPattern(length?: number): number[][] {
 	length = length ?? 5;
+	if (typeof window === 'undefined') {
+		// SSR fallback: deterministic pattern
+		return Array.from({ length }, (_, i) => [7 + i, 1 + i]);
+	}
 	return Array.from({ length }, () => [
-		Math.floor(Math.random() * 4) + 7, // random x between 7 and 10
-		Math.floor(Math.random() * 6) + 1, // random y between 1 and 6
+		Math.floor(Math.random() * 4) + 7,
+		Math.floor(Math.random() * 6) + 1,
 	]);
 }
+

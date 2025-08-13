@@ -1,8 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { X, Zap, Calendar, CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
-import Cal, { getCalApi } from "@calcom/embed-react";
 
 import { packs } from "@/data/packs";
 
@@ -22,11 +21,16 @@ const defaultBudgetOptions = [
   { value: 'custom', label: 'Custom Scope', price: "Let's discuss", desc: 'Tailored to your needs' }
 ];
 
-
-export default function StartSprintDialog({ packName, packPricing, packKey, packServices, allowPackSelection = false, triggerButtonClassName }: StartSprintDialogProps) {
-  // If pack selection is allowed, manage selected pack state
-  const [selectedPackKey, setSelectedPackKey] = useState<string>(packKey || packs[0].key);
-  const selectedPack = packs.find(p => p.key === selectedPackKey) || packs[0];
+export default function StartSprintDialog({ 
+  packName, 
+  packPricing, 
+  packKey, 
+  packServices, 
+  allowPackSelection = false, 
+  triggerButtonClassName 
+}: StartSprintDialogProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  const [selectedPackKey, setSelectedPackKey] = useState<string>(packKey || (packs.length > 0 ? packs[0].key : ''));
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,6 +50,16 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
     describeWork: ''
   });
 
+  // Ensure component is hydrated before showing interactive elements
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Safely get selected pack
+  const selectedPack = isMounted && packs.length > 0 
+    ? packs.find(p => p.key === selectedPackKey) || packs[0] 
+    : { key: '', title: 'Loading...', services: [] };
+
   const updateFormData = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
@@ -53,14 +67,81 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 4));
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
-  const handleSubmit = () => {
-    // TODO: Replace with real submission logic
-    alert('Sprint Challenge submitted! Check your email for next steps.');
-    setIsOpen(false);
+  const resetForm = () => {
     setCurrentStep(1);
     setFormData({
-      projectType: '', currentStatus: '', urgency: '', budget: '', name: '', email: '', company: '', role: '', phone: '', schedule: '', describeWork: '', city: '', country: ''
+      projectType: '', 
+      currentStatus: '', 
+      urgency: '', 
+      budget: '', 
+      name: '', 
+      email: '', 
+      company: '', 
+      role: '', 
+      phone: '', 
+      schedule: '', 
+      describeWork: '', 
+      city: '', 
+      country: ''
     });
+  };
+
+  const handleSubmit = async (flowType: 'final_price' | 'schedule_call') => {
+    if (!isMounted) return;
+    
+    setIsLoading(true);
+    
+    try {
+      const payload = {
+        pack_name: packName || selectedPack.title,
+        pack_key: packKey || selectedPackKey,
+        project_type: formData.projectType,
+        current_status: formData.currentStatus,
+        urgency: formData.urgency,
+        budget: formData.budget,
+        describeWork: formData.describeWork || '',
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        role: formData.role,
+        phone: formData.phone,
+        city: formData.city || '',
+        country: formData.country || '',
+        flow_type: flowType,
+        schedule_slot: flowType === 'schedule_call' ? 'cal.com' : '',
+        submission_time: new Date().toISOString(),
+      };
+
+      await fetch('https://sheetdb.io/api/v1/t3vrj3qflp7pb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: [payload] })
+      });
+
+      if (flowType === 'schedule_call') {
+        // Use a safer way to open external links
+        const calLink = 'https://cal.com/logicwerk/30min';
+        if (typeof window !== 'undefined') {
+          window.open(calLink, '_blank', 'noopener,noreferrer');
+        }
+        setCurrentStep(100); // Schedule confirmation
+      } else {
+        setCurrentStep(99); // Final price confirmation
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      // Handle error appropriately
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDialogClose = (open: boolean) => {
+    setIsOpen(open);
+    if (!open) {
+      // Reset form when closing
+      setTimeout(() => resetForm(), 200);
+    }
   };
 
   const isStepValid = (step: number) => {
@@ -77,17 +158,34 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
     'Web Application', 'Mobile App (iOS/Android)', 'API Development', 'Full-Stack Platform', 'Legacy Modernization', 'Other'
   ];
 
+  // Show static button during hydration
+  if (!isMounted) {
+    return (
+      <button 
+        className={triggerButtonClassName || "px-6 py-3 border-2 border-white text-white text-base font-semibold rounded-none bg-transparent hover:bg-white hover:text-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 shadow-lg"}
+        style={{ minWidth: 120 }}
+        disabled
+      >
+        Start Sprint
+      </button>
+    );
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleDialogClose}>
       <DialogTrigger asChild>
-        <button className={triggerButtonClassName || "px-6 py-3 border-2 border-white text-white text-base font-semibold rounded-none bg-transparent hover:bg-white hover:text-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 shadow-lg"} style={{ minWidth: 120 }}>
+        <button 
+          className={triggerButtonClassName || "px-6 py-3 border-2 border-white text-white text-base font-semibold rounded-none bg-transparent hover:bg-white hover:text-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 shadow-lg"} 
+          style={{ minWidth: 120 }}
+        >
           Start Sprint
         </button>
       </DialogTrigger>
+      
       {isOpen && (
         <DialogContent className="max-w-2xl w-full sm:max-h-[calc(100vh-40px)] max-h-[calc(100dvh-24px)] flex flex-col overflow-visible rounded-2xl p-0 shadow-2xl">
           {/* Pack Selection Dropdown (Step 1 only) */}
-          {allowPackSelection && currentStep === 1 && (
+          {allowPackSelection && currentStep === 1 && packs.length > 0 && (
             <div className="px-6 pt-6">
               <label htmlFor="pack-select" className="block text-sm font-medium text-gray-700 mb-1">Choose a Pack:</label>
               <select
@@ -102,17 +200,19 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
               </select>
             </div>
           )}
+          
           {isLoading && (
             <div className="absolute top-0 left-0 w-full h-1 z-50">
               <div className="h-1 w-full bg-gradient-to-r from-blue-400 via-blue-600 to-purple-500 animate-pulse rounded-t-2xl" style={{ animationDuration: '1s' }} />
             </div>
           )}
+          
           <DialogTitle asChild>
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 relative text-2xl font-bold flex items-center gap-3">
               <Zap size={28} className="inline-block mr-2 text-yellow-300" />
               Start Your {selectedPack.title} Sprint Challenge
               <button 
-                onClick={() => setIsOpen(false)}
+                onClick={() => handleDialogClose(false)}
                 className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors"
                 aria-label="Close"
               >
@@ -120,9 +220,11 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
               </button>
             </div>
           </DialogTitle>
+          
           <DialogDescription asChild>
             <span className="sr-only">Multi-step form to start your {selectedPack.title} sprint. Complete project, urgency, contact, and schedule steps to submit.</span>
           </DialogDescription>
+          
           <div className="flex gap-4 bg-gray-50 px-6 py-2 border-b border-gray-200">
             <div className="flex items-center gap-2">
               <CheckCircle size={16} className="text-green-300" />
@@ -221,6 +323,7 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                 </div>
               </div>
             )}
+            
             {/* Step 2: Urgency & Budget */}
             {currentStep === 2 && (
               <div className="space-y-6">
@@ -254,7 +357,7 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-3">
-                    {packName} Investment Level:
+                    {packName || selectedPack.title} Investment Level:
                   </label>
                   <div className="grid grid-cols-1 gap-3">
                     {defaultBudgetOptions.map((option) => (
@@ -298,6 +401,7 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                 </div>
               </div>
             )}
+            
             {/* Step 3: Contact Info */}
             {currentStep === 3 && (
               <div className="space-y-6">
@@ -395,9 +499,9 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                     placeholder="+1 (555) 123-4567"
                   />
                 </div>
-
               </div>
             )}
+            
             {/* Step 4: Schedule (Date & Time Picker) */}
             {currentStep === 4 && (
               <div className="space-y-8">
@@ -411,40 +515,14 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                     <h4 className="text-xl font-bold mb-2">Get Final Price</h4>
                     <p className="text-gray-600 mb-6 text-center">Receive a detailed quote with exact pricing and project timeline via email.</p>
                     <button
-                      className="px-8 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition text-lg"
-                      onClick={async () => {
-                        setIsLoading(true);
-                        const payload = {
-                          pack_name: packName,
-                          pack_key: packKey,
-                          project_type: formData.projectType,
-                          current_status: formData.currentStatus,
-                          urgency: formData.urgency,
-                          budget: formData.budget,
-                          describeWork: formData.describeWork || '',
-                          name: formData.name,
-                          email: formData.email,
-                          company: formData.company,
-                          role: formData.role,
-                          phone: formData.phone,
-                          city: formData.city || '',
-                          country: formData.country || '',
-                          flow_type: 'final_price',
-                          schedule_slot: '',
-                          submission_time: new Date().toISOString(),
-                        };
-                        await fetch('https://sheetdb.io/api/v1/t3vrj3qflp7pb', {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ data: [payload] })
-                        });
-                        setCurrentStep(99); // Show confirmation
-                        setIsLoading(false);
-                      }}
+                      className="px-8 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                      onClick={() => handleSubmit('final_price')}
+                      disabled={isLoading}
                     >
-                      Get Final Price
+                      {isLoading ? 'Processing...' : 'Get Final Price'}
                     </button>
                   </div>
+                  
                   {/* Schedule Sprint Call Card */}
                   <div className="rounded-2xl border border-purple-200 bg-white p-8 flex flex-col items-center shadow-md">
                     <div className="bg-purple-50 rounded-full p-4 mb-4">
@@ -453,39 +531,11 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                     <h4 className="text-xl font-bold mb-2">Schedule Sprint Call</h4>
                     <p className="text-gray-600 mb-6 text-center">Book a 30-minute call to discuss your project in detail with our team.</p>
                     <button
-                      className="px-8 py-3 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 transition text-lg"
-                      onClick={async () => {
-                        setIsLoading(true);
-                        const payload = {
-                          pack_name: packName,
-                          pack_key: packKey,
-                          project_type: formData.projectType,
-                          current_status: formData.currentStatus,
-                          urgency: formData.urgency,
-                          budget: formData.budget,
-                          describeWork: formData.describeWork || '',
-                          name: formData.name,
-                          email: formData.email,
-                          company: formData.company,
-                          role: formData.role,
-                          phone: formData.phone,
-                          city: formData.city || '',
-                          country: formData.country || '',
-                          flow_type: 'schedule_call',
-                          schedule_slot: 'cal.com',
-                          submission_time: new Date().toISOString(),
-                        };
-                        await fetch('https://sheetdb.io/api/v1/t3vrj3qflp7pb', {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ data: [payload] })
-                        });
-                        window.open('https://cal.com/logicwerk/30min', '_blank', 'noopener,noreferrer');
-                        setCurrentStep(99); // Show confirmation
-                        setIsLoading(false);
-                      }}
+                      className="px-8 py-3 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 transition text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                      onClick={() => handleSubmit('schedule_call')}
+                      disabled={isLoading}
                     >
-                      Schedule Sprint Call
+                      {isLoading ? 'Processing...' : 'Schedule Sprint Call'}
                     </button>
                   </div>
                 </div>
@@ -497,22 +547,22 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
               <div className="flex flex-col items-center justify-center min-h-[300px]">
                 <CheckCircle size={48} className="text-green-500 mb-4" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank you!</h3>
-                <p className="text-gray-700 text-center max-w-md">We’ll send your final price and full project details to your email soon. Our team will reach out if we have any questions.</p>
+                <p className="text-gray-700 text-center max-w-md">We'll send your final price and full project details to your email soon. Our team will reach out if we have any questions.</p>
               </div>
             )}
+            
             {/* Step 100: Schedule Confirmation */}
             {currentStep === 100 && (
               <div className="flex flex-col items-center justify-center min-h-[300px]">
                 <CheckCircle size={48} className="text-green-500 mb-4" />
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Call Scheduled!</h3>
-                <p className="text-gray-700 text-center max-w-md">Your sprint planning call is booked. You’ll receive a confirmation and prep guide by email. We look forward to meeting you!</p>
+                <p className="text-gray-700 text-center max-w-md">Your sprint planning call is booked. You'll receive a confirmation and prep guide by email. We look forward to meeting you!</p>
               </div>
             )}
-
           </div>
 
           {/* Footer */}
-          {currentStep < 4 && (
+          {currentStep < 4 && currentStep !== 99 && currentStep !== 100 && (
             <div className="p-6 bg-gray-50 border-t flex justify-between items-center">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <Zap size={16} className="text-yellow-500" />
@@ -524,6 +574,7 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                     type="button"
                     onClick={prevStep}
                     className="flex items-center gap-2 px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
+                    disabled={isLoading}
                   >
                     <ArrowLeft size={16} />
                     Back
@@ -532,7 +583,7 @@ export default function StartSprintDialog({ packName, packPricing, packKey, pack
                 <button
                   type="button"
                   onClick={nextStep}
-                  disabled={!isStepValid(currentStep)}
+                  disabled={!isStepValid(currentStep) || isLoading}
                   className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                 >
                   {currentStep === 3 ? 'Start Sprint Challenge' : 'Next'}

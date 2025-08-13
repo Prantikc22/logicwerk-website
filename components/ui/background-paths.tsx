@@ -1,5 +1,6 @@
 "use client"
 
+import React, { useMemo, useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 function FloatingPaths({ position }: { position: number }) {
@@ -14,9 +15,21 @@ function FloatingPaths({ position }: { position: number }) {
     width: 0.5 + i * 0.02,
   }))
 
+  // Hydration-safe: deterministic SSR, random only after mount
+  const deterministicDurations = useMemo(() => Array.from({ length: 36 }, () => 30), []);
+  const [durations, setDurations] = useState<number[]>(deterministicDurations);
+  useEffect(() => {
+    setDurations(Array.from({ length: 36 }, () => 25 + Math.random() * 15));
+  }, []);
+
   return (
     <div className="absolute inset-0 pointer-events-none">
-      <svg className="w-full h-full text-cyan-400" viewBox="0 0 696 316" fill="none">
+      <svg
+        viewBox="0 0 800 600"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-full"
+      >
         <title>Background Paths</title>
         {paths.map((path) => (
           <motion.path
@@ -31,8 +44,9 @@ function FloatingPaths({ position }: { position: number }) {
               opacity: [0.3, 0.6, 0.3],
               pathOffset: [0, 1, 0],
             }}
+            // Hydration-safe: deterministic SSR, random only after mount
             transition={{
-              duration: 25 + Math.random() * 15,
+              duration: durations[path.id] || 30,
               repeat: Number.POSITIVE_INFINITY,
               ease: "linear",
               delay: path.id * 0.1,

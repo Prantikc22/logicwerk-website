@@ -8,33 +8,38 @@ import * as React from 'react';
 // Geometric Grid Paths
 function GeometricPaths() {
   const gridSize = 40;
-  // Memoize the random paths so they are stable after first render (CSR only)
-  const paths = React.useMemo(() => {
+  // Hydration-safe: deterministic on SSR, random only after mount
+  const deterministicPaths = React.useMemo(() => {
     const tempPaths: {id: string, d: string, delay: number}[] = [];
     for (let x = 0; x < 20; x++) {
       for (let y = 0; y < 12; y++) {
-        // Use a deterministic fallback for SSR (show a simple grid)
-        if (typeof window === 'undefined') {
-          if ((x + y) % 5 === 0) {
-            tempPaths.push({
-              id: `grid-${x}-${y}`,
-              d: `M${x * gridSize},${y * gridSize} L${(x + 1) * gridSize},${y * gridSize} L${(x + 1) * gridSize},${(y + 1) * gridSize} L${x * gridSize},${(y + 1) * gridSize} Z`,
-              delay: 0,
-            });
-          }
-        } else {
-          // Client: use random
-          if (Math.random() > 0.7) {
-            tempPaths.push({
-              id: `grid-${x}-${y}`,
-              d: `M${x * gridSize},${y * gridSize} L${(x + 1) * gridSize},${y * gridSize} L${(x + 1) * gridSize},${(y + 1) * gridSize} L${x * gridSize},${(y + 1) * gridSize} Z`,
-              delay: Math.random() * 5,
-            });
-          }
+        if ((x + y) % 5 === 0) {
+          tempPaths.push({
+            id: `grid-${x}-${y}`,
+            d: `M${x * gridSize},${y * gridSize} L${(x + 1) * gridSize},${y * gridSize} L${(x + 1) * gridSize},${(y + 1) * gridSize} L${x * gridSize},${(y + 1) * gridSize} Z`,
+            delay: 0,
+          });
         }
       }
     }
     return tempPaths;
+  }, []);
+
+  const [paths, setPaths] = React.useState(deterministicPaths);
+  React.useEffect(() => {
+    const tempPaths: {id: string, d: string, delay: number}[] = [];
+    for (let x = 0; x < 20; x++) {
+      for (let y = 0; y < 12; y++) {
+        if (Math.random() > 0.7) {
+          tempPaths.push({
+            id: `grid-${x}-${y}`,
+            d: `M${x * gridSize},${y * gridSize} L${(x + 1) * gridSize},${y * gridSize} L${(x + 1) * gridSize},${(y + 1) * gridSize} L${x * gridSize},${(y + 1) * gridSize} Z`,
+            delay: Math.random() * 5,
+          });
+        }
+      }
+    }
+    if (tempPaths.length > 0) setPaths(tempPaths);
   }, []);
 
   return (
@@ -109,28 +114,54 @@ function FlowPaths() {
 
 // Neural Network Paths
 function NeuralPaths() {
-  const nodes = Array.from({ length: 50 }, (_, i) => ({
-    x: Math.random() * 800,
-    y: Math.random() * 600,
-    id: `node-${i}`
-  }))
-
-  const connections: {id: string, d: string, delay: number}[] = [];
-  nodes.forEach((node, i) => {
-    const nearbyNodes = nodes.filter((other, j) => {
-      if (i === j) return false
-      const distance = Math.sqrt(Math.pow(node.x - other.x, 2) + Math.pow(node.y - other.y, 2))
-      return distance < 120 && Math.random() > 0.6
-    })
-    
-    nearbyNodes.forEach(target => {
-      connections.push({
-        id: `conn-${i}-${target.id}`,
-        d: `M${node.x},${node.y} L${target.x},${target.y}`,
-        delay: Math.random() * 10
-      })
-    })
-  })
+  // Memoize nodes and connections for hydration safety
+  const { nodes, connections } = React.useMemo(() => {
+    // SSR fallback: deterministic circle layout
+    if (typeof window === 'undefined') {
+      const N = 20;
+      const nodes = Array.from({ length: N }, (_, i) => {
+        const angle = (2 * Math.PI * i) / N;
+        return {
+          x: 400 + 250 * Math.cos(angle),
+          y: 300 + 250 * Math.sin(angle),
+          id: `node-${i}`,
+        };
+      });
+      const connections: { id: string; d: string; delay: number }[] = [];
+      for (let i = 0; i < N; i++) {
+        const next = (i + 1) % N;
+        connections.push({
+          id: `conn-${i}-${next}`,
+          d: `M${nodes[i].x},${nodes[i].y} L${nodes[next].x},${nodes[next].y}`,
+          delay: 0,
+        });
+      }
+      return { nodes, connections };
+    } else {
+      // Client: random layout
+      const nodes = Array.from({ length: 50 }, (_, i) => ({
+        x: Math.random() * 800,
+        y: Math.random() * 600,
+        id: `node-${i}`,
+      }));
+      const connections: { id: string; d: string; delay: number }[] = [];
+      nodes.forEach((node, i) => {
+        const nearbyNodes = nodes.filter((other, j) => {
+          if (i === j) return false;
+          const distance = Math.sqrt(Math.pow(node.x - other.x, 2) + Math.pow(node.y - other.y, 2));
+          return distance < 120 && Math.random() > 0.6;
+        });
+        nearbyNodes.forEach(target => {
+          connections.push({
+            id: `conn-${i}-${target.id}`,
+            d: `M${node.x},${node.y} L${target.x},${target.y}`,
+            delay: Math.random() * 10,
+          });
+        });
+      });
+      return { nodes, connections };
+    }
+  }, []);
 
   return (
     <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 800 600">
@@ -142,15 +173,16 @@ function NeuralPaths() {
           strokeWidth="1"
           fill="none"
           initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ 
+          animate={{
             pathLength: [0, 1, 0],
-            opacity: [0, 0.8, 0]
+            opacity: [0, 0.7, 0],
+            scale: [1, 1.05, 1],
           }}
           transition={{
-            duration: 6,
+            duration: 8,
             delay: conn.delay,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
       ))}
@@ -179,27 +211,51 @@ function NeuralPaths() {
 
 // Spiral Paths
 function SpiralPaths() {
-  const spirals = Array.from({ length: 8 }, (_, i) => {
-    const centerX = 400 + (i % 4 - 1.5) * 200
-    const centerY = 300 + Math.floor(i / 4 - 0.5) * 200
-    const radius = 80 + i * 15
-    const turns = 3 + i * 0.5
-    
-    let path = `M${centerX + radius},${centerY}`
-    for (let angle = 0; angle <= turns * 360; angle += 5) {
-      const radian = (angle * Math.PI) / 180
-      const currentRadius = radius * (1 - angle / (turns * 360))
-      const x = centerX + currentRadius * Math.cos(radian)
-      const y = centerY + currentRadius * Math.sin(radian)
-      path += ` L${x},${y}`
+  const spirals = React.useMemo(() => {
+    // SSR: deterministic, CSR: allow randomness if needed
+    if (typeof window === 'undefined') {
+      return Array.from({ length: 8 }, (_, i) => {
+        const centerX = 400 + (i % 4 - 1.5) * 200;
+        const centerY = 300 + Math.floor(i / 4 - 0.5) * 200;
+        const radius = 80 + i * 15;
+        const turns = 3 + i * 0.5;
+        let path = `M${centerX + radius},${centerY}`;
+        for (let angle = 0; angle <= turns * 360; angle += 5) {
+          const radian = (angle * Math.PI) / 180;
+          const currentRadius = radius * (1 - angle / (turns * 360));
+          const x = centerX + currentRadius * Math.cos(radian);
+          const y = centerY + currentRadius * Math.sin(radian);
+          path += ` L${x},${y}`;
+        }
+        return {
+          id: `spiral-${i}`,
+          d: path,
+          delay: i * 1.2,
+        };
+      });
+    } else {
+      // Client: could randomize delay, but keep deterministic for hydration
+      return Array.from({ length: 8 }, (_, i) => {
+        const centerX = 400 + (i % 4 - 1.5) * 200;
+        const centerY = 300 + Math.floor(i / 4 - 0.5) * 200;
+        const radius = 80 + i * 15;
+        const turns = 3 + i * 0.5;
+        let path = `M${centerX + radius},${centerY}`;
+        for (let angle = 0; angle <= turns * 360; angle += 5) {
+          const radian = (angle * Math.PI) / 180;
+          const currentRadius = radius * (1 - angle / (turns * 360));
+          const x = centerX + currentRadius * Math.cos(radian);
+          const y = centerY + currentRadius * Math.sin(radian);
+          path += ` L${x},${y}`;
+        }
+        return {
+          id: `spiral-${i}`,
+          d: path,
+          delay: i * 1.2,
+        };
+      });
     }
-    
-    return {
-      id: `spiral-${i}`,
-      d: path,
-      delay: i * 1.2
-    }
-  })
+  }, []);
 
   return (
     <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 800 600">
@@ -216,12 +272,12 @@ function SpiralPaths() {
           transition={{
             pathLength: { duration: 12, repeat: Infinity, ease: "easeInOut" },
             rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            delay: spiral.delay
+            delay: spiral.delay,
           }}
         />
       ))}
     </svg>
-  )
+  );
 }
 
 export default function EnhancedBackgroundPaths({

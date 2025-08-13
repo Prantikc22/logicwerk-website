@@ -72,15 +72,17 @@ export function ModernDeliverySection() {
   }, [accordionItems.length])
 
   // Live counter effect
+  // Hydration-safe: deterministic SSR, random only after mount
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const interval = setInterval(() => {
       setProjectCount((prev) => {
-        const change = Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0
-        return Math.max(45, Math.min(60, prev + change))
-      })
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
+        const change = Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0;
+        return Math.max(45, Math.min(60, prev + change));
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="py-20 bg-gradient-to-br from-slate-50 to-gray-100">
