@@ -4,22 +4,38 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 
+import * as React from 'react';
 // Geometric Grid Paths
 function GeometricPaths() {
-  const gridSize = 40
-  const paths = []
-  
-  for (let x = 0; x < 20; x++) {
-    for (let y = 0; y < 12; y++) {
-      if (Math.random() > 0.7) {
-        paths.push({
-          id: `grid-${x}-${y}`,
-          d: `M${x * gridSize},${y * gridSize} L${(x + 1) * gridSize},${y * gridSize} L${(x + 1) * gridSize},${(y + 1) * gridSize} L${x * gridSize},${(y + 1) * gridSize} Z`,
-          delay: Math.random() * 5,
-        })
+  const gridSize = 40;
+  // Memoize the random paths so they are stable after first render (CSR only)
+  const paths = React.useMemo(() => {
+    const tempPaths: {id: string, d: string, delay: number}[] = [];
+    for (let x = 0; x < 20; x++) {
+      for (let y = 0; y < 12; y++) {
+        // Use a deterministic fallback for SSR (show a simple grid)
+        if (typeof window === 'undefined') {
+          if ((x + y) % 5 === 0) {
+            tempPaths.push({
+              id: `grid-${x}-${y}`,
+              d: `M${x * gridSize},${y * gridSize} L${(x + 1) * gridSize},${y * gridSize} L${(x + 1) * gridSize},${(y + 1) * gridSize} L${x * gridSize},${(y + 1) * gridSize} Z`,
+              delay: 0,
+            });
+          }
+        } else {
+          // Client: use random
+          if (Math.random() > 0.7) {
+            tempPaths.push({
+              id: `grid-${x}-${y}`,
+              d: `M${x * gridSize},${y * gridSize} L${(x + 1) * gridSize},${y * gridSize} L${(x + 1) * gridSize},${(y + 1) * gridSize} L${x * gridSize},${(y + 1) * gridSize} Z`,
+              delay: Math.random() * 5,
+            });
+          }
+        }
       }
     }
-  }
+    return tempPaths;
+  }, []);
 
   return (
     <svg className="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 800 480">
@@ -45,12 +61,12 @@ function GeometricPaths() {
         />
       ))}
     </svg>
-  )
+  );
 }
 
 // Organic Flow Paths
 function FlowPaths() {
-  const flowPaths = Array.from({ length: 12 }, (_, i) => {
+  const flowPaths: {id: string, d: string, strokeWidth: number, opacity: number, delay: number}[] = Array.from({ length: 12 }, (_, i) => {
     const amplitude = 50 + i * 10
     const frequency = 0.01 + i * 0.002
     const offset = i * 60
@@ -99,7 +115,7 @@ function NeuralPaths() {
     id: `node-${i}`
   }))
 
-  const connections = []
+  const connections: {id: string, d: string, delay: number}[] = [];
   nodes.forEach((node, i) => {
     const nearbyNodes = nodes.filter((other, j) => {
       if (i === j) return false
