@@ -1,3 +1,4 @@
+"use client";
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
@@ -6,72 +7,84 @@ import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 
 const industries = [
   {
+    key: "banking-finance",
     name: "Banking & Finance",
     description: "Digital transformation for financial institutions and fintech",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=center",
     stats: "300+ Banks",
   },
   {
+    key: "manufacturing",
     name: "Manufacturing",
     description: "Industry 4.0 and smart factory automation solutions",
     image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&h=600&fit=crop&crop=center",
     stats: "200+ Plants",
   },
   {
+    key: "energy-utilities",
     name: "Energy & Utilities",
     description: "Smart grid and renewable energy optimization",
     image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&h=600&fit=crop&crop=center",
     stats: "50+ Plants",
   },
   {
+    key: "healthcare",
     name: "Healthcare",
     description: "AI-powered healthcare solutions and patient care",
     image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop&crop=center",
     stats: "150+ Hospitals",
   },
   {
+    key: "aviation-travel",
     name: "Travel & Hospitality",
     description: "Customer experience and booking optimization",
     image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&h=600&fit=crop&crop=center",
     stats: "100+ Hotels",
   },
   {
+    key: "healthcare-life-sciences",
     name: "Life Sciences",
     description: "Research automation and drug discovery solutions",
     image: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=600&fit=crop&crop=center",
     stats: "75+ Labs",
   },
   {
+    key: "consumer-goods",
     name: "Consumer Goods",
     description: "FMCG supply chain and retail optimization solutions",
     image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=600&fit=crop&crop=center",
     stats: "250+ Brands",
   },
   {
+    key: "insurance",
     name: "Insurance",
     description: "Claims processing and risk assessment automation",
     image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&crop=center",
     stats: "120+ Insurers",
   },
   {
+    key: "entertainment-media",
     name: "Entertainment & Media",
     description: "Content management and audience analytics",
     image: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=800&h=600&fit=crop&crop=center",
     stats: "80+ Studios",
   },
   {
+    key: "retail-ecommerce",
     name: "Retail & E-commerce",
     description: "Customer experience and inventory optimization",
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop&crop=center",
     stats: "500+ Stores",
   },
   {
+    key: "government-public-sector",
     name: "Public Sector",
     description: "Government services and citizen engagement",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&crop=center",
     stats: "50+ Agencies",
   },
   {
+    key: "education",
     name: "Education",
     description: "Learning management and student analytics",
     image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?w=800&h=600&fit=crop&crop=center",
@@ -79,9 +92,18 @@ const industries = [
   },
 ]
 
+import IndustryDialog from "@/components/ui/industry-dialog";
+import { useState } from "react";
+
 export function IndustriesServed() {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const handleCardClick = (industryName: string) => {
+    setSelectedIndustry(industryName);
+    setDialogOpen(true);
+  }
   return (
-    <section className="py-16 bg-gray-950">
+    <section id="industries" className="py-16 bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-mona font-bold text-white mb-4">
@@ -99,6 +121,7 @@ export function IndustriesServed() {
             <Card
               key={index}
               className="group relative overflow-hidden bg-gray-900 border-gray-800 hover:border-cyan-400/50 transition-all duration-500 cursor-pointer h-64"
+              onClick={() => handleCardClick(industry.key)}
             >
               {/* Background Image */}
               <div
@@ -133,6 +156,11 @@ export function IndustriesServed() {
         </div>
 
       </div>
+      <IndustryDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        industryKey={selectedIndustry}
+      />
     </section>
   )
 }

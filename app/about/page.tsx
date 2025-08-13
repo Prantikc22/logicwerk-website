@@ -8,6 +8,7 @@ import { Users, Globe, Shield, Zap, Target, Award } from "lucide-react"
 import Footer4Col from "@/components/ui/footer-column";
 import { ModernDeliverySection } from "@/components/modern-delivery-section";
 import EnhancedBackgroundPaths from "@/components/ui/modern-background-paths";
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 
 const values = [
   {
@@ -192,19 +193,25 @@ export default function AboutPage() {
 
       {/* CTA Section (from homepage) */}
       <EnhancedBackgroundPaths
-        title="Ready for IT That Actually Delivers?"
-        subheading="Skip the delays, budget overruns, and endless meetings. Start shipping in weekly sprints."
-        primaryAction={
-          <Button className="bg-[#2563eb] text-white px-8 py-3 rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[48px] text-lg font-semibold">
-            Start Sprint
-          </Button>
-        }
-        secondaryAction={
-          <Button variant="outline" className="border border-white/80 text-white px-8 py-3 rounded-none min-w-[140px] min-h-[48px] text-lg font-semibold hover:bg-white hover:text-[#2563eb] transition-all duration-300">
-            Explore Our Packs
-          </Button>
-        }
-      />
+                    title="Ready for IT That Actually Delivers?"
+                    subheading="Skip the delays, budget overruns, and endless meetings. Start shipping in weekly sprints."
+                    primaryAction={
+              <StartSprintDialog
+                allowPackSelection={true}
+                triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-lg font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[44px] flex items-center justify-center"
+              />
+            }
+            secondaryAction={
+              <a
+                href="https://cal.com/logicwerk/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-lg font-semibold rounded-none min-w-[140px] min-h-[44px] flex items-center justify-center transition-all duration-300 bg-transparent"
+              >
+                Schedule A Discussion Call
+              </a>
+            }
+                  />
     </div>
   )
 }

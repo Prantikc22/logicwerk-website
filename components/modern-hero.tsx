@@ -5,6 +5,8 @@ import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play } from "lucide-react"
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
+
 
 interface ModernHeroProps {
   badge: string
@@ -14,10 +16,11 @@ interface ModernHeroProps {
   stats?: Array<{
     number: string
     label: string
-  }>
+  }>;
+  backgroundImage?: string;
 }
 
-export function ModernHero({ badge, title, subtitle, description, stats }: ModernHeroProps) {
+export function ModernHero({ badge, title, subtitle, description, stats, backgroundImage }: ModernHeroProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -43,6 +46,15 @@ export function ModernHero({ badge, title, subtitle, description, stats }: Moder
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-black">
+      {/* Optional background image */}
+      {backgroundImage && (
+        <img
+          src={backgroundImage}
+          alt="Background"
+          className="absolute inset-0 w-full h-full object-cover opacity-40 z-0"
+          aria-hidden="true"
+        />
+      )}
       {/* Animated background elements */}
       <div className="absolute inset-0">
         {/* Dynamic gradient that follows mouse */}

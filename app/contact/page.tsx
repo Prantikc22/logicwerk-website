@@ -12,41 +12,28 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Phone, Mail, Clock, ArrowRight, CheckCircle } from "lucide-react"
+import StartSprintDialog from "@/components/ui/start-sprint-dialog";
+import EnhancedBackgroundPaths from "@/components/ui/modern-background-paths";
 
 const offices = [
   {
-    city: "New York",
-    address: "123 Broadway, Suite 456, New York, NY 10001",
-    phone: "+1 (555) 123-4567",
-    email: "newyork@logicwerk.com",
-    timezone: "EST",
-  },
-  {
     city: "London",
     address: "45 Canary Wharf, London E14 5AB, United Kingdom",
-    phone: "+44 20 7123 4567",
-    email: "london@logicwerk.com",
     timezone: "GMT",
   },
   {
     city: "Bangalore",
     address: "91 Springboard, Koramangala, Bangalore 560034, India",
-    phone: "+91 80 1234 5678",
-    email: "bangalore@logicwerk.com",
     timezone: "IST",
   },
   {
     city: "Kolkata",
     address: "Salt Lake Sector V, Kolkata 700091, India",
-    phone: "+91 33 1234 5678",
-    email: "kolkata@logicwerk.com",
     timezone: "IST",
   },
   {
     city: "Frankfurt",
     address: "Bockenheimer Landstraße 17-19, 60325 Frankfurt am Main, Germany",
-    phone: "+49 69 123456",
-    email: "frankfurt@logicwerk.com",
     timezone: "CET",
   },
 ]
@@ -174,264 +161,78 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <ContactCTA />
+      
 
       {/* Contact Form and Info */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
-            <div>
-              <h2 className="text-3xl font-bold text-white mb-8">Send us a message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">First Name *</label>
-                    <Input
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-gray-900 border-gray-700 text-white focus:border-cyan-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Last Name *</label>
-                    <Input
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-gray-900 border-gray-700 text-white focus:border-cyan-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Email *</label>
-                    <Input
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-gray-900 border-gray-700 text-white focus:border-cyan-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Company</label>
-                    <Input
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="bg-gray-900 border-gray-700 text-white focus:border-cyan-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Phone</label>
-                    <Input
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="bg-gray-900 border-gray-700 text-white focus:border-cyan-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Subject *</label>
-                    <select
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-sm text-white focus:border-cyan-500 focus:outline-none"
-                    >
-                      <option value="">Select a subject</option>
-                      <option value="general">General Inquiry</option>
-                      <option value="services">Services & Solutions</option>
-                      <option value="partnership">Partnership Opportunities</option>
-                      <option value="support">Technical Support</option>
-                      <option value="careers">Career Opportunities</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Project Budget</label>
-                    <select
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-sm text-white focus:border-cyan-500 focus:outline-none"
-                    >
-                      <option value="">Select budget range</option>
-                      <option value="under-50k">Under $50K</option>
-                      <option value="50k-100k">$50K - $100K</option>
-                      <option value="100k-250k">$100K - $250K</option>
-                      <option value="250k-500k">$250K - $500K</option>
-                      <option value="500k-1m">$500K - $1M</option>
-                      <option value="over-1m">Over $1M</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Timeline</label>
-                    <select
-                      name="timeline"
-                      value={formData.timeline}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-sm text-white focus:border-cyan-500 focus:outline-none"
-                    >
-                      <option value="">Select timeline</option>
-                      <option value="asap">ASAP</option>
-                      <option value="1-3-months">1-3 months</option>
-                      <option value="3-6-months">3-6 months</option>
-                      <option value="6-12-months">6-12 months</option>
-                      <option value="over-12-months">Over 12 months</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Message *</label>
-                  <Textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    placeholder="Tell us about your project, goals, and how we can help..."
-                    className="bg-gray-900 border-gray-700 text-white focus:border-cyan-500 min-h-[120px]"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white py-3 rounded-sm"
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </form>
-            </div>
-
-            {/* Contact Information */}
-            <div>
-              <h2 className="text-3xl font-bold text-white mb-8">Get in touch</h2>
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">Ready to start your project?</h3>
-                  <p className="text-gray-400 mb-6">
-                    We're here to help you transform your business with cutting-edge technology solutions. Our team of
-                    experts is ready to discuss your project and provide tailored recommendations.
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center">
-                      <Mail className="w-5 h-5 text-cyan-400 mr-3" />
-                      <span className="text-gray-300">hello@logicwerk.com</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Phone className="w-5 h-5 text-cyan-400 mr-3" />
-                      <span className="text-gray-300">+1 (555) 123-4567</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="w-5 h-5 text-cyan-400 mr-3" />
-                      <span className="text-gray-300">24/7 Support Available</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold text-white mb-4">What happens next?</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                        <span className="text-white text-sm font-bold">1</span>
-                      </div>
-                      <div>
-                        <h4 className="text-white font-medium">We'll respond within 24 hours</h4>
-                        <p className="text-gray-400 text-sm">
-                          Our team will review your inquiry and get back to you promptly.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                        <span className="text-white text-sm font-bold">2</span>
-                      </div>
-                      <div>
-                        <h4 className="text-white font-medium">Discovery call scheduled</h4>
-                        <p className="text-gray-400 text-sm">
-                          We'll arrange a call to understand your needs and objectives.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                        <span className="text-white text-sm font-bold">3</span>
-                      </div>
-                      <div>
-                        <h4 className="text-white font-medium">Proposal delivered</h4>
-                        <p className="text-gray-400 text-sm">
-                          Receive a detailed proposal tailored to your requirements.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+      <section className="py-24 bg-gradient-to-br from-black via-gray-950 to-blue-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          {/* Section heading and subheading */}
+          <div className="mb-14 text-center">
+            <h2 className="text-4xl md:text-5xl font-mona font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-400 to-white bg-clip-text text-transparent mb-3">Get in touch</h2>
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto">We're here to help you transform your business with cutting-edge technology solutions. Our team of experts is ready to discuss your project and provide tailored recommendations.</p>
+          </div>
+          {/* Split cards */}
+          <div className="flex flex-col md:flex-row gap-10 md:gap-12 items-stretch justify-center">
+            {/* Left: Contact Info Card */}
+            <div className="flex-1 min-w-[320px] rounded-3xl shadow-2xl border border-blue-900/30 bg-white/10 backdrop-blur-lg p-10 flex flex-col justify-between">
+              <div>
+                <h3 className="text-2xl font-semibold text-white mb-4">Ready to start your project?</h3>
+                <div className="flex flex-row flex-wrap items-center justify-start gap-x-6 gap-y-4 mb-6">
+                  <a href="mailto:hello@logicwerk.com" className="flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 hover:bg-cyan-600/20 border border-cyan-400 text-cyan-100 font-semibold shadow transition-all whitespace-nowrap">
+                    <Mail className="w-5 h-5 text-cyan-300" /> hello@logicwerk.com
+                  </a>
+                  <a href="tel:+918208990366" className="flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 hover:bg-cyan-600/20 border border-cyan-400 text-cyan-100 font-semibold shadow transition-all whitespace-nowrap">
+                    <Phone className="w-5 h-5 text-cyan-300" /> +91 820 899 0366
+                  </a>
+                  <span className="flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 border border-cyan-400 text-cyan-100 font-semibold shadow whitespace-nowrap">
+                    <Clock className="w-5 h-5 text-cyan-300" /> 24/7 Support
+                  </span>
                 </div>
               </div>
+              <div className="mt-8">
+                <h4 className="text-xl font-semibold text-white mb-6">What happens next?</h4>
+                <ul className="flex flex-col gap-7">
+                  <li className="flex items-start gap-4">
+                    <span className="flex items-center justify-center w-9 h-9 rounded-full bg-cyan-500 text-white font-bold text-lg">1</span>
+                    <div>
+                      <h5 className="text-white font-bold text-base md:text-lg mb-1">We'll respond within 24 hours</h5>
+                      <p className="text-gray-300 text-base">Our team will review your inquiry and get back to you promptly.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="flex items-center justify-center w-9 h-9 rounded-full bg-cyan-500 text-white font-bold text-lg">2</span>
+                    <div>
+                      <h5 className="text-white font-bold text-base md:text-lg mb-1">Discovery call scheduled</h5>
+                      <p className="text-gray-300 text-base">We'll arrange a call to understand your needs and objectives.</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <span className="flex items-center justify-center w-9 h-9 rounded-full bg-cyan-500 text-white font-bold text-lg">3</span>
+                    <div>
+                      <h5 className="text-white font-bold text-base md:text-lg mb-1">Proposal delivered</h5>
+                      <p className="text-gray-300 text-base">Receive a detailed proposal tailored to your requirements.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {/* Right: Office Locations Card */}
+            <div className="flex-1 min-w-[320px] rounded-3xl shadow-2xl border border-blue-900/30 bg-white/10 backdrop-blur-lg p-10 flex flex-col">
+              <h3 className="text-2xl font-semibold text-white mb-6">Our Offices</h3>
+              <ul className="space-y-6">
+                {offices.map((office) => (
+                  <li key={office.city} className="bg-white/5 rounded-xl p-5 border border-cyan-900/20 flex flex-col gap-1">
+                    <span className="text-lg font-bold text-cyan-300">{office.city}</span>
+                    <span className="text-gray-200 text-base">{office.address}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Office Locations */}
-      <section className="py-20 bg-gray-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Our Global Offices</h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              With offices around the world, we're always close to our clients and ready to support your business needs.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {offices.map((office, index) => (
-              <Card
-                key={index}
-                className="bg-gray-900/50 border-gray-800 hover:border-cyan-500/50 transition-all duration-300"
-              >
-                <CardHeader>
-                  <CardTitle className="text-xl text-white flex items-center">
-                    <MapPin className="w-5 h-5 text-cyan-400 mr-2" />
-                    {office.city}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-gray-400 text-sm">{office.address}</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center text-sm">
-                      <Phone className="w-4 h-4 text-cyan-400 mr-2" />
-                      <span className="text-gray-300">{office.phone}</span>
-                    </div>
-                    <div className="flex items-center text-sm">
-                      <Mail className="w-4 h-4 text-cyan-400 mr-2" />
-                      <span className="text-gray-300">{office.email}</span>
-                    </div>
-                    <div className="flex items-center text-sm">
-                      <Clock className="w-4 h-4 text-cyan-400 mr-2" />
-                      <span className="text-gray-300">{office.timezone}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       
     </div>

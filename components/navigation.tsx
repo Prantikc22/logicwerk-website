@@ -234,17 +234,24 @@ export function Navigation() {
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {industriesMenu.industries.map((industry, index) => (
-                          <Link
-                            key={index}
-                            href={industry.href}
-                            className="group flex items-center justify-between text-gray-300 hover:text-white py-3 px-4 rounded-sm hover:bg-gray-800/50 border border-gray-700/30 hover:border-cyan-500/50 transition-all duration-300"
+                           <button
+                             key={index}
+                             type="button"
+                             className="group flex w-full items-center justify-between text-gray-300 hover:text-white py-3 px-4 rounded-sm hover:bg-gray-800/50 border border-gray-700/30 hover:border-cyan-500/50 transition-all duration-300"
+                             onClick={() => {
+                               const section = document.getElementById('industries');
+                               if (section) {
+                                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                               }
+                               setActiveDropdown(null);
+                             }}
                           >
                             <div>
                               <div className="font-medium">{industry.name}</div>
                               <div className="text-sm text-cyan-400">{industry.count}</div>
                             </div>
                             <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300" />
-                          </Link>
+                          </button>
                         ))}
                       </div>
                     </div>
