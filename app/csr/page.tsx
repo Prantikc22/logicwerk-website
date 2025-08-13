@@ -1,5 +1,6 @@
+"use client";
 import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { ContactCTA } from "@/components/contact-cta"
 import { Leaf, Users, Building, Shield, Heart, Recycle, GraduationCap, Globe, CheckCircle } from "lucide-react"
