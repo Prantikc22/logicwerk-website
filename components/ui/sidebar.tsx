@@ -650,10 +650,12 @@ const SidebarMenuSkeleton = React.forwardRef<
     showIcon?: boolean
   }
 >(({ className, showIcon = false, ...props }, ref) => {
-  // Random width between 50 to 90%.
-  const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
-  }, [])
+  // Hydration-safe: deterministic width SSR, random after hydration
+  const [width, setWidth] = React.useState('70%'); // 70% as deterministic fallback
+
+  React.useEffect(() => {
+    setWidth(`${Math.floor(Math.random() * 40) + 50}%`);
+  }, []);
 
   return (
     <div
@@ -678,8 +680,8 @@ const SidebarMenuSkeleton = React.forwardRef<
         }
       />
     </div>
-  )
-})
+  );
+});
 SidebarMenuSkeleton.displayName = "SidebarMenuSkeleton"
 
 const SidebarMenuSub = React.forwardRef<

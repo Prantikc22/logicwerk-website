@@ -12,10 +12,10 @@ type FeatureCardPorps = React.ComponentProps<'div'> & {
 };
 
 export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) {
-	// Hydration-safe: always deterministic on SSR, random only after mount
-	// Hydration-safe: deterministic SSR, random only after mount
 	const deterministicPattern = React.useMemo(() => Array.from({ length: 5 }, (_, i) => [7 + i, 1 + i]), []);
 	const [pattern, setPattern] = React.useState<number[][]>(deterministicPattern);
+
+
 	React.useEffect(() => {
 		setPattern(genRandomPattern());
 	}, []);

@@ -359,7 +359,7 @@ export default function EnhancedBackgroundPaths({
         >
           {/* Main Title */}
           <div className="mb-8">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-4 tracking-tighter leading-none font-['Mona_Sans'] text-white">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold mb-4 tracking-tighter leading-none font-mona text-white">
   Ready for IT That <span className="text-[#4FC3F7] font-normal">Actually Delivers?</span>
 </h1>
             {/* Subtitle */}
@@ -367,7 +367,7 @@ export default function EnhancedBackgroundPaths({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 1 }}
-              className="text-xl md:text-2xl text-slate-200 font-light tracking-wide max-w-2xl mx-auto font-['Mona_Sans']"
+              className="text-xl md:text-2xl text-slate-200 font-light tracking-wide max-w-2xl mx-auto font-mona"
             >
               {subheading}
             </motion.p>
