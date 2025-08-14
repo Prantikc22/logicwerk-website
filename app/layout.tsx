@@ -1,3 +1,4 @@
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -25,9 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
-        <div suppressHydrationWarning>
-          <Navigation />
-        </div>
+      <GoogleAnalytics />
+      <div suppressHydrationWarning>
+        <Navigation />
+      </div>
         <main className="pt-20" suppressHydrationWarning>
           {children}
         </main>

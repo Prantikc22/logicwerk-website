@@ -80,6 +80,7 @@ export default function FourPillarsLogoBar() {
                       className="object-contain"
                       style={{ width: logo.size, height: 'auto' }}
                       onError={() => isGDPR ? handleImgError(i) : undefined}
+                      loading="lazy"
                     />
                   )}
                 </div>
@@ -113,6 +114,7 @@ export default function FourPillarsLogoBar() {
                     className="object-contain"
                     style={{ width: logo.size, height: 'auto' }}
                     onError={() => isGDPR ? handleImgError(i) : undefined}
+                    loading="lazy"
                   />
                 )}
               </div>

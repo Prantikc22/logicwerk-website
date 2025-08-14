@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import Image from 'next/image';
 import { cn } from "@/lib/utils";
 
 interface LumeoProductDialogProps {
@@ -32,9 +33,9 @@ export function LumeoProductDialog({ title, description, features, accentColor =
         {/* Product logo and label for dialog header */}
         <div className="flex items-center gap-2 py-2 overflow-hidden w-full mb-2">
           {title === 'Lumeo Cloud' ? (
-            <img src="/logos/LumeoCloud.png" alt="Lumeo Cloud Logo" className="w-14 h-14 object-contain flex-shrink-0" />
+            <Image src="/logos/LumeoCloud.png" alt="Lumeo Cloud Logo" width={56} height={56} className="w-14 h-14 object-contain flex-shrink-0" loading="lazy" />
           ) : (
-            <img src="/logos/lumeo-suite-logo_darkbg.png" alt={title + ' Logo'} className="w-14 h-14 object-contain flex-shrink-0" />
+            <Image src="/logos/lumeo-suite-logo_darkbg.png" alt={title + ' Logo'} width={56} height={56} className="w-14 h-14 object-contain flex-shrink-0" loading="lazy" />
           )}
           <span className="font-garet text-xl text-white whitespace-nowrap overflow-hidden text-ellipsis tracking-tighter">
             <span className="font-normal">Lumeo </span><span className="font-bold">{title.replace('Lumeo ', '')}</span>

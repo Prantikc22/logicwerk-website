@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Server, 
@@ -82,7 +83,7 @@ function ProductLogo({ product }: { product: Product }) {
   }
   return (
     <div className="flex items-center gap-2 py-2 overflow-hidden w-full">
-  <img src={logoSrc} alt={productLabel + ' Logo'} className="w-16 h-16 object-contain flex-shrink-0" />
+  <Image src={logoSrc} alt={productLabel + ' Logo'} width={64} height={64} className="w-16 h-16 object-contain flex-shrink-0" loading="lazy" />
   <span className="font-garet text-xl text-white whitespace-nowrap overflow-hidden text-ellipsis tracking-tighter">
   <span className="font-normal">Lumeo </span><span className="font-bold">{productLabel.replace('Lumeo ', '')}</span>
 </span>
@@ -116,7 +117,7 @@ const products: Product[] = [
     name: "Lumeo Suites",
     description: "Complete business management solution combining ERP, CRM, and Work Management in one powerful platform.",
     icon: (props: { className?: string }) => (
-      <img src="/logos/lumeo-suite-logo_darkbg.png" alt="Lumeo Suites Logo" className={props.className || "w-12 h-12"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <Image src="/logos/lumeo-suite-logo_darkbg.png" alt="Lumeo Suites Logo" width={48} height={48} className={props.className || "w-12 h-12"} loading="lazy" />
     ),
     features: [
       "Integrated ERP System",
@@ -140,7 +141,7 @@ const products: Product[] = [
     name: "Lumeo Procure",
     description: "Modern procurement and billing platform for streamlined purchasing, vendor management, and automated invoicing.",
     icon: (props: { className?: string }) => (
-      <img src="/logos/lumeo-suite-logo_darkbg.png" alt="Lumeo Procure Logo" className={props.className || "w-12 h-12"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <Image src="/logos/lumeo-suite-logo_darkbg.png" alt="Lumeo Procure Logo" width={48} height={48} className={props.className || "w-12 h-12"} loading="lazy" />
     ),
     features: [
       "Smart Invoice Generation",
@@ -164,7 +165,7 @@ const products: Product[] = [
     name: "Lumeo Cloud",
     description: "Cloud hosting and storage platform with blazing fast VPS and secure object storage.",
     icon: (props: { className?: string }) => (
-      <img src="/logos/LumeoCloud.png" alt="Lumeo Cloud Logo" className={props.className || "w-16 h-16"} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+      <Image src="/logos/LumeoCloud.png" alt="Lumeo Cloud Logo" width={64} height={64} className={props.className || "w-16 h-16"} loading="lazy" />
     ),
     features: [
       "Unlimited Cloud Storage",
@@ -339,7 +340,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       {/* Header */}
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-  <img src={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? '/logos/LumeoCloud.png' : '/logos/lumeo-suite-logo_darkbg.png'} alt={product.name + ' Logo'} className={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? 'w-16 h-16 object-contain flex-shrink-0' : 'w-12 h-12 object-contain flex-shrink-0'} />
+  <Image src={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? '/logos/LumeoCloud.png' : '/logos/lumeo-suite-logo_darkbg.png'} alt={product.name + ' Logo'} width={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? 64 : 48} height={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? 64 : 48} className={product.name === 'Logicwerk Cloud & Storage' || product.name === 'Lumeo Cloud' ? 'w-16 h-16 object-contain flex-shrink-0' : 'w-12 h-12 object-contain flex-shrink-0'} loading="lazy" />
   <span className="font-garet text-2xl text-white whitespace-nowrap tracking-tighter">
   <span className="font-normal">Lumeo </span><span className="font-bold">{product.name === 'Logicwerk Cloud & Storage' ? 'Cloud' : product.name === 'Lumeo Suites' ? 'Suite' : product.name.replace('Lumeo ', '')}</span>
 </span>
@@ -453,13 +454,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 </Button>
         )}
         <LumeoProductDialog
-          title={product.name === 'Logicwerk Cloud & Storage' ? 'Lumeo Cloud' : product.name}
-          description={product.description}
-          features={product.features}
-          accentColor={product.category === 'suite' ? '#2563eb' : product.category === 'invoicing' ? '#06b6d4' : '#4FC3F7'}
-          triggerLabel="View Details"
-          triggerClassName="flex-1 bg-transparent border-white text-white hover:bg-[#232b39] hover:text-[#4FC3F7] transition-colors duration-200 rounded-md font-bold py-3 px-6 text-lg border-2 size-lg"
-        />
+  title={product.name === 'Logicwerk Cloud & Storage' ? 'Lumeo Cloud' : product.name}
+  description={product.description}
+  features={product.features}
+  accentColor={product.category === 'suite' ? '#2563eb' : product.category === 'invoicing' ? '#06b6d4' : '#4FC3F7'}
+  triggerLabel="View Details"
+  triggerClassName="flex-1 bg-transparent border-white text-white hover:bg-[#232b39] hover:text-[#4FC3F7] transition-colors duration-200 rounded-md font-bold py-3 px-6 text-lg border-2 size-lg"
+/>
       </div>
     </motion.div>
   );

@@ -191,7 +191,11 @@ export default function CaseStudiesSection() {
                   <div className="absolute left-0 top-0 h-full w-1.5 bg-[#2563eb]" />
                   {/* Pack and Client/Industry */}
                   <div className="mb-3 w-full flex flex-col pl-3">
-                    <span className="font-semibold text-[#2563eb] text-[15px] leading-tight">{result.pack?.title ?? ''}</span>
+                    {result.pack ? (
+  <span className="font-semibold text-[#2563eb] text-[15px] leading-tight">{result.pack.title}</span>
+) : (
+  <span className="font-semibold text-red-600 text-[15px] leading-tight bg-red-100 p-1 rounded">MISSING PACK DATA</span>
+) }
                     <span className="text-gray-500 text-xs">{result.clientType}</span>
                   </div>
                   {/* Before */}

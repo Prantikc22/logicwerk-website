@@ -90,12 +90,15 @@ export function Hero() {
               <div className="pointer-events-none absolute right-0 top-0 h-full w-24 z-10 bg-gradient-to-l from-transparent via-black/60 to-transparent" />
               <div className="flex items-center animate-scroll-seamless" style={{ width: 'max-content' }}>
                 {trustedLogos.concat(trustedLogos).map((logo, idx) => (
-                  <img
+                  <Image
                     key={logo.name + idx}
                     src={logo.src}
                     alt={logo.name}
+                    width={210}
+                    height={80}
                     className="h-16 md:h-20 w-auto mx-6 opacity-90 hover:opacity-100 transition-all duration-300"
                     style={{ maxWidth: 210 }}
+                    loading="lazy"
                   />
                 ))}
               </div>
