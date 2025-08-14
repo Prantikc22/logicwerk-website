@@ -10,13 +10,14 @@ import Footer4Col from "@/components/ui/footer-column";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Logicwerk - AI-Powered Enterprise Solutions",
+  title: "Logicwerk | AI-Powered Software Delivery For Modern Businesses.",
   description:
-    "Transform your business with LeadIQ, Procufy, and Logicwerk EIP. Comprehensive AI solutions for lead generation, procurement automation, and intelligent workflows.",
+    "Disrupt legacy IT services with Logicwerk's 9 specialized packs — from AI Agents and Cloud to Data, QA, and Industry 4.0 solutions. Delivering software and innovation at sprint speed.",
   keywords:
-    "AI, enterprise software, lead generation, procurement automation, workflow automation, artificial intelligence",
+    "software development, AI software delivery, AI agents, enterprise software, web development, mobile app development, embedded systems design, cloud transformation, data analytics, machine learning, LLM training, quality assurance, application performance monitoring, IT infrastructure management, enterprise application integration, business process outsourcing, Industry 4.0, IoT development, CAD/CAM modeling, blockchain development, workflow automation, AI-powered solutions",
   generator: "v0.dev",
 };
+
 
 export default function RootLayout({
   children,
