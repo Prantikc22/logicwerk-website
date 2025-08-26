@@ -105,7 +105,7 @@ export function ModernDeliverySection() {
           <div className="relative flex justify-center">
             <div className="relative w-full max-w-lg">
               <Image
-                src="/agentzonequality.png"
+                src="/AgentZoneUpscaled.webp"
                 alt="AI Agent Zone"
                 width={500}
                 height={500}
