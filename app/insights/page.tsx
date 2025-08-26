@@ -2,6 +2,7 @@
 
 import Footer4Col from "@/components/ui/footer-column"
 import Link from "next/link"
+import Image from "next/image"
 
 import { posts } from "./posts"
 
@@ -21,7 +22,17 @@ export default function InsightsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map(post => (
               <Link key={post.slug} href={`/insights/${post.slug}`} className="bg-gray-900 rounded-xl shadow-lg hover:shadow-blue-700/30 transition-shadow border border-gray-800 flex flex-col overflow-hidden group">
-                {post.image && <img src={post.image} alt={post.title} className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300" />}
+                {post.image && (
+  <Image
+    src={post.image}
+    alt={post.title}
+    width={400}
+    height={192}
+    className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+    sizes="(max-width: 768px) 100vw, 33vw"
+    priority={false}
+  />
+)}
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">{post.title}</h3>
                   <p className="text-gray-400 mb-4 flex-1">{post.summary.length > 180 ? post.summary.slice(0, 180) + '…' : post.summary}</p>
@@ -36,7 +47,17 @@ export default function InsightsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {caseStudies.map(post => (
               <Link key={post.slug} href={`/insights/${post.slug}`} className="bg-gray-900 rounded-xl shadow-lg hover:shadow-blue-700/30 transition-shadow border border-gray-800 flex flex-col overflow-hidden group">
-                {post.image && <img src={post.image} alt={post.title} className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300" />}
+                {post.image && (
+  <Image
+    src={post.image}
+    alt={post.title}
+    width={400}
+    height={192}
+    className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+    sizes="(max-width: 768px) 100vw, 33vw"
+    priority={false}
+  />
+)}
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">{post.title}</h3>
                   <p className="text-gray-400 mb-4 flex-1">{post.summary.length > 180 ? post.summary.slice(0, 180) + '…' : post.summary}</p>

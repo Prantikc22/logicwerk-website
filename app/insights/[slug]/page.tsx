@@ -1,6 +1,7 @@
 "use client"
 
 import { notFound } from "next/navigation"
+import Image from "next/image"
 import { posts } from "../posts"
 import Footer4Col from "@/components/ui/footer-column"
 import Link from "next/link"
@@ -16,7 +17,15 @@ export default function InsightPostPage({ params }: { params: { slug: string } }
         {/* Hero Image */}
         {post.image && (
           <div className="w-full aspect-[2.6/1] rounded-2xl overflow-hidden shadow-lg border border-gray-800 mb-10">
-            <img src={post.image} alt={post.title} className="w-full h-full object-cover"/>
+            <Image
+  src={post.image}
+  alt={post.title}
+  width={832}
+  height={320}
+  className="w-full h-full object-cover"
+  sizes="100vw"
+  priority={true}
+/>
           </div>
         )}
         {/* Metadata */}

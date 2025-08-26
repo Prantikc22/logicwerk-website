@@ -1,4 +1,5 @@
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import Head from "next/head";
 import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -18,26 +19,31 @@ export const metadata: Metadata = {
   generator: "v0.dev",
 };
 
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
-      <GoogleAnalytics />
-      <div suppressHydrationWarning>
-        <Navigation />
-      </div>
-        <main className="pt-20" suppressHydrationWarning>
-          {children}
-        </main>
-        <div suppressHydrationWarning>
-          <Footer4Col />
-        </div>
-      </body>
-    </html>
+    <>
+      <Head>
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link rel="preload" as="style" href="https://api.fontshare.com/v2/css?f[]=mona-sans@400,500,600,700,800&display=swap" />
+      </Head>
+      <html lang="en" suppressHydrationWarning>
+        <body className={inter.className} suppressHydrationWarning>
+          <GoogleAnalytics />
+          <div suppressHydrationWarning>
+            <Navigation />
+          </div>
+          <main className="pt-20" suppressHydrationWarning>
+            {children}
+          </main>
+          <div suppressHydrationWarning>
+            <Footer4Col />
+          </div>
+        </body>
+      </html>
+    </>
   );
 }
