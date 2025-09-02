@@ -177,6 +177,16 @@ export default function Footer4Col() {
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <a
+                    className="text-gray-200 transition hover:text-blue-400"
+                    href="https://dlm.logicwerk.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Logicwerk DLM
+                  </a>
+                </li>
               </ul>
             </div>
             

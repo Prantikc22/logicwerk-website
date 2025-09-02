@@ -70,6 +70,7 @@ const companyMenu = {
     { name: "About Logicwerk", href: "/about", description: "Our story, values, and mission" },
     { name: "CSR & Sustainability", href: "/csr", description: "Our commitment to people and planet" },
     { name: "Insights", href: "/insights", description: "Industry insights and thought leadership" },
+    { name: "Logicwerk DLM", href: "https://dlm.logicwerk.com", description: "Our manufacturing arm for digital factories", external: true },
   ],
 }
 
@@ -329,22 +330,42 @@ export function Navigation() {
                       </div>
                       <div className="space-y-4">
                         {companyMenu.items.map((item, index) => (
-                          <Link
-                            key={index}
-                            href={item.href}
-                            className="group block p-4 rounded-sm bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300"
-                          >
-                            <div className="flex items-center justify-between mb-2">
-                              <h4 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
-                                {item.name}
-                              </h4>
-                              <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all duration-300" />
-                            </div>
-                            <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">
-                              {item.description}
-                            </p>
-                          </Link>
-                        ))}
+  item.external ? (
+    <a
+      key={index}
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block p-4 rounded-sm bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300"
+    >
+      <div className="flex items-center justify-between mb-2">
+        <h4 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
+          {item.name}
+        </h4>
+        <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all duration-300" />
+      </div>
+      <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">
+        {item.description}
+      </p>
+    </a>
+  ) : (
+    <Link
+      key={index}
+      href={item.href}
+      className="group block p-4 rounded-sm bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-cyan-500/50 transition-all duration-300"
+    >
+      <div className="flex items-center justify-between mb-2">
+        <h4 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
+          {item.name}
+        </h4>
+        <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transform group-hover:translate-x-1 transition-all duration-300" />
+      </div>
+      <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">
+        {item.description}
+      </p>
+    </Link>
+  )
+))}
                       </div>
                     </div>
                   </div>

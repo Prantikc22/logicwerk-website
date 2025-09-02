@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero"
+import { DlmRibbon } from "@/components/ui/dlm-ribbon"
 import { ModernDeliverySection } from "@/components/modern-delivery-section"
 import { ServicesOverview } from "@/components/services-overview"
 import { WhyChooseUs } from "@/components/why-choose-us"
@@ -26,6 +27,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <DlmRibbon />
       <ModernDeliverySection />
       <PackSection />
       <FeatureStepsDemo />
