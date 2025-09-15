@@ -30,9 +30,13 @@ export default function StartSprintDialog({
   triggerButtonClassName 
 }: StartSprintDialogProps) {
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedPackKey, setSelectedPackKey] = useState<string>(packKey || (packs.length > 0 ? packs[0].key : ''));
+  // Determine if we should ask user to choose a pack first (tile grid)
+  const needsPackSelection = allowPackSelection && !packKey;
+  const [selectedPackKey, setSelectedPackKey] = useState<string>(
+    needsPackSelection ? '' : packKey || (packs.length > 0 ? packs[0].key : '')
+  );
   const [isOpen, setIsOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(needsPackSelection ? 0 : 1);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     projectType: '',
@@ -57,7 +61,7 @@ export default function StartSprintDialog({
 
   // Safely get selected pack
   const selectedPack = isMounted && packs.length > 0 
-    ? packs.find(p => p.key === selectedPackKey) || packs[0] 
+    ? (packs.find(p => p.key === selectedPackKey) || (needsPackSelection ? { key: '', title: 'Select a Pack', services: [] } : packs[0]))
     : { key: '', title: 'Loading...', services: [] };
 
   const updateFormData = (field: string, value: string) => {
@@ -65,10 +69,14 @@ export default function StartSprintDialog({
   };
 
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 4));
-  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
+  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, needsPackSelection ? 0 : 1));
 
   const resetForm = () => {
-    setCurrentStep(1);
+    // When pack isn't preselected, always restart at tile selection
+    setCurrentStep(needsPackSelection ? 0 : 1);
+    if (needsPackSelection) {
+      setSelectedPackKey('');
+    }
     setFormData({
       projectType: '', 
       currentStatus: '', 
@@ -146,6 +154,7 @@ export default function StartSprintDialog({
 
   const isStepValid = (step: number) => {
     switch(step) {
+      case 0: return !!selectedPackKey; // Pack selection step
       case 1: return formData.projectType && formData.currentStatus;
       case 2: return formData.urgency && formData.budget;
       case 3: return formData.name && formData.email && formData.company && formData.role && formData.phone;
@@ -159,6 +168,9 @@ export default function StartSprintDialog({
   ];
 
   // Show static button during hydration
+  // Slim progress width (0-100) for 4 steps
+  const progressWidth = Math.min(100, Math.max(0, ((currentStep - 1) / 3) * 100));
+
   if (!isMounted) {
     return (
       <button 
@@ -185,7 +197,7 @@ export default function StartSprintDialog({
       {isOpen && (
         <DialogContent className="max-w-2xl w-full sm:max-h-[calc(100vh-40px)] max-h-[calc(100dvh-24px)] flex flex-col overflow-visible rounded-2xl p-0 shadow-2xl">
           {/* Pack Selection Dropdown (Step 1 only) */}
-          {allowPackSelection && currentStep === 1 && packs.length > 0 && (
+          {!needsPackSelection && allowPackSelection && currentStep === 1 && packs.length > 0 && (
             <div className="px-6 pt-6">
               <label htmlFor="pack-select" className="block text-sm font-medium text-gray-700 mb-1">Choose a Pack:</label>
               <select
@@ -208,16 +220,19 @@ export default function StartSprintDialog({
           )}
           
           <DialogTitle asChild>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 relative text-2xl font-bold flex items-center gap-3">
-              <Zap size={28} className="inline-block mr-2 text-yellow-300" />
-              Start Your {selectedPack.title} Sprint Challenge
-              <button 
-                onClick={() => handleDialogClose(false)}
-                className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors"
-                aria-label="Close"
-              >
-                <X size={24} />
-              </button>
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 text-xl font-bold flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-2">
+                <Zap size={22} className="inline-block text-yellow-300" />
+                <span>Start Your {selectedPack.title} Sprint Challenge</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 text-[11px]">
+                <span className="inline-flex items-center gap-1 bg-white/15 border border-white/30 rounded px-2 py-0.5">
+                  <CheckCircle size={12} className="text-green-300" /> Pack: {selectedPack.title}
+                </span>
+                <span className="inline-flex items-center gap-1 bg-white/15 border border-white/30 rounded px-2 py-0.5">
+                  <CheckCircle size={12} className="text-green-300" /> 50% Off • 7-Day Guarantee
+                </span>
+              </div>
             </div>
           </DialogTitle>
           
@@ -225,51 +240,46 @@ export default function StartSprintDialog({
             <span className="sr-only">Multi-step form to start your {selectedPack.title} sprint. Complete project, urgency, contact, and schedule steps to submit.</span>
           </DialogDescription>
           
-          <div className="flex gap-4 bg-gray-50 px-6 py-2 border-b border-gray-200">
-            <div className="flex items-center gap-2">
-              <CheckCircle size={16} className="text-green-300" />
-              <span>Pack: {selectedPack.title} Selected</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle size={16} className="text-green-300" />
-              <span>First Sprint: 50% Off</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle size={16} className="text-green-300" />
-              <span>7-Day Guarantee</span>
-            </div>
-          </div>
+          {/* Info strip moved into header to save space */}
 
-          {/* Progress Bar */}
-          <div className="px-6 py-4 bg-gray-50">
-            <div className="flex items-center justify-between">
-              {[1, 2, 3, 4].map((step) => (
-                <div key={step} className="flex items-center">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                    currentStep >= step 
-                      ? 'bg-blue-600 text-white' 
-                      : 'bg-gray-200 text-gray-500'
-                  }`}>
-                    {step}
-                  </div>
-                  {step < 4 && (
-                    <div className={`w-16 h-1 mx-2 ${
-                      currentStep > step ? 'bg-blue-600' : 'bg-gray-200'
-                    }`} />
-                  )}
-                </div>
-              ))}
+          {/* Slim Progress Indicator */}
+          <div className="px-4 pt-1 pb-2 bg-gray-50">
+            <div className="h-1.5 w-full bg-gray-200 rounded">
+              <div
+                className="h-full bg-blue-600 rounded"
+                style={{ width: `${progressWidth}%` }}
+              />
             </div>
-            <div className="flex justify-between text-xs mt-2 text-gray-600">
+            <div className="hidden sm:flex justify-between text-[10px] mt-1 text-gray-600">
               <span>Project</span>
-              <span>Urgency</span>
+              <span>Details</span>
               <span>Contact</span>
               <span>Schedule</span>
             </div>
           </div>
 
           {/* Form Content */}
-          <div className="p-6 flex-1 min-h-0 overflow-y-auto">
+          <div className="p-4 flex-1 min-h-0 overflow-y-auto">
+            {/* Step 0: Pack selection tiles (only when a pack isn't preselected) */}
+            {currentStep === 0 && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-gray-900">Choose a Pack to Begin</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {packs.map(p => (
+                    <button
+                      key={p.key}
+                      type="button"
+                      onClick={() => { setSelectedPackKey(p.key); setCurrentStep(1); }}
+                      className={`text-left border rounded-lg p-4 hover:border-blue-500 transition-colors ${selectedPackKey === p.key ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}
+                    >
+                      <div className="font-medium text-gray-900">{p.title}</div>
+                      <div className="text-sm text-gray-600 mt-1 line-clamp-2">{p.summary}</div>
+                      <div className="text-xs text-gray-500 mt-2">{p.pricing}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             {/* Step 1: Project Details */}
             {currentStep === 1 && (
               <div className="space-y-6">
@@ -563,9 +573,9 @@ export default function StartSprintDialog({
 
           {/* Footer */}
           {currentStep < 4 && currentStep !== 99 && currentStep !== 100 && (
-            <div className="p-6 bg-gray-50 border-t flex justify-between items-center">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Zap size={16} className="text-yellow-500" />
+            <div className="px-4 py-3 bg-gray-50 border-t flex justify-between items-center">
+              <div className="flex items-center gap-1.5 text-sm text-gray-600">
+                <Zap size={14} className="text-yellow-500" />
                 <span>Emergency projects: 24-hour response guarantee</span>
               </div>
               <div className="flex gap-3">
@@ -573,10 +583,10 @@ export default function StartSprintDialog({
                   <button
                     type="button"
                     onClick={prevStep}
-                    className="flex items-center gap-2 px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="flex items-center gap-2 px-3 py-1.5 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors text-sm"
                     disabled={isLoading}
                   >
-                    <ArrowLeft size={16} />
+                    <ArrowLeft size={14} />
                     Back
                   </button>
                 )}
@@ -584,10 +594,10 @@ export default function StartSprintDialog({
                   type="button"
                   onClick={nextStep}
                   disabled={!isStepValid(currentStep) || isLoading}
-                  className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                  className="flex items-center gap-2 px-5 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors text-sm"
                 >
                   {currentStep === 3 ? 'Start Sprint Challenge' : 'Next'}
-                  <ArrowRight size={16} />
+                  <ArrowRight size={14} />
                 </button>
               </div>
             </div>

@@ -7,6 +7,7 @@ import "../styles/globals.css";
 import "../styles/mona-sans.css";
 import { Navigation } from "@/components/navigation";
 import Footer4Col from "@/components/ui/footer-column";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,8 @@ export default function RootLayout({
       </Head>
       <html lang="en" suppressHydrationWarning>
         <body className={inter.className} suppressHydrationWarning>
+          {/* GoodFirms widget script loaded globally as recommended */}
+          <Script src="https://assets.goodfirms.co/assets/js/widget.min.js" strategy="afterInteractive" />
           <GoogleAnalytics />
           <div suppressHydrationWarning>
             <Navigation />

@@ -53,27 +53,30 @@ export function Hero() {
 </p>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-<StartSprintDialog 
-  allowPackSelection={true} 
-  triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[40px] flex items-center justify-center"
-/>
-<Button
-  variant="outline"
-  className="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-base font-semibold rounded-none min-w-[140px] min-h-[40px] flex items-center justify-center transition-all duration-300 bg-transparent"
->
-  Explore Our Packs
-</Button>
+          {/* CTA Buttons and Discovery Link */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-row gap-4 justify-center">
+              <StartSprintDialog 
+                allowPackSelection={true} 
+                triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[40px] flex items-center justify-center"
+              />
+              <Button
+                asChild
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-base font-semibold rounded-none min-w-[140px] min-h-[40px] flex items-center justify-center transition-all duration-300 bg-transparent"
+              >
+                <Link href="#packs">Explore Our Packs</Link>
+              </Button>
+            </div>
             <a
-               href="https://cal.com/logicwerk/30min"
-               target="_blank"
-               rel="noopener noreferrer"
-               className="text-gray-300 hover:text-cyan-400 underline underline-offset-4 transition-colors duration-300 flex items-center gap-2"
-             >
-               <Phone className="w-4 h-4" />
-               Get on a discovery call
-             </a>
+              href="https://cal.com/logicwerk/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-cyan-400 underline underline-offset-4 transition-colors duration-300 flex items-center gap-2 mt-1"
+            >
+              <Phone className="w-4 h-4" />
+              Get on a discovery call
+            </a>
           </div>
         </div>
       </div>

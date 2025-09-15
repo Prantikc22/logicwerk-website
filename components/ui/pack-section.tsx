@@ -6,7 +6,7 @@ import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 
 export default function PackSection() {
   return (
-    <section className="bg-black">
+    <section id="packs" className="bg-black">
       <div className="mx-auto max-w-7xl px-4 py-16">
         <div className="text-center mb-12">
           <h2 className="font-mona text-3xl md:text-4xl lg:text-5xl font-bold text-white">
