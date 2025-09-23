@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone } from "lucide-react"
 import Link from "next/link"
 import StartSprintDialog from "@/components/ui/start-sprint-dialog";
+import CalculatorDialog from "@/components/ui/calculator-dialog"
+
 
 export function Hero() {
   const trustedLogos = [
@@ -58,25 +60,18 @@ export function Hero() {
             <div className="flex flex-row gap-4 justify-center">
               <StartSprintDialog 
                 allowPackSelection={true} 
-                triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[40px] flex items-center justify-center"
+                triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[170px] min-h-[44px] flex items-center justify-center"
               />
-              <Button
-                asChild
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-base font-semibold rounded-none min-w-[140px] min-h-[40px] flex items-center justify-center transition-all duration-300 bg-transparent"
-              >
-                <Link href="#packs">Explore Our Packs</Link>
-              </Button>
+              <CalculatorDialog
+                triggerLabel="Calculate Your Savings"
+                triggerClassName="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-base font-semibold rounded-none min-w-[170px] min-h-[44px] flex items-center justify-center transition-all duration-300 bg-transparent"
+              />
             </div>
-            <a
-              href="https://cal.com/logicwerk/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-cyan-400 underline underline-offset-4 transition-colors duration-300 flex items-center gap-2 mt-1"
-            >
-              <Phone className="w-4 h-4" />
-              Get on a discovery call
-            </a>
+
+            {/* Underlined link below */}
+            <Link href="#packs" className="text-gray-300 hover:text-cyan-400 underline underline-offset-4 transition-colors duration-300 mt-1">
+              Explore Our Packs
+            </Link>
           </div>
         </div>
       </div>
