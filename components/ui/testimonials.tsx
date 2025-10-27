@@ -17,10 +17,10 @@ const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "Our previous development agency burned through $85,000 over eight months and delivered essentially nothing. We were desperate. Logicwerk's weekly sprint model sounded too good to be true, but we took a chance. They delivered our first working payment integration in week one. By week six, our entire platform was live at $18,000 total cost. The transparency was incredible - Friday demos meant our team could test features immediately instead of waiting for some mythical 'milestone 3' months away. For startups that can't afford six-figure budgets and six-month timelines, Logicwerk is a lifesaver.",
-    name: "David Chen",
+    name: "Ravi Agarwal",
     title: "Founder & CEO",
     company: "PayFlow Analytics",
-    location: "Austin, TX",
+    location: "Bengaluru, IN",
     avatar: "/testimonials/PA.webp",
     logo: "/testimonials/PA.webp",
     fallback: "DC",
@@ -28,7 +28,7 @@ const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "Partnering with Logicwerk let us iterate on campaign tooling at the speed of sport. Their weekly sprint rhythm and crisp demos kept our stakeholders aligned while the craft stayed top-tier.",
-    name: "John Doe",
+    name: "Lee Ramsey",
     title: "Design Lead",
     company: "Nike",
     location: "Beaverton, OR",
@@ -39,7 +39,7 @@ const TESTIMONIALS: Testimonial[] = [
   {
     quote:
       "In a regulated environment, clarity and velocity are rare together. Logicwerk shipped our internal platform upgrades in tight, auditable sprints—on time and without surprises.",
-    name: "Jane Patel",
+    name: "June Patel",
     title: "VP, Digital Platforms",
     company: "Pfizer",
     location: "New York, NY",
