@@ -16,7 +16,7 @@ export default function Navbar() {
           <Link href="/about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</Link>
           <Link href="/contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</Link>
           <a
-            href="https://dlm.logicwerk.com"
+            href="https://logicwerkdlm.com"
             className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
             target="_blank"
             rel="noopener noreferrer"

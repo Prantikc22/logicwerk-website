@@ -28,11 +28,11 @@ export function Hero() {
     <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
       {/* Hero Background Image */}
       <div className="absolute inset-0 z-0">
-        <Image src="/MainHeroBg.webp" alt="Main Hero Background" fill className="object-cover" priority />
+        <Image src="/Hero.webp" alt="Main Hero Background" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex-1 flex flex-col justify-center">
+      <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10 text-left flex-1 flex flex-col justify-center">
         <div className="space-y-4">
           {/* Main headline */}
           <div className="space-y-4">
@@ -42,7 +42,7 @@ export function Hero() {
 </h1>
 
             {/* Smooth Animated Line */}
-            <div className="flex justify-center my-8">
+            <div className="flex justify-start my-8">
               <div className="relative w-64 h-1 bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent rounded-full overflow-hidden">
                 {/* Continuous shiny animation that loops seamlessly */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent animate-shine-continuous"></div>
@@ -50,14 +50,14 @@ export function Hero() {
             </div>
 
             {/* Subheading */}
-            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-4xl mx-auto font-light font-mona">
-  AI + Humans ship enterprise grade software <span className="text-cyan-400 font-semibold">20x faster</span> cutting <span className="text-cyan-400 font-semibold">60% cost</span> - with weekly sprints, not bloated contracts.
-</p>
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-4xl font-light font-mona">
+              AI + Humans ship enterprise grade software <span className="text-cyan-400 font-semibold">20x faster</span> cutting <span className="text-cyan-400 font-semibold">60% cost</span> - with weekly sprints, not bloated contracts.
+            </p>
           </div>
 
           {/* CTA Buttons and Discovery Link */}
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex flex-row gap-4 justify-center">
+          <div className="flex flex-col items-start gap-3">
+            <div className="flex flex-row gap-4 justify-start">
               <StartSprintDialog 
                 allowPackSelection={true} 
                 triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[170px] min-h-[44px] flex items-center justify-center"
@@ -78,14 +78,10 @@ export function Hero() {
 
       {/* Trusted By Section with Logos */}
       <div className="relative z-10 pb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-8 w-full mt-6">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-start gap-8 w-full mt-6">
             <span className="text-gray-300 text-lg font-light whitespace-nowrap flex-shrink-0 pr-4">Trusted by</span>
             <div className="relative flex-1 overflow-x-hidden">
-              {/* Left fade */}
-              <div className="pointer-events-none absolute left-0 top-0 h-full w-24 z-10 bg-gradient-to-r from-transparent via-black/60 to-transparent" />
-              {/* Right fade */}
-              <div className="pointer-events-none absolute right-0 top-0 h-full w-24 z-10 bg-gradient-to-l from-transparent via-black/60 to-transparent" />
               <div className="flex items-center animate-scroll-seamless" style={{ width: 'max-content' }}>
                 {trustedLogos.concat(trustedLogos).map((logo, idx) => (
                   <Image

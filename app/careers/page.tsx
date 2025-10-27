@@ -62,7 +62,7 @@ const openPositions = [
   {
     title: "Senior Full Stack Developer",
     department: "Engineering",
-    location: "Remote / New York",
+    location: "Bangalore",
     type: "Full-time",
     experience: "5+ years",
     description:
@@ -71,7 +71,7 @@ const openPositions = [
   {
     title: "AI/ML Engineer",
     department: "Data Science",
-    location: "Remote / San Francisco",
+    location: "Bangalore",
     type: "Full-time",
     experience: "3+ years",
     description:
@@ -80,7 +80,7 @@ const openPositions = [
   {
     title: "Cloud Solutions Architect",
     department: "Cloud Services",
-    location: "Remote / London",
+    location: "Bangalore",
     type: "Full-time",
     experience: "7+ years",
     description: "Design and implement scalable cloud architectures for enterprise clients using AWS, Azure, and GCP.",
@@ -88,7 +88,7 @@ const openPositions = [
   {
     title: "Product Manager",
     department: "Product",
-    location: "Remote / Toronto",
+    location: "Bangalore",
     type: "Full-time",
     experience: "4+ years",
     description: "Lead product strategy and development for our flagship products: LeadIQ, Procufy, and Logicwerk EIP.",
@@ -96,7 +96,7 @@ const openPositions = [
   {
     title: "UX/UI Designer",
     department: "Design",
-    location: "Remote / Berlin",
+    location: "Bangalore",
     type: "Full-time",
     experience: "3+ years",
     description: "Create intuitive, user-centered designs for web and mobile applications across our product suite.",
@@ -104,7 +104,7 @@ const openPositions = [
   {
     title: "DevOps Engineer",
     department: "Infrastructure",
-    location: "Remote / Sydney",
+    location: "Bangalore",
     type: "Full-time",
     experience: "4+ years",
     description: "Build and maintain CI/CD pipelines, container orchestration, and cloud infrastructure automation.",
@@ -368,11 +368,11 @@ export default function CareersPage() {
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=80"
-            alt="Team working together"
-            className="w-full h-full object-cover opacity-20"
+            src="/career.webp"
+            alt="Careers at Logicwerk"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-cyan-500/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -8,26 +8,15 @@ import { Button } from "@/components/ui/button"
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react"
 
 const productsMenu = {
-  title: "Lumeo Products",
-  description: "Enterprise-grade AI software for growth, procurement, and cloud.",
+  title: "Products",
+  description: "Explore our flagship manufacturing platform.",
   products: [
     {
-      name: "Lumeo Suite",
-      href: "/products/lumeo-suite",
-      description: "Complete business management suite: ERP, CRM, and work management in one platform.",
-      tag: "Business Suite",
-    },
-    {
-      name: "Lumeo Procure",
-      href: "/products/lumeo-procure",
-      description: "Modern procurement and billing for streamlined purchasing and vendor management.",
-      tag: "Procurement",
-    },
-    {
-      name: "Lumeo Cloud",
-      href: "/products/lumeo-cloud",
-      description: "Cloud hosting and storage platform with blazing fast VPS and secure object storage.",
-      tag: "Cloud & Storage",
+      name: "Logicwerk DLM",
+      href: "https://logicwerkdlm.com",
+      description: "Agentic Digital Lifecycle Manufacturing — plan to product in weeks.",
+      tag: "DLM",
+      external: true,
     },
   ],
 }
@@ -70,7 +59,7 @@ const companyMenu = {
     { name: "About Logicwerk", href: "/about", description: "Our story, values, and mission" },
     { name: "CSR & Sustainability", href: "/csr", description: "Our commitment to people and planet" },
     { name: "Insights", href: "/insights", description: "Industry insights and thought leadership" },
-    { name: "Logicwerk DLM", href: "https://dlm.logicwerk.com", description: "Our manufacturing arm for digital factories", external: true },
+    { name: "Logicwerk DLM", href: "https://logicwerkdlm.com", description: "Our manufacturing arm for digital factories", external: true },
   ],
 }
 
@@ -130,7 +119,7 @@ export function Navigation() {
     return (
       <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800 z-50">
         <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20 max-w-7xl mx-auto">
+          <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center">
               <Image src="/logo.png" alt="Logicwerk Logo" width={250} height={250} className="w-60 h-60" />
             </Link>
@@ -156,7 +145,7 @@ export function Navigation() {
   return (
     <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800 z-50">
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20 max-w-7xl mx-auto">
+        <div className="flex justify-between items-center h-20">
           {/* Logo - Increased by 5x */}
           <Link href="/" className="flex items-center">
             <Image src="/logo.png" alt="Logicwerk Logo" width={250} height={250} className="w-60 h-60" />

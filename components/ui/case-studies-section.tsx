@@ -143,8 +143,8 @@ export default function CaseStudiesSection() {
               className="relative p-8 flex flex-col gap-6 !rounded-none border shadow-xl bg-white/30 border-white/30 backdrop-blur-lg hover:shadow-2xl transition-shadow duration-200 overflow-hidden"
               style={{ boxShadow: '0 6px 32px 0 #2563eb22' }}
             >
-              {/* Accent blue edge */}
-              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-[#2563eb] to-transparent opacity-80 z-10" />
+              {/* Accent blue to black edge */}
+              <div className="absolute left-0 top-0 h-full w-2 bg-gradient-to-b from-[#2563eb] to-black opacity-80 z-10" />
               <div className="mb-2">
                 <h3 className="text-2xl font-bold mb-1 text-primary/90">{cs.title}</h3>
                 <div className="text-sm text-muted-foreground mb-1 font-semibold">{cs.client}</div>

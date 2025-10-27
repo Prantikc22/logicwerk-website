@@ -32,7 +32,7 @@ export default function DemoOne() {
 		<section className="py-0">
 			<div className="mx-auto w-full max-w-5xl space-y-8 px-4">
 				<AnimatedContainer className="mx-auto max-w-3xl text-center">
-					<h2 className="font-mona text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl">
+					<h2 className="font-mona text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl text-black">
   Built on <span className="text-[#2563eb] font-light">Four Foundational Pillars</span>
 </h2>
           <p className="text-muted-foreground mt-4 text-base tracking-wide text-balance flex items-center justify-center gap-2">

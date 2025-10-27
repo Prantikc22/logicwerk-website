@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/button"
 import { ClientLogos } from "@/components/client-logos"
 import { ContactCTA } from "@/components/contact-cta"
 import { Users, Globe, Shield, Zap, Target, Award } from "lucide-react"
+import ThoughtLeaders from "@/components/ui/thought-leaders"
 import Footer4Col from "@/components/ui/footer-column";
 import { ModernDeliverySection } from "@/components/modern-delivery-section";
 import EnhancedBackgroundPaths from "@/components/ui/modern-background-paths";
 import StartSprintDialog from "@/components/ui/start-sprint-dialog";
+import { AnimatedFeatureSpotlight } from "@/components/ui/feature-spotlight"
+import { Eye } from "lucide-react"
 
 const values = [
   {
@@ -83,11 +86,11 @@ export default function AboutPage() {
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80"
-            alt="Team collaboration"
-            className="w-full h-full object-cover opacity-20"
+            src="/about.webp"
+            alt="About Logicwerk"
+            className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-cyan-500/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,92 +129,133 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Values Section - single row, no gaps */}
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Our Values</h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+        <div className="max-w-7xl mx-auto px-0 sm:px-0 lg:px-0">
+          <div className="px-4 sm:px-6 lg:px-8 mb-10 text-left">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">Our Values</h2>
+            <p className="text-lg md:text-xl text-gray-400 max-w-3xl">
               The principles that guide everything we do and define who we are as Logicwerkers.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => {
-              const IconComponent = value.icon
-              return (
-                <div
-                  key={index}
-                  className="bg-gray-900/50 border border-gray-800 rounded-sm p-8 hover:border-cyan-500/50 transition-all duration-300 group"
-                >
+          <div className="overflow-x-auto">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-0 min-w-full">
+              {values.map((value, index) => {
+                const IconComponent = value.icon
+                return (
                   <div
-                    className={`w-16 h-16 bg-gradient-to-r ${value.color} rounded-sm flex items-center justify-center mb-6 opacity-80 group-hover:opacity-100 transition-opacity`}
+                    key={index}
+                    className="bg-gray-900/70 border border-gray-800 rounded-none p-8 min-h-[260px] flex flex-col justify-start hover:bg-gray-900/80 transition-colors"
                   >
-                    <IconComponent className="w-8 h-8 text-white" />
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-r ${value.color} rounded-sm flex items-center justify-center mb-6`}
+                    >
+                      <IconComponent className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-semibold text-white mb-3">{value.title}</h3>
+                    <p className="text-gray-400 text-sm md:text-base leading-relaxed">{value.description}</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors">
-                    {value.title}
-                  </h3>
-                  <p className="text-gray-400 leading-relaxed">{value.description}</p>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-20 bg-gray-900/30">
+      {/* Mission · Vision — two centered animated circles with hover details */}
+      <section className="py-24 bg-gray-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-sm p-8">
-              <Target className="w-12 h-12 text-cyan-400 mb-6" />
-              <h3 className="text-3xl font-bold text-white mb-6">Our Mission</h3>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                To empower businesses worldwide with innovative AI-powered technology solutions that drive growth,
-                efficiency, and competitive advantage. We believe in building lasting partnerships that create
-                measurable value for our clients and their customers.
-              </p>
-            </div>
+          <div className="mb-10 text-center">
+            <h3 className="text-3xl md:text-5xl font-bold">Our Mission & Vision</h3>
+            <p className="text-gray-400 mt-3 text-lg md:text-xl">What drives Logicwerk forward, every week.</p>
+          </div>
 
-            <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-sm p-8">
-              <Award className="w-12 h-12 text-purple-400 mb-6" />
-              <h3 className="text-3xl font-bold text-white mb-6">Our Vision</h3>
-              <p className="text-gray-300 text-lg leading-relaxed">
-                To be the world's most trusted technology partner, recognized for our innovation, expertise, and
-                commitment to client success. We envision a future where every business can harness the power of AI and
-                digital transformation to achieve extraordinary results.
-              </p>
-            </div>
+          <div className="flex items-center justify-center gap-8 md:gap-16">
+            {[
+              {
+                key: 'mission',
+                label: 'Our Mission',
+                desc:
+                  'To empower businesses worldwide with innovative AI-powered technology solutions that drive growth, efficiency, and competitive advantage. We believe in building lasting partnerships that create measurable value for our clients and their customers.',
+                duration: '14s',
+                gradId: 'mgrad',
+                stops: [ ['#3B82F6','0%'], ['#EF4444','100%'] ],
+              },
+              {
+                key: 'vision',
+                label: 'Our Vision',
+                desc:
+                  "To be the world's most trusted technology partner, recognized for our innovation, expertise, and commitment to client success. We envision a future where every business can harness the power of AI and digital transformation to achieve extraordinary results.",
+                duration: '12s',
+                gradId: 'vgrad',
+                stops: [ ['#8B5CF6','0%'], ['#F97316','100%'] ],
+              },
+            ].map((c) => (
+              <div key={c.key} className="group relative w-[260px] h-[260px] md:w-[320px] md:h-[320px]">
+                <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full">
+                  <defs>
+                    <linearGradient id={c.gradId} x1="0%" y1="0%" x2="0%" y2="100%">
+                      {c.stops.map(([color, off]) => (
+                        <stop key={off} offset={off} stopColor={color} />
+                      ))}
+                    </linearGradient>
+                  </defs>
+                  <circle cx="100" cy="100" r="92" fill="none" stroke={`url(#${c.gradId})`} strokeWidth="2.5" />
+                </svg>
+
+                {/* Rotating marker */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="relative w-[92%] h-[92%] animate-spin" style={{ animationDuration: c.duration }}>
+                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white/80 shadow-[0_0_10px_rgba(255,255,255,0.6)]" />
+                  </div>
+                </div>
+
+                {/* Center label */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-lg md:text-2xl font-semibold">{c.label}</div>
+                  </div>
+                </div>
+
+                {/* Hover detail overlay */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center bg-black/70 p-4 text-center">
+                  <p className="text-gray-200 text-sm md:text-base leading-relaxed">{c.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
+
+      <ThoughtLeaders />
 
       {/* Modern Delivery Section (from homepage) */}
       <ModernDeliverySection />
 
       {/* CTA Section (from homepage) */}
-      <EnhancedBackgroundPaths
-                    title="Ready for IT That Actually Delivers?"
-                    subheading="Skip the delays, budget overruns, and endless meetings. Start shipping in weekly sprints."
-                    primaryAction={
-              <StartSprintDialog
-                allowPackSelection={true}
-                triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-lg font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[140px] min-h-[44px] flex items-center justify-center"
-              />
-            }
-            secondaryAction={
-              <a
-                href="https://cal.com/logicwerk/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-lg font-semibold rounded-none min-w-[140px] min-h-[44px] flex items-center justify-center transition-all duration-300 bg-transparent"
-              >
-                Schedule A Discussion Call
-              </a>
-            }
-                  />
-    </div>
+      <AnimatedFeatureSpotlight
+          preheaderIcon={<Eye className="h-4 w-4" />}
+          preheaderText="Start Shipping Weekly"
+          heading={
+            <>
+              Ready for IT That <span className="text-[#2563eb] italic">Actually Delivers?</span>
+            </>
+          }
+          description="Skip the delays, budget overruns, and endless meetings. Start shipping in weekly sprints."
+          buttonText="Schedule A Discussion Call"
+          buttonHref="https://cal.com/logicwerk/30min"
+          buttonProps={{ className: "bg-[#2563eb] text-white rounded-none shadow-lg" }}
+          secondaryAction={
+            <StartSprintDialog
+              allowPackSelection={true}
+              triggerButtonClassName="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-lg font-semibold rounded-none min-w-[140px] min-h-[44px]"
+            />
+          }
+          imageUrl="https://forecaster.biz/wp-content/uploads/2025/06/screener-1536x993.avif"
+          imageAlt="Sprint planning UI"
+        />
+      </div>
   )
 }

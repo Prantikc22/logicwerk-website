@@ -9,7 +9,7 @@ export function DlmRibbon() {
         <span className="opacity-90">
           Discover{' '}
           <a
-            href="https://dlm.logicwerk.com"
+            href="https://logicwerkdlm.com"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-4 hover:text-blue-600 transition-colors font-semibold"

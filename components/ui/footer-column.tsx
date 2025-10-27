@@ -29,9 +29,7 @@ const data = {
     { text: 'TestWerk', href: '/packs/testwerk' },
   ],
   products: [
-    { text: 'Lumeo Suite', href: '/products/lumeo-suite', logo: '/logos/lumeo-suite-logo.png' },
-    { text: 'Lumeo Procure', href: '/products/lumeo-procure', logo: '/logos/lumeo-suite-logo.png' },
-    { text: 'Lumeo Cloud', href: '/products/lumeo-cloud', logo: '/logos/lumio-cloud-logo.png' },
+    { text: 'Logicwerk DLM', href: 'https://logicwerkdlm.com' },
   ],
   company: [
     { text: 'About', href: '/about' },
@@ -158,9 +156,9 @@ export default function Footer4Col() {
               <ul className="space-y-4 text-sm">
                 {data.products.map(({ text, href }) => (
                   <li key={text}>
-                    <Link className="text-gray-200 transition hover:text-blue-400" href={href}>
+                    <a className="text-gray-200 transition hover:text-blue-400" href={href} target="_blank" rel="noopener noreferrer">
                       {text}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -180,7 +178,7 @@ export default function Footer4Col() {
                 <li>
                   <a
                     className="text-gray-200 transition hover:text-blue-400"
-                    href="https://dlm.logicwerk.com"
+                    href="https://logicwerkdlm.com"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
