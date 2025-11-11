@@ -25,7 +25,7 @@ export function Hero() {
   ]
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden pt-10 md:pt-14">
       {/* Hero Background Image */}
       <div className="absolute inset-0 z-0">
         <Image src="/Hero.webp" alt="Main Hero Background" fill className="object-cover" priority />
@@ -56,23 +56,46 @@ export function Hero() {
           </div>
 
           {/* CTA Buttons and Discovery Link */}
-          <div className="flex flex-col items-start gap-3">
-            <div className="flex flex-row gap-4 justify-start">
-              <StartSprintDialog 
-                allowPackSelection={true} 
-                triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[170px] min-h-[44px] flex items-center justify-center"
-              />
-              <CalculatorDialog
-                triggerLabel="Calculate Your Savings"
-                triggerClassName="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-base font-semibold rounded-none min-w-[170px] min-h-[44px] flex items-center justify-center transition-all duration-300 bg-transparent"
-              />
-            </div>
+      <div className="flex flex-col items-start gap-3">
+        <div className="flex flex-row gap-4 justify-start">
+          <StartSprintDialog 
+            allowPackSelection={true} 
+            triggerButtonClassName="bg-[#2563eb] text-white px-5 py-2.5 text-base font-semibold rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[170px] min-h-[44px] flex items-center justify-center"
+          />
+          <CalculatorDialog
+            triggerLabel="Calculate Your Savings"
+            triggerClassName="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-base font-semibold rounded-none min-w-[170px] min-h-[44px] flex items-center justify-center transition-all duration-300 bg-transparent"
+          />
+        </div>
 
-            {/* Underlined link below */}
-            <Link href="#packs" className="text-gray-300 hover:text-cyan-400 underline underline-offset-4 transition-colors duration-300 mt-1">
-              Explore Our Packs
-            </Link>
-          </div>
+        {/* Logos below the buttons */}
+        <div className="flex items-center gap-4 mt-2">
+          <Image
+            src="/clutch3.webp"
+            alt="clutch3"
+            width={120}
+            height={32}
+            className="h-10 w-auto opacity-90"
+            loading="lazy"
+          />
+          <Image
+            src="/gf3.webp"
+            alt="gf3"
+            width={120}
+            height={32}
+            className="h-10 w-auto opacity-90"
+            loading="lazy"
+          />
+          <Image
+            src="/g2.webp"
+            alt="g2"
+            width={120}
+            height={32}
+            className="h-12 w-auto opacity-90"
+            loading="lazy"
+          />
+        </div>
+      </div>
         </div>
       </div>
 
