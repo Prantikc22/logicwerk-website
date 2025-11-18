@@ -108,7 +108,7 @@ export function IndustriesServed() {
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-mona font-bold text-white mb-4">
   Transforming{' '}
-  <span className="font-normal bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Every Industry</span>
+  <span className="font-normal text-[#0ac0fc]">Every Industry</span>
 </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Our AI-powered solutions deliver measurable results across diverse industries, from healthcare to

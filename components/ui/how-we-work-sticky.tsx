@@ -84,7 +84,7 @@ export default function HowWeWorkSticky() {
           <div>
             <p className="text-xs tracking-widest text-gray-500 mb-3">OUR PROCESS</p>
             <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-              Planning your <span className="text-[#2563eb]">project development</span> journey
+              Planning Your <span className="text-[#2563eb] font-normal">Project Development</span> Journey
             </h2>
             <p className="text-gray-600 mt-4 text-base md:text-lg pr-4">
               Our journey begins with a deep dive into your vision. In discovery, we align on objectives, constraints and success metrics. Each week delivers tangible progress.

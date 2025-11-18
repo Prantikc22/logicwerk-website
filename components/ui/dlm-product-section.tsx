@@ -28,7 +28,7 @@ export default function DlmProductSection() {
         >
           <h2 className="font-mona-sans font-bold mb-3 text-[44px] leading-tight">
             <span className="text-white">Products</span>
-            <span className="text-[#4FC3F7] font-normal ml-3">Built For Growth</span>
+            <span className="text-[#0ac0fc] font-normal ml-3">Built For Growth</span>
           </h2>
           <p className="font-mona-sans text-white/90 max-w-3xl mx-auto text-[18px] leading-relaxed">
             AI-powered supply chain software for manufacturing — under one PO.
@@ -125,7 +125,7 @@ export default function DlmProductSection() {
                   href="https://logicwerkdlm.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 text-center bg-[#4FC3F7] text-black font-bold border-none hover:bg-white hover:text-[#0073e6] transition-colors duration-200 rounded-md py-3 px-6 text-lg"
+                  className="flex-1 text-center bg-[#2563eb] text-white font-bold border-none hover:bg-white hover:text-[#0073e6] transition-colors duration-200 rounded-md py-3 px-6 text-lg"
                 >
                   Explore DLM
                 </a>

@@ -10,7 +10,7 @@ export default function PackSection() {
       <div className="mx-auto max-w-7xl px-4 py-16">
         <div className="text-center mb-12">
           <h2 className="font-mona text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-            Software Launch Packs. <span className="font-light" style={{ color: '#4FC3F7' }}>Delivered by AI + Humans at Breakneck Speed.</span>
+            Software Launch Packs. <span className="font-light" style={{ color: '#0ac0fc' }}>Delivered by AI + Humans at Breakneck Speed.</span>
           </h2>
           <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
             Why hire bloated teams and wait 6 months? Each Logicwerk Pack is sprint-priced, AI-augmented, and built for business outcomes — not billable hours.

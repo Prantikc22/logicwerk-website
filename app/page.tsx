@@ -44,17 +44,17 @@ export default function Home() {
           preheaderText="Start Shipping Weekly"
           heading={
             <>
-              Ready for IT That <span className="text-[#2563eb] italic">Actually Delivers?</span>
+              Ready for IT That <span className="text-[#0ac0fc] font-normal italic">Actually Delivers?</span>
             </>
           }
           description="Skip the delays, budget overruns, and endless meetings. Start shipping in weekly sprints."
           buttonText="Schedule A Discussion Call"
           buttonHref="https://cal.com/logicwerk/30min"
-          buttonProps={{ className: "bg-[#2563eb] text-white rounded-none shadow-lg" }}
+          buttonProps={{ className: "order-2 border-2 border-white text-white bg-transparent rounded-none inline-flex items-center justify-center px-5 h-11 text-lg hover:bg-white hover:text-[#2563eb]" }}
           secondaryAction={
             <StartSprintDialog
               allowPackSelection={true}
-              triggerButtonClassName="border-2 border-white text-white hover:bg-white hover:text-[#2563eb] px-5 py-2.5 text-lg font-semibold rounded-none min-w-[140px] min-h-[44px]"
+              triggerButtonClassName="order-1 shimmer-border bg-[#2563eb] text-white inline-flex items-center justify-center px-5 h-11 text-lg font-semibold rounded-none min-w-[140px] hover:bg-[#1749b1]"
             />
           }
           imageUrl="https://forecaster.biz/wp-content/uploads/2025/06/screener-1536x993.avif"

@@ -55,7 +55,7 @@ export default function LogicwerkDeliveryScroll() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             <div>
               <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                The New Physics of Software Delivery. <span className="text-[#2563eb] font-light">10x Faster.</span>
+                The New Physics of Software Delivery. <span className="text-[#2563eb] font-normal">10x Faster.</span>
               </h2>
             </div>
             <p className="text-lg text-gray-600">

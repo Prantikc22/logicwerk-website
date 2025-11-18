@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import Link from "next/link"
 import StartSprintDialog from "@/components/ui/start-sprint-dialog";
 import Image from "next/image"
@@ -57,6 +58,7 @@ const companyMenu = {
   description: "Learn more about our company, values, and commitment to excellence",
   items: [
     { name: "About Logicwerk", href: "/about", description: "Our story, values, and mission" },
+    { name: "Become A Partner", href: "https://partners.logicwerk.com", description: "Join our partner network and grow together", external: true },
     { name: "CSR & Sustainability", href: "/csr", description: "Our commitment to people and planet" },
     { name: "Insights", href: "/insights", description: "Industry insights and thought leadership" },
     { name: "Logicwerk DLM", href: "https://logicwerkdlm.com", description: "Our manufacturing arm for digital factories", external: true },
@@ -67,6 +69,8 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isMounted, setIsMounted] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
 
   // Ensure component is hydrated before showing interactive elements
   useEffect(() => {
@@ -77,6 +81,14 @@ export function Navigation() {
   useEffect(() => {
     setIsOpen(false)
     setActiveDropdown(null)
+  }, [])
+
+  // Toggle navbar background on scroll
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   const handleDropdownEnter = (dropdown: string) => {
@@ -117,7 +129,7 @@ export function Navigation() {
   // Show static version during hydration
   if (!isMounted) {
     return (
-      <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800 z-50">
+      <nav className="fixed top-0 w-full bg-transparent z-100">
         <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center">
@@ -143,7 +155,8 @@ export function Navigation() {
   }
 
   return (
-    <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800 z-50">
+    <>
+    <nav className={`fixed top-0 w-full z-50 transition-colors duration-300 ${(!pathname || pathname === '/') ? (scrolled ? 'bg-black border-b border-gray-800' : 'bg-transparent') : 'bg-black border-b border-gray-800'}`}>
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo - Increased by 5x */}
@@ -311,7 +324,7 @@ export function Navigation() {
                   onMouseEnter={handleDropdownMouseEnter}
                   onMouseLeave={handleDropdownLeave}
                 >
-                  <div className="bg-black border border-gray-700 rounded-sm shadow-2xl">
+                  <div className="bg-black border border-gray-700 rounded-sm shadow-2xl max-h-[80vh] overflow-y-auto">
                     <div className="px-6 py-8">
                       <div className="mb-6">
                         <h3 className="text-2xl font-bold text-white mb-3">{companyMenu.title}</h3>
@@ -367,7 +380,7 @@ export function Navigation() {
             </Link>
             <StartSprintDialog 
               allowPackSelection={true}
-              triggerButtonClassName="bg-[#2563eb] text-white px-6 py-2 rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+              triggerButtonClassName="shimmer-border bg-[#2563eb] text-white px-6 py-2 rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
             />
           </div>
 
@@ -411,12 +424,33 @@ export function Navigation() {
               </Link>
               <StartSprintDialog 
                 allowPackSelection={true}
-                triggerButtonClassName="w-full bg-[#2563eb] text-white rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
+                triggerButtonClassName="w-full shimmer-border bg-[#2563eb] text-white rounded-none shadow-lg hover:bg-[#1749b1] transition-all duration-300 border-none min-w-[120px] min-h-[38px] flex items-center justify-center"
               />
             </div>
           </div>
         )}
       </div>
     </nav>
+    <style jsx global>{`
+      @keyframes border-shimmer { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+      .shimmer-border { position: relative; }
+      .shimmer-border::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 2px; /* border thickness */
+        background: linear-gradient(90deg, #0ac0fc, #2563eb, #0ac0fc);
+        background-size: 200% 100%;
+        animation: border-shimmer 3s linear infinite;
+        border-radius: 0;
+        -webkit-mask: 
+          linear-gradient(#000 0 0) content-box, 
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        pointer-events: none;
+      }
+    `}</style>
+    </>
   )
 }

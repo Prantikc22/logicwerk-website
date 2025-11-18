@@ -8,6 +8,40 @@ export type InsightPost = {
 };
 
 export const posts: InsightPost[] = [
+  // New 2025 posts (SEO-focused)
+  {
+    slug: 'agentic-ai-software-delivery-2025',
+    title: 'Agentic AI in 2025: Shipping Software 10x Faster With Safety & Control',
+    summary: `Agentic AI is moving from demos to production. This deep guide explains how delivery teams can deploy AI agents to automate backlog grooming, code generation, testing and ops—without losing governance. We cover secure prompt design, policy-guardrails, RAG for private codebases, and KPI frameworks that tie agent output to cycle time, lead time and change failure rate (DORA). Includes a reference architecture for SOC2-ready agent workflows on AWS/GCP, plus a checklist to pilot in under 30 days.`,
+    date: '2025-11-15',
+    type: 'blog',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    slug: 'ai-governance-iso-42001-checklist',
+    title: 'AI Governance for CTOs: ISO/IEC 42001 Readiness Checklist (Practical)',
+    summary: `With AI regulations tightening, enterprises need auditable processes. This post provides a practical ISO/IEC 42001-aligned checklist covering model inventory, data lineage, bias testing, human-in-the-loop controls, incident response, vendor risk and continuous monitoring. Downloadable templates help engineering leaders operationalize AI governance without slowing delivery.`,
+    date: '2025-11-10',
+    type: 'blog',
+    image: 'https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    slug: 'finops-llm-cost-optimization',
+    title: 'FinOps for LLMs: 9 Tactics to Cut GenAI Costs by 40–70%',
+    summary: `GenAI spend is exploding. Learn proven tactics to reduce inference cost: prompt caching, token budgeting, small model routing, distillation, batch + streaming, multi-tenant gateway, autoscaling, GPU/TPU rightsizing and cost SLOs. Includes a calculator spreadsheet and reference configs for OpenAI, Claude, and open-source models running on Kubernetes.`,
+    date: '2025-11-05',
+    type: 'blog',
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+  },
+  // New case study
+  {
+    slug: 'case-support-genai-telecom',
+    title: 'Case Study: TelecomGen — Cutting Support TTR by 62% With GenAI Agents',
+    summary: `A Tier-1 telecom struggled with 48h ticket backlogs. Logicwerk implemented secure RAG-based support agents grounded in internal KB + Jira/Confluence, added guardrails and human review, and integrated with Zendesk. Results in 8 weeks: 62% faster time-to-resolution, 37% reduction in escalations, and $1.2M annualized savings. This case study details architecture, evaluation metrics, prompt + tool design, and the rollout playbook.`,
+    date: '2025-10-28',
+    type: 'case-study',
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
+  },
   // Blog posts
   {
     slug: 'ai-powered-productivity',

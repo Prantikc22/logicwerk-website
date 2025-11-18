@@ -178,6 +178,16 @@ export default function Footer4Col() {
                 <li>
                   <a
                     className="text-gray-200 transition hover:text-blue-400"
+                    href="https://partners.logicwerk.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Become A Partner
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-gray-200 transition hover:text-blue-400"
                     href="https://logicwerkdlm.com"
                     target="_blank"
                     rel="noopener noreferrer"
